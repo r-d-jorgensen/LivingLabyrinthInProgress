@@ -6,8 +6,8 @@
 
 using namespace std;
 
-/* Encounter class definition */
-class Encounter {
+/* Majorencounter class definition */
+class Majorencounter {
 	public:
 		void Printgreeting() const;        // Accessor
 		int Printriddle();
@@ -17,7 +17,7 @@ class Encounter {
 		string strLower(string n);
 };
 
-void Encounter::Printgreeting() const {
+void Majorencounter::Printgreeting() const {
 	string greeting[5] = {
 		"Hello, here is a riddle for you.",
 		"It is good to see you. I have a riddle for you.",
@@ -30,7 +30,7 @@ void Encounter::Printgreeting() const {
 }
 /* function returns 0 if answer correct and 1 if answer is wrong making the monster more difficult */
 
-int Encounter::Printriddle() {
+int Majorencounter::Printriddle() {
 	string riddle[5][2] = {
 		{"Mr. and Mrs. Mustard have six daughters and each daughter has one brother. How many people are in the Mustard family?", "9"},
 		{"I am something people love or hate. I change peoples appearances and thoughts. If a person takes care of them self I will go up even higher. To some people I will fool them. To others I am a mystery. Some people might want to try and hide me but I will show. No matter how hard people try I will Never go down. What am I?", "age"},
@@ -43,6 +43,7 @@ int Encounter::Printriddle() {
 	int num = ((rand()+time(0))%5);
 	cout << riddle[num][0] << endl;
 	cin >> guess;
+/* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
 	guess = strLower(guess);
 	cout << endl;
 	/* if wrong then get more difficult monster otherwise no monster or easier monster */
@@ -58,7 +59,7 @@ int Encounter::Printriddle() {
 } // end Printriddle function
 
 /* another function to determine difficulty level of monster */
-int Encounter::Printquestion() {
+int Majorencounter::Printquestion() {
 	string question[5][2] = {
 		{"How many bits in a byte?", "8" },
 		{"Who is president of the United States of America? (last Name)", "trump"},
@@ -71,6 +72,7 @@ int Encounter::Printquestion() {
 	int num = ((rand()+time(0))%5);
 	cout << question[num][0] << endl;
 	cin >> guess;
+/* call convert to lowercase  */
 	guess = strLower(guess);
 	cout << endl;
 	/* if wrong then get more difficult monster otherwise no monster or easier monster */
@@ -86,7 +88,7 @@ int Encounter::Printquestion() {
 	return monsterlevel;
 } // end Printquestion function
 /* random chance for which monster to battle */
-int Encounter::Doorgame() {
+int Majorencounter::Doorgame() {
 	string door[3] = {"left", "middle", "right"};
 	string guess;
 	int monsterlevel = 0;
@@ -103,12 +105,12 @@ int Encounter::Doorgame() {
 	cout << "Good Luck" << endl << endl;
 	return monsterlevel;
 }
-void Encounter::Monstercombat(int level) {
+void Majorencounter::Monstercombat(int level) {
 	cout << "There is a combat with  a monster at level " << level << endl;
 	return;
 }
 
-string Encounter::strLower(string n) {
+string Majorencounter::strLower(string n) {
 	for (size_t i = 0; i < n.size(); i++) {
 		n[i] = tolower(n[i]);
 	}
@@ -117,13 +119,17 @@ string Encounter::strLower(string n) {
 
 int main() {
 	int monster = 0;
-	Encounter encounter1; 
-	encounter1.Printgreeting();
-	monster = monster + encounter1.Printriddle();
-	monster = monster + encounter1.Printquestion();
-	monster = monster + encounter1.Doorgame();
-	encounter1.Monstercombat(monster);
+	Majorencounter majorencounter1; 
+	majorencounter1.Printgreeting();
+	monster = monster + majorencounter1.Printriddle();
+	monster = monster + majorencounter1.Printquestion();
+	monster = monster + majorencounter1.Doorgame();
+	majorencounter1.Monstercombat(monster);
 	/* after successfully killing monster find an object/letter something */
 	cout << "In the back of the room you see a golden letter 'S'" << endl;
 	return 0;
+// I am thinking that maybe we can make this bi-directional as well so call the main or realm 
+//
+// class and then when we need to thenthe game will eventually come back to this spot where can create majorencounter2, Would that work?
+// would that work?
 }
