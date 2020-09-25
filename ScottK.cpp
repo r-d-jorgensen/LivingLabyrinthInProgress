@@ -1,23 +1,9 @@
 // Scott Kurtz
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
+#include "ScottK.h"
 
 using namespace std;
 
-/* Majorencounter class definition */
-class Majorencounter {
-	public:
-		void Printgreeting() const;        // Accessor
-		int Printriddle();
-		int Printquestion();
-		int Doorgame();
-		void Monstercombat(int level);
-		string strLower(string n);
-};
-
-void Majorencounter::Printgreeting() const {
+void Majorencounter::Printgreeting() {
 	string greeting[5] = {
 		"Hello, here is a riddle for you.",
 		"It is good to see you. I have a riddle for you.",
@@ -106,17 +92,16 @@ int Majorencounter::Doorgame() {
 	return monsterlevel;
 }
 void Majorencounter::Monstercombat(int level) {
-	cout << "There is a combat with  a monster at level " << level << endl;
-	return;
+	cout << "There is combat with a monster at level " << level << endl;
 }
 
-string Majorencounter::strLower(string n) {
+string strLower(string n) {
 	for (size_t i = 0; i < n.size(); i++) {
 		n[i] = tolower(n[i]);
 	}
 	return n;
 }
-
+/* Commenting out main because functionality has been moved to main.cpp
 int main() {
 	int monster = 0;
 	Majorencounter majorencounter1; 
@@ -125,7 +110,7 @@ int main() {
 	monster = monster + majorencounter1.Printquestion();
 	monster = monster + majorencounter1.Doorgame();
 	majorencounter1.Monstercombat(monster);
-	/* after successfully killing monster find an object/letter something */
+	//after successfully killing monster find an object/letter something
 	cout << "In the back of the room you see a golden letter 'S'" << endl;
 	return 0;
 // I am thinking that maybe we can make this bi-directional as well so call the main or realm 
@@ -133,3 +118,4 @@ int main() {
 // class and then when we need to thenthe game will eventually come back to this spot where can create majorencounter2, Would that work?
 // would that work?
 }
+*/
