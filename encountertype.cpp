@@ -14,53 +14,53 @@ void gamblingencounter();
 void luckyencounter();
 void majorencounter();
 int encountertype(int gamelevel, int count);
-		void Printgreeting();        // Accessor
-		int Printriddle();
-		int Printquestion();
-		int Doorgame();
-		void Monstercombat(int level);
-		string strLower(string n);
+void Printgreeting();        // Accessor
+int Printriddle();
+int Printquestion();
+int Doorgame();
+void Monstercombat(int level);
+string strLower(string n);
 
 int encountertype(int gamelevel,int count) {
 	int num = (rand()+time(0))%10;
-if (count%10 ==0)
-num = 0;
-if ((num == 1) || (num == 2))
-friendlyencounter();
-else if ((num == 3) || (num == 4))
-storeencounter();
-else if ((num == 5) || (num == 6))
-monsterencounter();
-else if ((num == 7) || (num == 8))
-gamblingencounter();
-else if (num == 9)
-luckyencounter();
-else {
-if (count%10 >0)
-count = 10*(count/10+1); // formula needed to employ correct number of majorencounters
-majorencounter();
-}
-count++;
-return count;
+	if (count%10 ==0)
+		num = 0;
+	if ((num == 1) || (num == 2))
+		friendlyencounter();
+	else if ((num == 3) || (num == 4))
+		storeencounter();
+	else if ((num == 5) || (num == 6))
+		monsterencounter();
+	else if ((num == 7) || (num == 8))
+		gamblingencounter();
+	else if (num == 9)
+		luckyencounter();
+	else {
+		if (count%10 >0)
+			count = 10*(count/10+1); // formula needed to employ correct number of majorencounters
+		majorencounter();
+	}
+	count++;
+	return count;
 }
 void friendlyencounter() {
-cout << "this is a friendly encounter" << endl;
+	cout << "this is a friendly encounter" << endl;
 }
 void storeencounter() {
-cout << "this is a storeencounter" << endl;
+	cout << "this is a storeencounter" << endl;
 }
 void monsterencounter() {
-cout << "this is a monsterencounter" << endl;
+	cout << "this is a monsterencounter" << endl;
 }
 void gamblingencounter() {
-cout << "this is a gamvling encounter" << endl;
+	cout << "this is a gamvling encounter" << endl;
 }
 void luckyencounter() {
-cout << "this is a lucky encounter" << endl;
+	cout << "this is a lucky encounter" << endl;
 }
 void majorencounter() {
-int monster = 0;
-Printgreeting();
+	int monster = 0;
+	Printgreeting();
 	monster = monster + Printriddle();
 	monster = monster + Printquestion();
 	monster = monster + Doorgame();
@@ -166,19 +166,19 @@ string strLower(string n) {
 	}
 	return n;
 }
- 
-int main() {
-int level;
-int maxencounters;
-int encountercount=1;
-cout << "What level do you want to play?";
-cin >> level;
-maxencounters = level*10;
-while (encountercount<maxencounters) {
-encountercount = encountertype(level, encountercount); 
 
-//cout << encountercount << endl;
-}
-return 0;
+int main() {
+	int level;
+	int maxencounters;
+	int encountercount=1;
+	cout << "What level do you want to play?";
+	cin >> level;
+	maxencounters = level*10;
+	while (encountercount<maxencounters) {
+		encountercount = encountertype(level, encountercount); 
+
+		//cout << encountercount << endl;
+	}
+	return 0;
 }
 
