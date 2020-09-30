@@ -1,42 +1,46 @@
 // function to scramble words
-#include<iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <cstring>
 using namespace std;
 
 string questanswer(int levelchoice);
-string  anagram(string originalword);
+string anagram(string originalword);
 /* function that holds possible words for each level and randomly selects the word according to level chosen by user */
-string questanswer(int levelchoice) {
-    int num = (rand()+time(0))%2; // need to increase %2 as add words to file
+string questanswer(int levelchoice)
+{
+    int num = (rand() + time(0)) % 2; // need to increase %2 as add words to file
     int index;
-    index = 2*(levelchoice-1) + num;// need to adjust as add more words
+    index = 2 * (levelchoice - 1) + num; // need to adjust as add more words
     string word[] = {"now", "cue", "when", "thus", "stout", "stint", "summer", "spring", "prosper", "finding", "kindness", "handsome", "beautiful", "difficult"};
     string randomword;
     randomword = word[index];
     return randomword;
-} 
+}
 /* function to randomize letters of the word selected for the quest */
-string anagram(string originalword) { 
+string anagram(string originalword)
+{
     string jumbledword;
-    unsigned index; 
+    unsigned index;
     unsigned temp;
-    for (size_t i=0;i<originalword.size();i++) {
-        index = (rand()+time(0))%(originalword.size()-i); 
+    for (size_t i = 0; i < originalword.size(); i++)
+    {
+        index = (rand() + time(0)) % (originalword.size() - i);
         /* gets random character from original word and places 
          * in the last character of the jumbled word then reduces the last index by 1 for next loop */
-        jumbledword[originalword.size()-i-1] = originalword[index];
+        jumbledword[originalword.size() - i - 1] = originalword[index];
         temp = index;
-        originalword[temp]= originalword[originalword.size()-i-1];
-        originalword[originalword.size()-i-1] = originalword[index];
+        originalword[temp] = originalword[originalword.size() - i - 1];
+        originalword[originalword.size() - i - 1] = originalword[index];
     }
-    for (unsigned k = 0;k<originalword.size();k++)
+    for (unsigned k = 0; k < originalword.size(); k++)
         cout << jumbledword[k];
     return jumbledword;
 }
 
-int main() {
+int main()
+{
     int level;
     string questkey;
     string jumble;
@@ -50,10 +54,9 @@ int main() {
      * isn't working. it works inside the anagram function. Do you guys have anay idea why or how to fix? */
     jumble = anagram(questkey);
     cout << jumble << endl;
-    for (size_t i=0;i<jumble.size();i++) 
+    for (size_t i = 0; i < jumble.size(); i++)
         cout << jumble[i];
     cout << endl;
-
 
     //int i;
     //for (i=0;i<level+2;i++)
@@ -61,8 +64,3 @@ int main() {
 
     return 0;
 }
-
-
-
-
-

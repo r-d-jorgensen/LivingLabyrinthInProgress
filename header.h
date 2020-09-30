@@ -5,7 +5,6 @@
 #include <ctime>
 #include <cstring>
 
-
 #include "char.h"
 #include "JasonJ.h"
 #include "ScottK.h"
