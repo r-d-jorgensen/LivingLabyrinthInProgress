@@ -1,6 +1,7 @@
 #include "header.h"
 
-int main() {
+int main()
+{
 	string test;
 	//Currently being used to test the funcitonality of our code so far
 	cout << "Testing the save and load functions\n";
@@ -11,7 +12,7 @@ int main() {
 	character test2 = savein("save1.txt");
 	test2.showStats();
 	cout << "If the two results appear the same then the process was successful\n";
-	
+
 	cout << "\nPress enter to continue to encounter testing\n";
 	//cin.ignore();
 	getline(cin, test);
@@ -30,4 +31,4 @@ int main() {
 	cout << "In the back of the room you see a golden letter 'S'" << endl;
 
 	return 0;
-}	
+}
