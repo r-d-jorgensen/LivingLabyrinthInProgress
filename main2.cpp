@@ -2,6 +2,10 @@
 
 int main()
 {
+    //load character make global
+    //load settings make global
+
+    //run game
     int location = 1;
     bool mainGameLoop = true;
     while (mainGameLoop)
@@ -15,7 +19,9 @@ int main()
         {
             libraryChoices();
         }
+        else if (location == 2)
+        {
+            bookRealm();
+        }
     }
-    cout << "Thank You For Playing" << endl;
-    return 0;
 }
