@@ -6,75 +6,61 @@
 #include <bits/stdc++.h> 
 using namespace std;
 
-string questanswer(int levelchoice);
-string  anagram(string originalword);
-string questanswer(int levelchoice) {
+string questAnswer(int levelChoice);
+string  anagram(string originalWord);
+/* function to randomly select the solution for the entire quest based on level
+ *that was chosen by player. Level 1 has a 3 letter word, level  2 has a 
+ 4 letter word etc until level 7 has a 9 letter word. */
+string questAnswer(int levelChoice) {
 	int num = (rand()+time(0))%2; // need to increase %2 as add words to file
 int pick;
-pick = 2*(levelchoice-1) + num;// need to adjust as add more words
-string word[] = {"now", "cue", "when", "thus", "stout", "stint", "summer", "spring", "prosper", "finding", "kindness", "handsome", "beautiful", "difficult"};
-string randomword;
-randomword = word[pick];
-return randomword;
+pick = 2*(levelChoice-1) + num;// need to adjust as add more words
+string word[] = {"now", "cue", "when", "thus", "stout", "stint",
+    "summer", "spring", "prosper", "finding", "kindness", "handsome", "beautiful", "difficult"};
+string randomWord;
+randomWord = word[pick];
+return randomWord;
 } 
-string anagram(string originalword) { 
-string jumbledword;
+/* This function takes in the word randomly selected by the 
+ * questKey function and jumbles it for the ultimate question */
+
+string anagram(string originalWord) { 
+string jumbledWord;
 unsigned choice; 
 unsigned temp;
 int count=0;
-for (size_t i=0;i<originalword.size();i++) {
+for (size_t i=0;i<originalWord.size();i++) {
 count++;
-	choice = (rand()+time(0))%(originalword.size()-i); 
-jumbledword[originalword.size()-i-1] = originalword[choice];
-
+	choice = (rand()+time(0))%(originalWord.size()-i); 
+/* takes random letter from above function and places it at the end of
+ * the wordand decrements the placement as i is incremented */
+    jumbledWord[originalWord.size()-i-1] = originalWord[choice];
 temp = choice;
-originalword[temp]= originalword[originalword.size()-i-1];
-//jumbledword = jumbledword + jumbledword[originalword.size()-i-1];
-originalword[originalword.size()-i-1] = originalword[choice];
-
+originalWord[temp]= originalWord[originalWord.size()-i-1];
+originalWord[originalWord.size()-i-1] = originalWord[choice];
 }
-//cout << jumbledword << endl;
-//for (unsigned k = 0;k<originalword.size();k++)
-//cout << jumbledword[k];
 string jumble = "";
 int k;
+/* loop to concatinate all of the letters to produce anagram */
 for (k=0;k<count;k++){
-jumble = jumble +jumbledword[k];
+jumble = jumble +jumbledWord[k];
 }
 return jumble;
 }
 
 int main() {
 int level;
-string questkey;
+string questKey;
 cout << "What level would you like to play?";
 cin >> level;
 cout << endl;
 string jumble;
-
-//for (unsigned k = 0;k<originalword.size();k++)
-//cout << jumbledword[k];
-
-//cout << questanswer(level) << endl;
-questkey = questanswer(level);
-cout << questkey << endl;
-jumble = anagram(questkey);
+/* call to get answer for  quest (word) */
+questKey = questAnswer(level);
+    /* printing answer just for checking if working */
+cout << questKey << endl;
+jumble = anagram(questKey);
 cout << jumble << endl;
-//for (int  i=0;i<level+2;i++) 
-//cout << jumble[i];
-//cout << endl;
-/*for (size_t k = 0;k<jumble.size();k++)
-cout << jumble[k];
-*/
-
-//int i;
-//for (i=0;i<level+2;i++)
-//cout << jumble[i];
- 
 return 0;
 }
-
-
-
-
 
