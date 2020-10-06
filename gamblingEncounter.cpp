@@ -9,7 +9,7 @@ using namespace std;
 
 int gamblingEncounter();
 int gamblingEncounter() {
-    char play = '-';
+    string play;
     int odds;
     int bet;
     int goldPieces = 0;
@@ -22,7 +22,8 @@ int gamblingEncounter() {
 cin.ignore();
 /* How do I fix this areia? it works unless someone types more
  * than one letter, i.e.  yes or no. Any thoughts?*/
-if (play == 'y') {
+if ((play == "Y") || (play == "y") || (play == "Yes") || 
+        (play == "yes") || (play == "YES")){
         cout << "Great! Here is how we play." << endl;
         cout << "You can choose how many shells to play with and how many gold" << endl;
         cout << "pieces you would like to wager. If you pick the correct shell then you multiply your bet" << endl;
@@ -33,7 +34,8 @@ if (play == 'y') {
         cout << "if you choose 10 shells and wager 10 pieces, you get 100." << endl;
         cout << "Your original 10 + 90 more for winning." << endl;
         cout << "Of course, if you lose, I get your wager."<< endl;
-        while (play == 'y') {
+        while ((play == "Y") || (play == "y") || (play == "Yes") || 
+        (play == "yes") || (play == "YES")){
             cout << "How many shells do you want to use?";
             cin >> odds;
             cout << endl;
