@@ -37,22 +37,3 @@ int libraryChoices()
     }
     return 0;
 }
-
-int main()
-{
-    int location = 1;
-    bool mainGameLoop = true;
-    while (mainGameLoop)
-    {
-        if (location == 0)
-        {
-            cout << "Thank You For Playing" << endl;
-            return 0;
-        }
-        else if (location == 1)
-        {
-            libraryChoices();
-        }
-    }
-    return 0;
-}
