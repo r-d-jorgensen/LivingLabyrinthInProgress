@@ -7,6 +7,7 @@ int libraryChoices()
     char choice;
     cout << endl
          << "Living Libary Menu" << endl
+
          << endl;
     cout << "1: Talk to book NPC" << endl;
     cout << "2: go to perk store" << endl;
