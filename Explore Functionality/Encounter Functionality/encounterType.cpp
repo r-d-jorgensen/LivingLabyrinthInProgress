@@ -1,30 +1,73 @@
-// update for the encounter function
-// changed  encounter class to a function and changed name to majorEncounter
-
-#include <iostream>
+// function to scramble words
+#include<iostream>
 #include <cstdlib>
 #include <ctime>
 #include <cstring>
+#include <bits/stdc++.h> 
 using namespace std;
 
+// update for the encounter function 
+// changed  encounter class to a function and changed name to majorEncounter
 void friendlyEncounter();
 void storeEncounter();
 void monsterEncounter(int gameLevel);
 int gamblingEncounter();
 void luckyEncounter();
-void majorEncounter();
-int encounterType(int gameLevel, int count);
-void printGreeting();
+void majorEncounter(string questSolution, int clueNumber);
+int encounterType(int gameLevel, int count,string solution);
+void printGreeting();        
 int printRiddle();
 int printQuestion();
 int doorGame();
 void monsterCombat(int level);
 string strLower(string n);
 
-int encounterType(int gameLevel, int count)
-{
-    int num = (rand() + time(0)) % 10;
-    if (count % 10 == 0)
+
+
+string questAnswer(int levelChoice);
+string  anagram(string originalWord);
+/* function to randomly select the solution for the entire quest based on level
+ *that was chosen by player. Level 1 has a 3 letter word, level  2 has a 
+ 4 letter word etc until level 7 has a 9 letter word. */
+string questAnswer(int levelChoice) {
+	int num = (rand()+time(0))%2; // need to increase %2 as add words to file
+int pick;
+pick = 2*(levelChoice-1) + num;// need to adjust as add more words
+string word[] = {"now", "cue", "when", "thus", "stout", "stint",
+    "summer", "spring", "prosper", "finding", "kindness", "handsome", "beautiful", "difficult"};
+string randomWord;
+randomWord = word[pick];
+return randomWord;
+} 
+/* This function takes in the word randomly selected by the 
+ * questKey function and jumbles it for the ultimate question */
+
+string anagram(string originalWord) { 
+string jumbledWord;
+unsigned choice; 
+unsigned temp;
+int count=0;
+for (size_t i=0;i<originalWord.size();i++) {
+count++;
+	choice = (rand()+time(0))%(originalWord.size()-i); 
+/* takes random letter from above function and places it at the end of
+ * the wordand decrements the placement as i is incremented */
+    jumbledWord[originalWord.size()-i-1] = originalWord[choice];
+temp = choice;
+originalWord[temp]= originalWord[originalWord.size()-i-1];
+originalWord[originalWord.size()-i-1] = originalWord[choice];
+}
+string jumble = "";
+int k;
+/* loop to concatinate all of the letters to produce anagram */
+for (k=0;k<count;k++){
+jumble = jumble +jumbledWord[k];
+}
+return jumble;
+}
+int encounterType(int gameLevel,int count, string solution) {
+    int num = (rand()+time(0))%10;
+    if (count%10 ==0)
         num = 0;
     if ((num == 1) || (num == 2))
         friendlyEncounter();
@@ -32,43 +75,40 @@ int encounterType(int gameLevel, int count)
         storeEncounter();
     else if ((num == 5) || (num == 6))
         monsterEncounter(gameLevel);
-    else if ((num == 7) || (num == 8))
-    {
+    else if ((num == 7) || (num == 8)) {
         /* creat gold data but may need to call gold from character class 
          * or just return +or - to character  gold */
         int gold;
-        gold = gamblingEncounter();
+        gold =gamblingEncounter();
         cout << "Your gambling excursion yielded you " << gold << "gold pieces.";
         cout << " " << endl;
     }
     else if (num == 9)
         luckyEncounter();
-    else
-    {
-        if (count % 10 > 0)
-            count = 10 * (count / 10 + 1); // formula needed to employ correct number of majorEncounters
-        majorEncounter();
+    else {
+int clue;
+/* calculation for correct index for anagram after killing monster */ 
+clue = (count-1)/10;
+if (count%10 >0)
+            count = 10*(count/10+1); // formula needed to employ correct number of majorEncounters
+majorEncounter(solution, clue);
     }
     count++;
     return count;
 }
-void friendlyEncounter()
-{
+void friendlyEncounter() {
     cout << "this is a friendly encounter" << endl;
 }
-void storeEncounter()
-{
+void storeEncounter() {
     cout << "this is a storeEncounter" << endl;
 }
-void monsterEncounter(int difficulty)
-{
+void monsterEncounter(int difficulty) {
     cout << "this is a monsterEncounter with a monster at level " << difficulty;
 }
 /* gambling encounter, is called by encounterType function
  * gives player an opportunity to make some money, if lucky, then returns
  * an integer representing the los or gain of gold pieces while gambling. */
-int gamblingEncounter()
-{
+int gamblingEncounter() {
     string play;
     int odds;
     int bet;
@@ -80,25 +120,23 @@ int gamblingEncounter()
     cin >> play;
     cout << endl;
     cin.ignore();
-    if ((play == "Y") || (play == "y") || (play == "Yes") ||
-        (play == "yes") || (play == "YES"))
-    {
+    if ((play == "Y") || (play == "y") || (play == "Yes") || 
+            (play == "yes") || (play == "YES")){
         cout << "Great! Here is how we play." << endl;
         cout << "You can choose how many shells to play with and how many gold" << endl;
         cout << "pieces you would like to wager. If you pick the correct shell then you multiply your bet" << endl;
         cout << "by the number of shells used in the game and that is how many " << endl;
         cout << "gold pieces you get back. for example: " << endl;
-        cout << "if you use 2 shells and bet 10 gold pieces you get 20 pieces back." << endl;
+        cout << "if you use 2 shells and bet 10 gold pieces you get 20 pieces back."<< endl;
         cout << "Your original 10 pieces + 10 more." << endl;
         cout << "if you choose 10 shells and wager 10 pieces, you get 100." << endl;
         cout << "Your original 10 + 90 more for winning." << endl;
-        cout << "Of course, if you lose, I get your wager." << endl;
-        while ((play == "Y") || (play == "y") || (play == "Yes") ||
-               (play == "yes") || (play == "YES"))
-        {
+        cout << "Of course, if you lose, I get your wager."<< endl;
+        while ((play == "Y") || (play == "y") || (play == "Yes") || 
+                (play == "yes") || (play == "YES")){
             /* questions to set up odds for game, we could adjust things 
              * to make odds favorable for the player or for the game. 
-             * Currently the odds are set up to be equal. */
+             * Currently the odds are set up to be equal. */ 
             cout << "How many shells do you want to use?";
             cin >> odds;
             cout << endl;
@@ -107,41 +145,37 @@ int gamblingEncounter()
             cin >> bet;
             cout << endl;
             cin.ignore();
-            shell = (rand() + time(0)) % odds;
+            shell = (rand()+time(0))%odds;
             cout << "Okay, which shell do you choose? 1-" << odds;
             cin >> shellChoice;
             cout << endl;
             cin.ignore();
-            cout << "The winning shell is: " << shell + 1 << endl;
-            if (shellChoice == (shell + 1))
-            {
-                goldPieces = goldPieces + bet * (odds - 1);
-                cout << "Nice work! You won " << bet * (odds - 1) << " gold pieces" << endl;
+            cout << "The winning shell is: " << shell+1 << endl;
+            if (shellChoice == (shell+1)) {
+                goldPieces= goldPieces + bet*(odds-1);
+                cout << "Nice work! You won " << bet*(odds-1) << " gold pieces"<< endl;
             }
-            else
-            {
+            else {
                 goldPieces = goldPieces - bet;
                 cout << "Sorry, you lost " << bet << "gold pieces." << endl;
             }
-            if (goldPieces > 0)
-                cout << "You are up " << goldPieces << " gold pieces" << endl;
+            if (goldPieces >0)
+                cout << "You are up " << goldPieces << " gold pieces"<< endl;
             else if (goldPieces == 0)
                 cout << "You are currently even" << endl;
             else
                 cout << "You are down " << -goldPieces << " gold pieces." << endl;
-            cout << "Would you like to play again?";
+            cout <<"Would you like to play again?";
             cin >> play;
             cin.ignore();
         }
     }
     return goldPieces;
 }
-void luckyEncounter()
-{
+void luckyEncounter() {
     cout << "this is a lucky encounter" << endl;
 }
-void majorEncounter()
-{
+void majorEncounter(string questSolution, int clueNumber) {
     int monster = 0;
     printGreeting();
     monster = monster + printRiddle();
@@ -149,36 +183,35 @@ void majorEncounter()
     monster = monster + doorGame();
     monsterCombat(monster);
     /* after successfully killing monster find an object/letter something */
-    cout << "In the back of the room you see a golden letter 'S'" << endl;
+    cout << "In the back of the room you see the solution " << questSolution[clueNumber] << endl;
 }
 
-void printGreeting()
-{
+void printGreeting() {
     string greeting[5] = {
         "Hello, here is a riddle for you.",
         "It is good to see you. I have a riddle for you.",
         "I have been waiting for you. Here is a mind bender for you.",
         "If you answer this question correctly, I will help you pick the best door.",
-        "There you are! Answer this."};
-    int num = (rand() + time(0)) % 5;
-    cout << greeting[num] << endl
-         << endl;
+        "There you are! Answer this."
+    };
+    int num = (rand()+time(0))%5;
+    cout << greeting[num] << endl << endl;
 }
 /* function returns 0 if answer correct and 1 if answer is wrong making the monster more difficult */
 
-int printRiddle()
-{
+int printRiddle() {
     string riddle[70][2] = {
         {"Mr. and Mrs. Mustard have six daughters and each daughter has one brother. How many people are in the Mustard family?", "9"},
         {"I am something people love or hate. I change peoples appearances and thoughts. If a person takes care of them self I will go up even higher. To some people I will fool them. To others I am a mystery. Some people might want to try and hide me but I will show. No matter how hard people try I will Never go down. What am I?", "age"},
         {"Only one color, but not one size, Stuck at the bottom, yet easily flies. Present in sun, but not in rain, Doing no harm, and feeling no pain. What is it?", "shadow"},
         {"Who is that with a neck and no head, two arms and no hands?  What is it?", "shirt"},
         {"If eleven plus two equals one, what does nine plus five equal?", "2"},
-        {"It cannot be seen, cannot be felt, cannot be heard, and cannot be smelt. It lies behind stars and under hills, And empty holes it fills. It comes first and follows after, Ends life, and kills laughter. What is it?", "dark"},
+        { "It cannot be seen, cannot be felt, cannot be heard, and cannot be smelt. It lies behind stars and under hills, And empty holes it fills. It comes first and follows after, Ends life, and kills laughter. What is it?", "dark"
+        },
         {"What English word retains the same pronunciation, even after you take away four of its five letters?", "queue"},
-        {"What is it that given one, you'll have either two or none? a(n)", "choice"},
+        { "What is it that given one, you'll have either two or none? a(n)", "choice"},
         {"Three playing cards in a row. Can you name them with these clues? There is a two to the right of a king. A diamond will be found to the left of a spade. An ace is to the left of a heart. A heart is to the left of a spade. Now, identify all three cards. (type 6 characters for your answer, 4 of hearts is 4h)", "adkh2s"},
-        {"The more you take, the more you leave behind. What am I?", "footsteps"},
+        { "The more you take, the more you leave behind. What am I?", "footsteps"},
         {"What 8 letter word can have a letter taken away and it still makes a word. Take another letter away and it still makes a word. Keep on doing that until you have one letter left. What is the word?", "starting"},
         {"What has a head, a tail, is brown, and has no legs?", "penny"},
         {"What comes once in a minute, twice in a moment, but never in a thousand years?", "m"},
@@ -189,7 +222,6 @@ int printRiddle()
         {"What has six faces, but does not wear makeup, has twenty-one eyes, but cannot see? What is it?(a/an)", "die"},
         {"How do you make the number 7 an even number without addition, subtraction, multiplication, or division?", "drop the s"},
         {"I am a word of six; my first three letters refer to an automobile; my last three letters refer to a household animal; my first four letters is a fish; my whole is found in your room. What am I?", "carpet"},
-
         {"A pregnant lady named her children: Dominique, Regis, Michelle, Fawn, Sophie and Lara. What will she name her next child? Jessica, Katie, Abby or Tilly?", "Tilly"},
         {"I'm not clothes but I cover your body; the more I'm used, the thinner I grow. What am I?", "soap"},
         {"A time when they are green, a time when they are brown, but both of these times, cause me to frown. But just in between, for a very short while, They are perfect and yellow and cause me to smile!", "bananas"},
@@ -198,7 +230,6 @@ int printRiddle()
         {"I am strong enough to smash ships, but I fear the Sun. What am I?", "ice"},
         {"If there are four sheep, two dogs and one herds-men, how many feet are there?(type the number i.e. 25)", "2"},
         {"What can you hold in your right hand, but not in your left?", "your left hand"},
-
         {"I always follow you around, everywhere you go at night. I look very bright to people, but I can make the sun dark. I can be in many different forms and shapes. What am I?", "moon"},
         {"A cloud was my mother, the wind is my father, my son is the cool stream, and my daughter is the fruit of the land. A rainbow is my bed, the earth my final resting place, and I'm the torment of man. Who Am I?", "rain"},
         {"There is a clothing store in Bartlesville. The owner has devised his own method of pricing items. A vest costs $20, socks cost $25, a tie costs $15 and a blouse costs $30. Using the method, how much would a pair of underwear cost?", "$45"},
@@ -229,22 +260,20 @@ int printRiddle()
         {"I look at you, you look at me, I raise my right, you raise your left. What am I?", "reflection"},
         {"Two men are in a desert. They both have packs on. One of the guys is dead. The guy who is alive has his pack open, the guy who is dead has his pack closed. What is in the pack?a(n)", "parachute"},
         {"Who can shave three times a day and still grow a beard?a(n)", "barber"},
-        {"What can you find in the center of gravity?", "v"}};
+        {"What can you find in the center of gravity?", "v"}
+    };
     string guess;
     int monsterLevel; //int returned by function to determine monster difficulty
-    int num = ((rand() + time(0)) % 70);
+    int num = ((rand()+time(0))%70);
     cout << riddle[num][0] << endl;
     cin >> guess;
     guess = strLower(guess);
     cout << endl;
     /* if wrong then get more difficult monster otherwise no monster or easier monster */
-    if (guess == riddle[num][1])
-    {
-        cout << "Good job. You have just made your life a little easier. Go through that door andd meet my friend." << endl;
+    if (guess == riddle[num][1]) {
+        cout << "Good job. You have just made your life a little easier. Go through that door andd meet my friend." << endl; 
         monsterLevel = 0;
-    }
-    else
-    {
+    } else {
         cout << "Sorry, that is incorrect but go ahead through that door and talk to my friend." << endl;
         monsterLevel = 1;
     }
@@ -253,29 +282,27 @@ int printRiddle()
 } // end printRiddle function
 
 /* another function to determine difficulty level of monster */
-int printQuestion()
-{
+int printQuestion() {
     string question[5][2] = {
-        {"How many bits in a byte?", "8"},
+        {"How many bits in a byte?", "8" },
         {"Who is president of the United States of America? (last Name)", "trump"},
         {"How many bits in a kilobyte?", "8192"},
         {"What is the capital of Canada?", "ottawa"},
-        {"How long does it take for the sun's light to get to Earth?(nearest minute)", "8"}};
+        {"How long does it take for the sun's light to get to Earth?(nearest minute)", "8"}
+    };
     string guess;
     int monsterLevel; //int returned by function to determine monster difficulty
-    int num = ((rand() + time(0)) % 5);
+    int num = ((rand()+time(0))%5);
     cout << question[num][0] << endl;
     cin >> guess;
     guess = strLower(guess);
     cout << endl;
     /* if wrong then get more difficult monster otherwise no monster or easier monster */
-    if (guess == question[num][1])
-    {
-        cout << "Good job. You have just made your life a little easier. Go through that door and meet my friend for a game of chance." << endl;
+    if (guess == question[num][1]) {
+        cout << "Good job. You have just made your life a little easier. Go through that door and meet my friend for a game of chance." << endl; 
         monsterLevel = 0;
     }
-    else
-    {
+    else {
         cout << "Sorry, that is incorrect but it is time to try your luck at a game of chance. Go through that door." << endl;
         monsterLevel = 1;
     }
@@ -283,55 +310,59 @@ int printQuestion()
     return monsterLevel;
 } // end printQuestion function
 /* random chance for which monster to battle */
-int doorGame()
-{
+int doorGame() {
     string door[3] = {"left", "middle", "right"};
     string guess;
     int monsterLevel = 0;
-    int num = (rand() + time(0)) % 3;
+    int num = (rand()+time(0))%3;
     cout << "Choose a door: Left, Middle, or Right" << endl;
     cin >> guess;
     guess = strLower(guess);
     cout << endl;
-    if (guess == door[num])
-    {
+    if (guess == door[num]) {
         monsterLevel = 0;
-    }
-    else
-    {
+    } else {
         monsterLevel = 2;
     }
-    cout << "Good Luck" << endl
-         << endl;
+    cout << "Good Luck" << endl << endl;
     return monsterLevel;
 }
-void monsterCombat(int level)
-{
+void monsterCombat(int level) {
     cout << "There is a combat with  a monster at level " << level << endl;
     return;
 }
 
-string strLower(string n)
-{
-    for (size_t i = 0; i < n.size(); i++)
-    {
+string strLower(string n) {
+    for (size_t i = 0; i < n.size(); i++) {
         n[i] = tolower(n[i]);
     }
     return n;
 }
 
-int main()
-{
+int main() {
     int level;
     int maxEncounters;
-    int encounterCount = 1;
+    int encounterCount=1;
     cout << "What level do you want to play?";
     cin >> level;
+
+
+string questKey;
+string jumble;
+/* call to get answer for  quest (word) */
+questKey = questAnswer(level);
+    /* printing answer just for checking if working */
+cout << questKey << endl;
+jumble = anagram(questKey);
+cout << jumble << endl;
+
+
+
     /* calculate number of major encounter to collect letters for anagram solution letters is level +2*/
-    maxEncounters = (level + 2) * 10;
-    while (encounterCount <= maxEncounters)
-    {
-        encounterCount = encounterType(level, encounterCount);
+    maxEncounters = (level+2)*10;
+    while (encounterCount<=maxEncounters) {
+/* passes level, current count, and jumble returns int encounter count*/
+        encounterCount = encounterType(level, encounterCount, jumble); 
         //cout << encounterCount << endl;
     }
     return 0;
