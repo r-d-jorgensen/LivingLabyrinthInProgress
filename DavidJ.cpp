@@ -1,3 +1,4 @@
+//David Jorgensen
 #include <iostream>
 
 using namespace std;
@@ -34,6 +35,7 @@ int libraryChoices()
             cout << "Invalid entry please try again" << endl;
         }
     }
+    return 0;
 }
 
 int main()
@@ -52,4 +54,5 @@ int main()
             libraryChoices();
         }
     }
+    return 0;
 }
