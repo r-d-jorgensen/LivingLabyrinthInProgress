@@ -13,6 +13,7 @@ int main()
         if (location == 0)
         {
             cout << "Thank You For Playing" << endl;
+            cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
             return 0;
         }
         else if (location == 1)
