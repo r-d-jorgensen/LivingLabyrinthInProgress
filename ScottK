@@ -222,6 +222,7 @@ int printRiddle() {
         {"What has six faces, but does not wear makeup, has twenty-one eyes, but cannot see? What is it?(a/an)", "die"},
         {"How do you make the number 7 an even number without addition, subtraction, multiplication, or division?", "drop the s"},
         {"I am a word of six; my first three letters refer to an automobile; my last three letters refer to a household animal; my first four letters is a fish; my whole is found in your room. What am I?", "carpet"},
+
         {"A pregnant lady named her children: Dominique, Regis, Michelle, Fawn, Sophie and Lara. What will she name her next child? Jessica, Katie, Abby or Tilly?", "Tilly"},
         {"I'm not clothes but I cover your body; the more I'm used, the thinner I grow. What am I?", "soap"},
         {"A time when they are green, a time when they are brown, but both of these times, cause me to frown. But just in between, for a very short while, They are perfect and yellow and cause me to smile!", "bananas"},
@@ -230,6 +231,7 @@ int printRiddle() {
         {"I am strong enough to smash ships, but I fear the Sun. What am I?", "ice"},
         {"If there are four sheep, two dogs and one herds-men, how many feet are there?(type the number i.e. 25)", "2"},
         {"What can you hold in your right hand, but not in your left?", "your left hand"},
+
         {"I always follow you around, everywhere you go at night. I look very bright to people, but I can make the sun dark. I can be in many different forms and shapes. What am I?", "moon"},
         {"A cloud was my mother, the wind is my father, my son is the cool stream, and my daughter is the fruit of the land. A rainbow is my bed, the earth my final resting place, and I'm the torment of man. Who Am I?", "rain"},
         {"There is a clothing store in Bartlesville. The owner has devised his own method of pricing items. A vest costs $20, socks cost $25, a tie costs $15 and a blouse costs $30. Using the method, how much would a pair of underwear cost?", "$45"},
