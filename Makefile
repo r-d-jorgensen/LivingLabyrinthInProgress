@@ -8,8 +8,8 @@ clean:
 	rm -f runme
 	rm -f *.o
 
-runme: main.cpp header.h char.o JasonJ.o ScottK.o
-	$(COMP) -o runme main.cpp char.o JasonJ.o ScottK.o
+runme: test.cpp header.h char.o JasonJ.o ScottK.o
+	$(COMP) -o runme test.cpp char.o JasonJ.o ScottK.o
 
 char.o: char.cpp char.h
 	$(COMP) -c char.cpp
