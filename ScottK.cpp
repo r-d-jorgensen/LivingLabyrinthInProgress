@@ -5,7 +5,7 @@
 #include <cstring>
 #include <bits/stdc++.h> 
 using namespace std;
-/* I did not have any guard functions in my file */
+
 // update for the encounter function 
 // changed  encounter class to a function and changed name to majorEncounter
 void friendlyEncounter();
