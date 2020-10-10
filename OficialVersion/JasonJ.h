@@ -1,12 +1,50 @@
+//Jason Jellie
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "char.h"
 
-std::ostream &operator<<(std::ostream &out, const character &in);
+using namespace std;
 
-std::istream &operator>>(std::istream &in, character &out);
+//******************************************************************************
+//STATS
+class stats
+{
+public:
+	int lvl;
+	int maxHP;
+	int HP;
+	int stat[5];
 
-void saveout(character &in, std::string txt);
+	stats();
+};
 
-character savein(std::string txt);
+class character : public stats
+{
+public:
+	//item inv[25];
+	//item eqpt[5];
+	string name;
+
+	character();
+	character(string n);
+	character(const character &in);
+	//Enemy Constructor
+	//character(...);
+	void showStats();
+};
+
+class monster : public stats
+{
+};
+//END STATS
+//******************************************************************************
+//SAVE
+ostream &operator<<(ostream &out, const character &in);
+
+istream &operator>>(istream &in, character &out);
+
+void saveout(character &in, string txt);
+
+character savein(string txt);
+//END SAVE
+//******************************************************************************

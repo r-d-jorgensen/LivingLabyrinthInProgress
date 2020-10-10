@@ -43,5 +43,5 @@ void explore()
             cout << "Invalid entry please try again" << endl;
         }
     }
-    return 0;
+    return;
 }

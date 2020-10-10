@@ -1,6 +1,63 @@
+//Jason Jellie
 #include "JasonJ.h"
 
-std::ostream &operator<<(std::ostream &out, const character &in)
+//******************************************************************************
+//BEGINNING OF STATS
+
+//Default constructor to create new Char/Monster w/ base stats
+stats::stats()
+{
+	lvl = 1;
+	maxHP = 100;
+	HP = maxHP;
+	for (int x = 0; x < 5; x++)
+	{
+		stat[x] = 1;
+	}
+}
+
+//Creating a new Char.
+character::character(string n) : stats::stats()
+{
+	name = n;
+}
+
+//Copy Constructor
+character::character(const character &in)
+{
+	name = in.name;
+	lvl = in.lvl;
+	maxHP = in.maxHP;
+	HP = in.HP;
+	for (int x = 0; x < 5; x++)
+	{
+		stat[x] = in.stat[x];
+	}
+}
+
+//Default incase player doesn't input name.
+character::character()
+{
+	character("Librarian");
+}
+
+void character::showStats()
+{
+	const char *s[5] = {"STR", "INT", "DEX", "AGL", "LCK"};
+	cout << "Name: " << name << "\n";
+	printf("LVL: %i\nMax HP: %i\nHP: %i\n", lvl, maxHP, HP);
+	for (int x = 0; x < 5; x++)
+	{
+		printf("%s: %i\n", s[x], stat[x]);
+	}
+}
+
+//END OF STATS
+//******************************************************************************
+//BEGINNING OF SAVE
+
+//Overriding << & >> to allow passing character object
+ostream &operator<<(ostream &out, const character &in)
 {
 	out << in.name << "\n"
 		<< in.lvl << "\n"
@@ -8,12 +65,12 @@ std::ostream &operator<<(std::ostream &out, const character &in)
 		<< in.HP << "\n";
 	for (int x = 0; x < 5; x++)
 	{
-		out << in.stats[x] << " ";
+		out << in.stat[x] << " ";
 	}
 	return out;
 }
 
-std::istream &operator>>(std::istream &in, character &out)
+istream &operator>>(istream &in, character &out)
 {
 	in >> out.name;
 	in >> out.lvl;
@@ -21,14 +78,15 @@ std::istream &operator>>(std::istream &in, character &out)
 	in >> out.HP;
 	for (int x = 0; x < 5; x++)
 	{
-		in >> out.stats[x];
+		in >> out.stat[x];
 	}
 	return in;
 }
 
-void saveout(character &in, std::string txt)
+//Saving to file
+void saveout(character &in, string txt)
 {
-	std::ofstream out;
+	ofstream out;
 	out.open(txt);
 	if (out.is_open())
 	{
@@ -36,12 +94,13 @@ void saveout(character &in, std::string txt)
 		out.close();
 	}
 	else
-		std::cout << "Unable to open file";
+		cout << "Unable to open file";
 }
 
-character savein(std::string txt)
+//Loading from file
+character savein(string txt)
 {
-	std::ifstream in;
+	ifstream in;
 	in.open(txt);
 	character temp = character();
 	if (in.is_open())
@@ -50,6 +109,8 @@ character savein(std::string txt)
 		in.close();
 	}
 	else
-		std::cout << "Unable to open file";
+		cout << "Unable to open file";
 	return temp;
 }
+//END OF SAVE
+//******************************************************************************
