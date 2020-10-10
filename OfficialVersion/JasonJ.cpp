@@ -1,5 +1,42 @@
 //Jason Jellie
-#include "JasonJ.h"
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+class stats
+{
+	public:
+		int lvl, maxHP, HP, stat[5];
+
+		stats();
+};
+
+class character : public stats
+{
+	public:
+		//item inv[25];
+		//item eqpt[5];
+		string name;
+
+		character();
+		character(string n);
+		character(const character &in);
+		void showStats();
+};
+
+class monster : public stats
+{
+};
+
+ostream &operator<<(ostream &out, const character &in);
+
+istream &operator>>(istream &in, character &out);
+
+void saveout(character &in, string txt);
+
+character savein(string txt);
+
 
 //******************************************************************************
 //BEGINNING OF STATS

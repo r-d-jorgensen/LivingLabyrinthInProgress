@@ -1,4 +1,8 @@
-#include "header.h"
+#include "DavidJ.cpp"
+#include "JasonJ.cpp"
+#include "ScottK.cpp"
+
+using namespace std;
 
 void test()
 {

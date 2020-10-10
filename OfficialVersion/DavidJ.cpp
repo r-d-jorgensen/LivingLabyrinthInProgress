@@ -1,5 +1,19 @@
 //David Jorgensen
-#include "DavidJ.h"
+#include <iostream>
+
+using namespace std;
+
+//Declarations
+void mainGameLoop();
+int libraryChoices();
+int bookRealmNPC();
+void perkStore();
+void settingsMenu();
+void textFormat();
+void difficultySetting();
+int bookRealm();
+void questNPC();
+//End of Declarations
 
 void mainGameLoop()
 {

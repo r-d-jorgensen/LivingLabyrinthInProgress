@@ -1,8 +1,26 @@
 // Scott Kurtz
-#include "ScottK.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+/* did not have guards originally */
 
 using namespace std;
-/* did not have guards originally */
+
+//Declarations
+class Majorencounter
+{
+	public:
+		void Printgreeting();
+		int Printriddle();
+		int Printquestion();
+		int Doorgame();
+		void Monstercombat(int level);
+};
+
+string strLower(string n);
+//End Of Declaration
+
 void Majorencounter::Printgreeting()
 {
 	string greeting[5] = {
