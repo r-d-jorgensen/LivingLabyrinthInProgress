@@ -26,14 +26,16 @@ int riddle()
 	cout << answer << endl;
 
 	answer = strLower(answer);
+	answer.erase(answer.find_last_not_of("\n\r") + 1);
 	//    getline(cin,guess);
 	getline(cin, guess);
+	guess.erase(guess.find_last_not_of("\n\r") + 1);
 	/* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
 	guess = strLower(guess);
 	cout << endl;
 	/* if wrong then get more difficult monster otherwise no monster or easier monster */
 	cout << "guess = " << guess << " answer = " << answer << endl;
-	if (guess.compare(answer))
+	if (guess.compare(answer) == 0)
 	{
 		cout << "Good job. Go through that door andd meet my friend." << endl;
 		monsterlevel = 0;
