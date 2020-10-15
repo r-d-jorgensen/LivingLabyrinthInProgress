@@ -1,4 +1,9 @@
-//David Jorgensen
+/*David Jorgensen
+ * lab 8:
+ * Created new hooks and infrastructure
+ *  The explore functionality and hooks
+ *  The item system and its hooks
+*/
 #include <iostream>
 
 using namespace std;
@@ -12,7 +17,17 @@ void settingsMenu();
 void textFormat();
 void difficultySetting();
 int bookRealm();
+void Armoury();
+void generalStore();
+void buyItem();
 void questNPC();
+void explore();
+void camp();
+void movementNorth();
+void movementEast();
+void movementWest();
+void movementSouth();
+void reward();
 //End of Declarations
 
 void mainGameLoop()
@@ -33,7 +48,7 @@ void mainGameLoop()
         }
         else if (location == 2)
         {
-            //bookRealm();
+            bookRealm();
         }
     }
 }
@@ -273,13 +288,13 @@ int bookRealm()
         switch (choice)
         {
         case '1':
-            //explore function
+            explore();
             break;
         case '2':
-            //Armoury
+            Armoury();
             break;
         case '3':
-            //General Store
+            generalStore();
             break;
         case '4':
             questNPC();
@@ -293,6 +308,94 @@ int bookRealm()
         }
     }
     return 0;
+}
+
+//added a armoury shop for users to purchess from, items still not hooked in
+void Armoury()
+{
+    char choice;
+    cout << endl
+         << "Welcome to the Armory" << endl
+         << endl;
+    cout << "1: item 1" << endl;
+    cout << "2: item 2" << endl;
+    cout << "3: item 3" << endl;
+    cout << "4: item 4" << endl;
+    cout << "5: Exit the Armory" << endl;
+    cin >> choice;
+
+    bool choiceNotMade = true;
+    while (choiceNotMade)
+    {
+        switch (choice)
+        {
+        case '1':
+            //send in item object or item number from index WIP
+            buyItem();
+            break;
+        case '2':
+            buyItem();
+            break;
+        case '3':
+            buyItem();
+            break;
+        case '4':
+            buyItem();
+            break;
+        case '5':
+            return;
+        default:
+            cout << "Invalid entry please try again" << endl;
+        }
+    }
+    return;
+}
+
+//added a general store for users to purchess from, items still not hooked in
+void generalStore()
+{
+    char choice;
+    cout << endl
+         << "Menu" << endl
+         << endl;
+    cout << "1: item 1" << endl;
+    cout << "2: item 2" << endl;
+    cout << "3: item 3" << endl;
+    cout << "4: item 4" << endl;
+    cout << "5: Exit General Store" << endl;
+    cin >> choice;
+
+    bool choiceNotMade = true;
+    while (choiceNotMade)
+    {
+        switch (choice)
+        {
+        case '1':
+            //send in item object or item number from index WIP
+            buyItem();
+            break;
+        case '2':
+            buyItem();
+            break;
+        case '3':
+            buyItem();
+            break;
+        case '4':
+            buyItem();
+            break;
+        case '5':
+            return;
+        default:
+            cout << "Invalid entry please try again" << endl;
+        }
+    }
+    return;
+}
+
+//recive in item object or item number from index WIP
+void buyItem()
+{
+    return;
 }
 
 void questNPC()
@@ -323,4 +426,80 @@ void questNPC()
             cout << "Invalid entry please try again" << endl;
         }
     }
+}
+
+//explore to hook realms with encounters
+void explore()
+{
+    char choice;
+    cout << endl
+         << "Menu" << endl
+         << endl;
+    cout << "1: Camp" << endl;
+    cout << "2: Move North" << endl;
+    cout << "3: Move West" << endl;
+    cout << "4: Move East" << endl;
+    cout << "5: Move South" << endl;
+    cout << "6: Look at Character Sheet" << endl;
+    cin >> choice;
+
+    bool choiceNotMade = true;
+    while (choiceNotMade)
+    {
+        switch (choice)
+        {
+        case '1':
+            camp();
+            break;
+        case '2':
+            movementNorth();
+            break;
+        case '3':
+            movementWest();
+            break;
+        case '4':
+            movementEast();
+            break;
+        case '5':
+            movementSouth();
+            break;
+        case '6':
+            //need character to be global
+            //showStats();
+            break;
+        default:
+            cout << "Invalid entry please try again" << endl;
+        }
+    }
+    return;
+}
+
+//not sure yet how it will be implemented, leaving hook for later
+void camp()
+{
+    return;
+}
+
+//hooks are ready, need to go over how we will be combining explore with encounter
+void movementNorth()
+{
+    return;
+}
+
+void movementEast()
+{
+    return;
+}
+void movementWest()
+{
+    return;
+}
+void movementSouth()
+{
+    return;
+}
+
+void reward()
+{
+    return;
 }

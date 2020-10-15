@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
-#include "char.h"
 
 using namespace std;
 
-int libraryChoices();
+void reward();

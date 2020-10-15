@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//explore to hook realms with encounters
 void explore()
 {
     char choice;
@@ -22,22 +23,22 @@ void explore()
         switch (choice)
         {
         case '1':
-            //Camp call
+            camp();
             break;
         case '2':
-            //north movement
+            movementNorth();
             break;
         case '3':
-            //west movement
+            movementWest();
             break;
         case '4':
-            //east movement
+            movementEast();
             break;
         case '5':
-            //south movement
+            movementSouth();
             break;
         case '6':
-            //char sheet call
+            showStats();
             break;
         default:
             cout << "Invalid entry please try again" << endl;
