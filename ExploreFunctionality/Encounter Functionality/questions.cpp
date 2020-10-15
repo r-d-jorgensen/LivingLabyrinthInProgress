@@ -4,22 +4,21 @@
 #include <ctime>
 #include <fstream>
 #include <string>
-#include "strLower.cpp"
 using namespace std;
-int riddle()
+int question()
 {
-    ifstream riddleFile;
-    riddleFile.open("InfoFiles/Riddles/riddles.txt");
-    string randomRiddle;
+    ifstream questionFile;
+    questionFile.open("InfoFiles/Questions/questions.txt");
+    string randomQuestion;
     string guess;
     string answer;
     int monsterlevel; //int returned by function to determine monster difficulty
-    int num = ((rand() + time(0)) % 63);
+    int num = ((rand() + time(0)) % 5);
     num = 2*num;
     for (int i=0;i<num+1;i++) 
-        getline(riddleFile, randomRiddle);
-    cout << randomRiddle << endl;
-    getline(riddleFile, answer);
+        getline(questionFile, randomQuestion);
+    cout << randomQuestion << endl;
+    getline(questionFile, answer);
     answer = strLower(answer);
     answer.erase(answer.find_last_not_of("\n\r") + 1);
     getline(cin, guess);
@@ -31,11 +30,11 @@ int riddle()
     if (guess.compare(answer) == 0) {
         cout << "Good job. Go through that door andd meet my friend." << endl;
         monsterlevel = 0;
-    }	else	{
+    } else {
         cout << "Sorry, that is incorrect but go ahead through that door and talk to my friend." << endl;
         monsterlevel = 1;
     }
     cout << endl;
-    riddleFile.close();
+    questionFile.close();
     return monsterlevel;
-} // end riddle function
+} // end question function
