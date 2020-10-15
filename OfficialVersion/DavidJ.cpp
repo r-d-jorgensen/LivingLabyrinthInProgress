@@ -1,8 +1,9 @@
 /*David Jorgensen
  * lab 8:
  * Created new hooks and infrastructure
- *  The explore functionality and hooks
- *  The item system and its hooks
+ *  The explore functionality, item system and thier hooks
+ *  and reorganized the code to be easier to read
+ * 
 */
 #include <iostream>
 
