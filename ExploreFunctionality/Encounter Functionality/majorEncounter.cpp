@@ -3,17 +3,18 @@
  * question, a random door game. The success of these games determines 
  * the difficulty level of the monster to face at the end. Ends with a letter
  * clue for the final solution to the game */
+#pragma once
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <string>
 #include "riddles.cpp"
 #include "questions.cpp"
-#include "monsters.cpp"
+#include "monsterEncounter.cpp"
 using namespace std;
 void Printgreeting();
 int Doorgame();
-//void Monstercombat(int level);
+void majorEncounter(int level);
 void Printgreeting()
 {
     string greeting[5] = {
@@ -49,19 +50,14 @@ int Doorgame()
         << endl;
     return monsterlevel;
 }
-/*void Monstercombat(int level)
+void majorEncounter(int level) 
 {
-    cout << "There is combat with a monster at level " << level << endl;
-}
-*/
-int main() {
     int monster = 0;
     Printgreeting();
     monster = monster + riddle();
     monster = monster + question();
     monster = monster + Doorgame();
-   monsterType(monster);
+   monsterEncounter(monster);
     //after successfully killing monster find an object/letter something
     cout << "In the back of the room you see a golden letter 'S'" << endl;
-    return 0;
 }

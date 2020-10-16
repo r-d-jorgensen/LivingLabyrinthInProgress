@@ -71,7 +71,7 @@ int gamblingEncounter()
     }
     return goldPieces;
 }
-
+/*
 int main()
 {
     int gold;
@@ -79,4 +79,4 @@ int main()
     cout << "Your gambling excursion yielded you " << gold << "gold pieces.";
     cout << " " << endl;
     return 0;
-}
+} */
