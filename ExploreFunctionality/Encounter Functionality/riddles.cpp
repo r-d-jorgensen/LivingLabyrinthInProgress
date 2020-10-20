@@ -1,11 +1,4 @@
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include <string>
-#include "strLower.cpp"
-using namespace std;
+string strLower(string n);
 int riddle()
 {
     ifstream riddleFile;

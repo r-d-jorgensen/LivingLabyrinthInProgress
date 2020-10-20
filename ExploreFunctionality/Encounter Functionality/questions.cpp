@@ -1,10 +1,4 @@
-#pragma once
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include <string>
-using namespace std;
+#include"encounters.h"
 int question()
 {
     ifstream questionFile;
