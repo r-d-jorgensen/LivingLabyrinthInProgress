@@ -1,34 +1,7 @@
-#include<iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
-#include "luckyEncounter.cpp"
-#include"gamblingEncounter.cpp"
-#include"trapEncounter.cpp"
-#include "majorEncounter.cpp"
-using namespace std;
-/* for the movementSouth(any direction)Encounter function, I was
- * receiving the game level when called so that the monster level could be 
- * increased and the correct number of majorEncounters would be called, since
- *after each major encounter you receive a letter clue. level 1 has 
- * 3  ME's  and level 7 has 9 ME'S. the count variable is passed to keep track
- *  
- * of the encounters. When we talked a few weeks ago we talked about having 
- * random encounters but after 10 encounters we should have a major encounter,
- * so the game doesn't go on forever. */
-
-int encounterType(int gameLevel, int count);
+#include"encounters.h"
 int encounterType(int gameLevel,int count) 
 {
 	int num = (rand()+time(0))%10;
-	/* David, I think this is the varaible that you were laughing at this morning. 
-	 * I know that it looks stupid and should have commented it. Anyway,
-	 * count is used to make sure that only 10 encounters occur before a major 
-	 * encounter takes place. it is originally set in main at 1, before calling 
-	 * encounter. I had to set it to 1 because if major encounter was randomly 
-	 * called first then there would be 1 too many majorEncounters, messing 
-	 * up the game.*/
-
 	if (count%10 ==0)
 		num = 0;
 	if ((num == 1) || (num == 2))
@@ -55,19 +28,19 @@ int encounterType(int gameLevel,int count)
 	count++;
 	return count;
 }
-int main() {
-	int level;
-	int maxEncounters;
-	int encounterCount=1;
-	cout << "What level do you want to play?";
-	cin >> level;
-
-	/* calculate number of major encounter to collect letters for anagram solution letters is level +2*/
-	maxEncounters = (level+2)*10;
-	while (encounterCount<=maxEncounters) {
-		/* passes level, current count, and jumble returns int encounter count*/
-		encounterCount = encounterType(level, encounterCount); 
-		//cout << encounterCount << endl;
-	}
-	return 0;
+/*
+   int main() {
+   int level;
+   int maxEncounters;
+   int encounterCount=1;
+   cout << "What level do you want to play?";
+   cin >> level;
+//	 calculate number of major encounter to collect letters for anagram solution letters is level +2
+maxEncounters = (level+2)*10;
+while (encounterCount<=maxEncounters) {
+// passes level, current count, and  count
+encounterCount = encounterType(level, encounterCount); 
 }
+return 0;
+}
+*/
