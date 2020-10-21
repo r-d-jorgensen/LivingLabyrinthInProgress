@@ -1,24 +1,11 @@
-/* update to encounterType function. changes likelihood of encounters
- * depending on the direction you take. north is less eventful slower */
-
-#include<iostream>
-#include <cstdlib>
-#include <ctime>
-#include <cstring>
-#include "luckyEncounter.cpp"
-#include"gamblingEncounter.cpp"
-#include"trapEncounter.cpp"
-#include "majorEncounter.cpp"
-using namespace std;
-
-int movementNorthEncounters(int gameLevel, int count);
-int movementNorthEncounters(int gameLevel,int count) 
+#include"encounters.h"
+int encounterType(int gameLevel,int count) 
 {
-	int num = (rand()+time(0))%100;
-	if (count%50 ==0)
+	int num = (rand()+time(0))%10;
+	if (count%10 ==0)
 		num = 0;
-	if ((num > 0) && (num< 50))
-		cout << "you see mountains in the distance" << endl;
+	if ((num == 1) || (num == 2))
+		monsterEncounter(1);
 	else if ((num == 3) || (num == 4))
 		monsterEncounter(gameLevel);
 	else if ((num == 5) || (num == 6))
@@ -48,13 +35,12 @@ int movementNorthEncounters(int gameLevel,int count)
    int encounterCount=1;
    cout << "What level do you want to play?";
    cin >> level;
-
-   note      calculate number of major encounter to collect letters for anagram solution letters is level +2
-   maxEncounters = (level+2)*10;
-   while (encounterCount<=maxEncounters) {
-   encounterCount = encounterType(level, encounterCount); 
-   }
-   return 0;
-   }
-
+//	 calculate number of major encounter to collect letters for anagram solution letters is level +2
+maxEncounters = (level+2)*10;
+while (encounterCount<=maxEncounters) {
+// passes level, current count, and  count
+encounterCount = encounterType(level, encounterCount); 
+}
+return 0;
+}
 */
