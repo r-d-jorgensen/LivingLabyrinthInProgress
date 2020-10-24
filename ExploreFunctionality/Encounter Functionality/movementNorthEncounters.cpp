@@ -1,8 +1,8 @@
-#include"encounters.h"
-int encounterType(int gameLevel,int count) 
+#include "encounters.h"
+int encounterType(int gameLevel, int count)
 {
-	int num = (rand()+time(0))%10;
-	if (count%10 ==0)
+	int num = (rand() + time(0)) % 10;
+	if (count % 10 == 0)
 		num = 0;
 	if ((num == 1) || (num == 2))
 		monsterEncounter(1);
@@ -10,19 +10,21 @@ int encounterType(int gameLevel,int count)
 		monsterEncounter(gameLevel);
 	else if ((num == 5) || (num == 6))
 		luckyEncounter();
-	else if ((num == 7) || (num == 8)) {
+	else if ((num == 7) || (num == 8))
+	{
 		/* creat gold data but may need to call gold from character class 
 		 * or just return +or - to character  gold */
 		int gold;
-		gold =gamblingEncounter();
+		gold = gamblingEncounter();
 		cout << "Your gambling excursion yielded you " << gold << "gold pieces.";
 		cout << " " << endl;
 	}
-	else if (num == 9) 
+	else if (num == 9)
 		trapEncounter();
-	else {
-		if (count%10 >0) 
-			count = 10*(count/10+1); // formula needed to employ correct number of majorEncounters
+	else
+	{
+		if (count % 10 > 0)
+			count = 10 * (count / 10 + 1); // formula needed to employ correct number of majorEncounters
 		majorEncounter(gameLevel);
 	}
 	count++;

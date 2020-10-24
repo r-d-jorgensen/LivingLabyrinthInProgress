@@ -1,6 +1,4 @@
-#include <iostream>
-
-using namespace std;
+#include "explore.h"
 
 //explore to hook realms with encounters
 void explore()
@@ -26,23 +24,61 @@ void explore()
             camp();
             break;
         case '2':
-            movementNorth();
+            move(25, 20, 20, 20);
             break;
         case '3':
-            movementWest();
+            move(20, 25, 20, 20);
             break;
         case '4':
-            movementEast();
+            move(20, 20, 25, 20);
             break;
         case '5':
-            movementSouth();
+            move(20, 20, 20, 25);
             break;
         case '6':
-            showStats();
+            //showStats();
             break;
         default:
             cout << "Invalid entry please try again" << endl;
         }
+    }
+    return;
+}
+
+void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
+{
+
+    int luck = 5; //pull from character sheet
+    int roll = (rand() + time(NULL)) % 100;
+    if (roll < 15 - luck)
+    {
+        //nothing
+        cout << "You walk down the path but there is nothing but another crossroads.\n";
+        return;
+    }
+    else if (roll < 15)
+    {
+        //lucky
+
+        return;
+    }
+    else if (roll < 15 + trapChance)
+    {
+        //trap
+
+        return;
+    }
+    else if (roll < 15 + trapChance + monsterChance)
+    {
+        //monster
+
+        return;
+    }
+    else
+    {
+        //gamble
+
+        return;
     }
     return;
 }
