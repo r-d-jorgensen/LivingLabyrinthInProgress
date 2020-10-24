@@ -9,8 +9,8 @@ int gamblingEncounter()
 	int goldPieces = 0;
 	int shellChoice;
 	int shell;
-	cout << "Welcome, you have found us. Would you like to play a game ";
-	cout << "of shells? y or n";
+dialogue("Welcome, you have found us. Would you like to play a game
+	       of shells? y or n");
 	cin >> play;
 	cout << endl;
 	cin.ignore();
