@@ -5,7 +5,7 @@ void explore()
 {
     char choice;
     cout << endl
-         << "Menu" << endl
+         << "Explore the area?" << endl
          << endl;
     cout << "1: Camp" << endl;
     cout << "2: Move North" << endl;
@@ -47,28 +47,34 @@ void explore()
 
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
 {
-
+    int nothing = 15;
     int luck = 5; //pull from character sheet
     int roll = (rand() + time(NULL)) % 100;
-    if (roll < 15 - luck)
+    if (roll < nothing - luck)
     {
         //nothing
         cout << "You walk down the path but there is nothing but another crossroads.\n";
         return;
     }
-    else if (roll < 15)
+    else if (roll < nothing)
     {
         //lucky
 
         return;
     }
-    else if (roll < 15 + trapChance)
+    else if (roll < nothing + trapChance)
     {
         //trap
 
         return;
     }
-    else if (roll < 15 + trapChance + monsterChance)
+    else if (roll < nothing + trapChance + majorChance)
+    {
+        //major
+
+        return;
+    }
+    else if (roll < nothing + trapChance + majorChance + monsterChance)
     {
         //monster
 
