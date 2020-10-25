@@ -8,9 +8,8 @@
 #include"gamblingEncounter.cpp"
 #include"trapEncounter.cpp"
 #include "majorEncounter.cpp"
-int riddle();
-int question();
-#include"strLower.cpp"
+#include"riddles.cpp"
+#include"questions.cpp"
 #include"monsterEncounter.cpp"
-int encounterType(int gameLevel, int count);
 using namespace std;
+int encounterType(int gameLevel, int count);

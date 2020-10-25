@@ -1,6 +1,7 @@
 #pragma once
-#include "riddles.cpp"
-#include "questions.cpp"
+int riddle();
+int question();
 void monsterEncounter(int level);
 void Printgreeting();
 int Doorgame();
+void majorEncounter();
