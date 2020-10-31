@@ -1,9 +1,18 @@
+
 /* Scott Kurtz
  *majorEncounter Function. Incorporates a greeting, a riddle, a trivia
  * question, a random door game. The success of these games determines 
  * the difficulty level of the monster to face at the end. Ends with a letter
  * clue for the final solution to the game */
 #include"majorEncounter.h"
+
+string strLower(string n);
+string strLower(string n) {
+	for (size_t i=0;i<n.size();i++){
+		n[i] = tolower(n[i]);
+	}
+	return n;
+}
 void Printgreeting()
 {
 	string greeting[5] = {
@@ -39,7 +48,7 @@ int Doorgame()
 		<< endl;
 	return monsterlevel;
 }
-void majorEncounter(int level) 
+void majorEncounter() 
 {
 	int monster = 0;
 	Printgreeting();
