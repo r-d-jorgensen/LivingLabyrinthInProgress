@@ -5,6 +5,4 @@
 #include <ctime>
 #include <cstring>
 
-#include "char.h"
-
 using namespace std;

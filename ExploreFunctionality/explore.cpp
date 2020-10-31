@@ -1,5 +1,12 @@
 #pragma once
-#include "encounters.h"
+#include <iostream>
+#include "camp.cpp"
+#include "reward.cpp"
+#include "gamblingEncounter.cpp"
+#include "luckyEncounter.cpp"
+#include "majorEncounter.cpp"
+#include "monsterEncounter.cpp"
+#include "trapEncounter.cpp"
 using namespace std;
 
 void camp();
