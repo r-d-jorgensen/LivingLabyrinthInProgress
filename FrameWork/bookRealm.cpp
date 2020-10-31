@@ -1,4 +1,12 @@
-#include "bookRealm.h"
+#pragma once
+#include "explore.cpp"
+using namespace std;
+
+int bookRealm();
+void Armoury();
+void generalStore();
+void buyItem();
+void questNPC();
 
 int bookRealm()
 {

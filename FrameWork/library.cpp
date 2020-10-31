@@ -1,4 +1,37 @@
-#include "library.h"
+#pragma once
+#include "bookRealm.cpp"
+using namespace std;
+
+void mainGameLoop();
+int libraryChoices();
+int bookRealmNPC();
+void perkStore();
+void settingsMenu();
+void textFormat();
+void difficultySetting();
+
+void mainGameLoop()
+{
+    //run game
+    int location = 1;
+    while (true)
+    {
+        if (location == 0)
+        {
+            cout << "Thank You For Playing" << endl;
+            cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
+            return;
+        }
+        else if (location == 1)
+        {
+            location = libraryChoices();
+        }
+        else if (location == 2)
+        {
+            bookRealm();
+        }
+    }
+}
 
 int libraryChoices()
 {

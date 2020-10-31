@@ -29,11 +29,12 @@ void test()
 	cout << "What level do you want to play? \n";
 	cin >> level;
 	/* calculate max number  of encounters, 
-	 * majorEncounters = level +2, letters in anagram) */  
+	 * majorEncounters = level +2, letters in anagram) */
 	maxEncounters = (level + 2) * 10;
-	while (encounterCount <= maxEncounters) {
+	while (encounterCount <= maxEncounters)
+	{
 		/* passes level and current count, returns new count which is either count+1 
-		 * or increased to next multiple of 10 +1, if majorEncounter randomly picked*/ 
+		 * or increased to next multiple of 10 +1, if majorEncounter randomly picked*/
 		encounterCount = encounterType(level, encounterCount);
 	}
 }

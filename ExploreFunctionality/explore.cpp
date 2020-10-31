@@ -1,5 +1,11 @@
-#include "explore.h"
+#pragma once
 #include "encounters.h"
+using namespace std;
+
+void camp();
+void explore();
+void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
+void reward();
 
 //explore to hook realms with encounters
 void explore()
@@ -80,7 +86,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else
     {
-        gambllingEncounter();
+        gamblingEncounter();
 
         return;
     }

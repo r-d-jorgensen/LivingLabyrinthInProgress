@@ -1,8 +1,8 @@
-#include<iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <cstring>
-#include<fstream>
+#include <fstream>
 void luckyEncounter();
 int gamblingEncounter();
 void trapEncounter();
@@ -17,15 +17,18 @@ using namespace std;
 /* function receives a string. It returns the same string with all 
  * lowercase letters, so when comparing guess to answer, 
  * capitalization doesn't matter */
-string strLower(string n) {
-	for (size_t i=0;i<n.size();i++){
+string strLower(string n)
+{
+	for (size_t i = 0; i < n.size(); i++)
+	{
 		n[i] = tolower(n[i]);
 	}
 	return n;
 }
 /* trap encounter  function selects a random trap which may cause harm */
 void trapEncounter()
-{ cout << "Oh no, there is a trap" << endl;
+{
+	cout << "Oh no, there is a trap" << endl;
 }
 /* gambling encounter, is called by encounterType function
  * gives player an opportunity to make some money, if lucky, then returns
@@ -44,7 +47,7 @@ int gamblingEncounter()
 	cout << endl;
 	cin.ignore();
 	if ((play == "Y") || (play == "y") || (play == "Yes") ||
-			(play == "yes") || (play == "YES"))
+		(play == "yes") || (play == "YES"))
 	{
 		cout << "Great! Here is how we play." << endl;
 		cout << "You can choose how many shells to play with and how many gold" << endl;
@@ -57,7 +60,7 @@ int gamblingEncounter()
 		cout << "Your original 10 + 90 more for winning." << endl;
 		cout << "Of course, if you lose, I get your wager." << endl;
 		while ((play == "Y") || (play == "y") || (play == "Yes") ||
-				(play == "yes") || (play == "YES"))
+			   (play == "yes") || (play == "YES"))
 		{
 			cout << "How many shells do you want to use?";
 			cin >> odds;
@@ -104,78 +107,86 @@ int riddle()
 	int monsterlevel;
 	/* randomizer to select riddle from txt file */
 	int num = ((rand() + time(0)) % 63);
-		num = 2*num;
-		for (int i=0;i<num+1;i++) 
-			getline(riddleFile, randomRiddle);
-				cout << randomRiddle << endl;
-				getline(riddleFile, answer);
-				answer = strLower(answer);
-				answer.erase(answer.find_last_not_of("\n\r") + 1);
-				getline(cin, guess);
-				/* erase call needed to erase potential last char that may be \n 
+	num = 2 * num;
+	for (int i = 0; i < num + 1; i++)
+		getline(riddleFile, randomRiddle);
+	cout << randomRiddle << endl;
+	getline(riddleFile, answer);
+	answer = strLower(answer);
+	answer.erase(answer.find_last_not_of("\n\r") + 1);
+	getline(cin, guess);
+	/* erase call needed to erase potential last char that may be \n 
 				 * which could cause an incorrect false comparison */
-				guess.erase(guess.find_last_not_of("\n\r") + 1);
-				/* function call to convert all letters to 
+	guess.erase(guess.find_last_not_of("\n\r") + 1);
+	/* function call to convert all letters to 
 				 * lowercase, so simple capitalization doesn't cause a wrong answer */
-				guess = strLower(guess);
-				cout << endl;
-				/* if wrong then get more difficult monster otherwise no monster or easier monster */
-				if (guess.compare(answer) == 0) {
-					cout << "Good job. Go through that door andd meet my friend." << endl;
-						monsterlevel = 0;
-				}	else	{
-					cout << "Sorry, that is incorrect but";
-					cout << "	 go ahead  and talk to my friend." << endl;
-						monsterlevel = 1;
-				}
+	guess = strLower(guess);
 	cout << endl;
-		riddleFile.close();
-		return monsterlevel;
+	/* if wrong then get more difficult monster otherwise no monster or easier monster */
+	if (guess.compare(answer) == 0)
+	{
+		cout << "Good job. Go through that door andd meet my friend." << endl;
+		monsterlevel = 0;
+	}
+	else
+	{
+		cout << "Sorry, that is incorrect but";
+		cout << "	 go ahead  and talk to my friend." << endl;
+		monsterlevel = 1;
+	}
+	cout << endl;
+	riddleFile.close();
+	return monsterlevel;
 } // end riddle function
 /* another function to help determine monster level */
 int question()
 {
 	ifstream questionFile;
-		questionFile.open("InfoFiles/Questions/questions.txt");
-		string randomQuestion;
-		string guess;
-		string answer;
-		int monsterlevel; //int returned by function to determine monster difficulty
+	questionFile.open("InfoFiles/Questions/questions.txt");
+	string randomQuestion;
+	string guess;
+	string answer;
+	int monsterlevel; //int returned by function to determine monster difficulty
 	int num = ((rand() + time(0)) % 5);
-		/* calculation needed to select correct line for question in txt file */
-		num = 2*num;
-		for (int i=0;i<num+1;i++) 
-			getline(questionFile, randomQuestion);
-				cout << randomQuestion << endl;
-				/* answer is first line following question in txt file */
-				getline(questionFile, answer);
-				answer = strLower(answer);
-				answer.erase(answer.find_last_not_of("\n\r") + 1);
-				getline(cin, guess);
-				guess.erase(guess.find_last_not_of("\n\r") + 1);
-				/* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
-				guess = strLower(guess);
-				cout << endl;
-				/* if wrong then get more difficult monster otherwise no monster or easier monster */
-				if (guess.compare(answer) == 0) {
-					cout << "Good job. Go through that door andd meet my friend." << endl;
-						monsterlevel = 0;
-				} else {
-					cout << "Sorry, that is incorrect but go ahead through that door and talk to my friend." << endl;
-						monsterlevel = 1;
-				}
+	/* calculation needed to select correct line for question in txt file */
+	num = 2 * num;
+	for (int i = 0; i < num + 1; i++)
+		getline(questionFile, randomQuestion);
+	cout << randomQuestion << endl;
+	/* answer is first line following question in txt file */
+	getline(questionFile, answer);
+	answer = strLower(answer);
+	answer.erase(answer.find_last_not_of("\n\r") + 1);
+	getline(cin, guess);
+	guess.erase(guess.find_last_not_of("\n\r") + 1);
+	/* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
+	guess = strLower(guess);
 	cout << endl;
-		questionFile.close();
-		return monsterlevel;
+	/* if wrong then get more difficult monster otherwise no monster or easier monster */
+	if (guess.compare(answer) == 0)
+	{
+		cout << "Good job. Go through that door andd meet my friend." << endl;
+		monsterlevel = 0;
+	}
+	else
+	{
+		cout << "Sorry, that is incorrect but go ahead through that door and talk to my friend." << endl;
+		monsterlevel = 1;
+	}
+	cout << endl;
+	questionFile.close();
+	return monsterlevel;
 } // end question function
 /* lucky encounter  function selects a random lucky find
  * gold, weapon, armor, or artifact */
 void luckyEncounter()
-{ cout << "It is your lucky day, you see a bunch of gold" << endl;
+{
+	cout << "It is your lucky day, you see a bunch of gold" << endl;
 }
 /* monster function selects monster */
 void monsterEncounter(int level)
-{ cout << "there is a monster at level " << level << endl;
+{
+	cout << "there is a monster at level " << level << endl;
 	/* I think that maybe we use this function to find a monster from the  monster.txt file,
 	 * create the armor class, hp and everything and then pass those attributes on  to
 	 * the monstercombat function with all of the parameters passes to it. not sure */
@@ -190,60 +201,60 @@ void Printgreeting()
 {
 	string greeting[5] = {
 		"Hello, here is a riddle for you.",
-			"It is good to see you. I have a riddle for you.",
-			"I have been waiting for you. Here is a mind bender for you.",
-			"If you answer this question correctly, I will help you pick the best door.",
-			"There you are! Answer this."};
-			/* random selection of 5 possible greetings for variety */
-			int num = (rand() + time(0)) % 5;
-			cout << greeting[num] << endl
-			<< endl;
+		"It is good to see you. I have a riddle for you.",
+		"I have been waiting for you. Here is a mind bender for you.",
+		"If you answer this question correctly, I will help you pick the best door.",
+		"There you are! Answer this."};
+	/* random selection of 5 possible greetings for variety */
+	int num = (rand() + time(0)) % 5;
+	cout << greeting[num] << endl
+		 << endl;
 }
 /* random chance for which monster to battle  depending on door selected */
 int Doorgame()
 {
 	string door[3] = {"left", "middle", "right"};
-		string guess;
-		int monsterlevel = 0;
-		int num = (rand() + time(0)) % 3;
-		cout << "Choose a door: Left, Middle, or Right" << endl;
-		cin >> guess;
-		guess = strLower(guess);
-		cout << endl;
-		if (guess == door[num])
-		{
-			monsterlevel = 0;
-		}
-		else
-		{
-			monsterlevel = 2;
-		}
+	string guess;
+	int monsterlevel = 0;
+	int num = (rand() + time(0)) % 3;
+	cout << "Choose a door: Left, Middle, or Right" << endl;
+	cin >> guess;
+	guess = strLower(guess);
+	cout << endl;
+	if (guess == door[num])
+	{
+		monsterlevel = 0;
+	}
+	else
+	{
+		monsterlevel = 2;
+	}
 	cout << "Good Luck" << endl
-		<< endl;
-		return monsterlevel;
+		 << endl;
+	return monsterlevel;
 }
 /* calls thr riddle, question, and door functions to get level of monster,
  * then calss monsterEncounter for battle */
-void majorEncounter(int level) 
+void majorEncounter(int level)
 {
 	int monster = 0;
-		Printgreeting();
-		monster = monster + riddle();
-		monster = monster + question();
-		monster = monster + Doorgame();
-		monsterEncounter(monster);
-		//after successfully killing monster find an object/letter something
-		cout << "In the back of the room you see a golden letter 'S'" << endl;
+	Printgreeting();
+	monster = monster + riddle();
+	monster = monster + question();
+	monster = monster + Doorgame();
+	monsterEncounter(monster);
+	//after successfully killing monster find an object/letter something
+	cout << "In the back of the room you see a golden letter 'S'" << endl;
 }
 /* This function randomly chooses which type of encounter will
  * occur next and then calls the function. If 10 encounters occur
  * without a major encounter, thena major encounter is called automatically */
-int encounterType(int gameLevel,int count) 
+int encounterType(int gameLevel, int count)
 {
-	int num = (rand()+time(0))%10;
+	int num = (rand() + time(0)) % 10;
 	/* count is set at 1 and is then incremented, if count % 10
 	 *yields 0 then num set to 0 and majorEncounter is called*/
-	if (count%10 ==0)
+	if (count % 10 == 0)
 		num = 0;
 	/* the easiest monster is called */
 	if ((num == 1) || (num == 2))
@@ -253,19 +264,21 @@ int encounterType(int gameLevel,int count)
 		monsterEncounter(gameLevel);
 	else if ((num == 5) || (num == 6))
 		luckyEncounter();
-	else if ((num == 7) || (num == 8)) {
+	else if ((num == 7) || (num == 8))
+	{
 		/* creat gold data but may need to call gold from character class 
 		 * or just return +or - to character  gold */
 		int gold;
-		gold =gamblingEncounter();
+		gold = gamblingEncounter();
 		cout << "Your gambling excursion yielded you " << gold << "gold pieces.";
 		cout << " " << endl;
 	}
-	else if (num == 9) 
+	else if (num == 9)
 		trapEncounter();
-	else {
-		if (count%10 >0) 
-			count = 10*(count/10+1); // formula needed to employ correct number of majorEncounters
+	else
+	{
+		if (count % 10 > 0)
+			count = 10 * (count / 10 + 1); // formula needed to employ correct number of majorEncounters
 		majorEncounter(gameLevel);
 	}
 	count++;

@@ -1,7 +1,7 @@
 //Jason Jellie
 //Created the item class, Definition is on line 32, code starts on line 122
 
-
+#pragma once
 #include <iostream>
 #include <fstream>
 
@@ -9,48 +9,48 @@ using namespace std;
 
 class stats
 {
-	public:
-		int lvl, maxHP, HP, stat[5];
+public:
+	int lvl, maxHP, HP, stat[5];
 
-		stats();
+	stats();
 };
 
 class character : public stats
 {
-	public:
-		//item inv[25];
-		//item eqpt[5];
-		string name;
+public:
+	//item inv[25];
+	//item eqpt[5];
+	string name;
 
-		character();
-		character(string n);
-		character(const character &in);
-		void showStats();
+	character();
+	character(string n);
+	character(const character &in);
+	void showStats();
 };
 
-//New Class for Lab 
+//New Class for Lab
 class item
 {
-	public:
-		//ID lets us know which item it is
-		int id;
-		//Type shows which type of item it is ie. weapon, armor, potion, key item etc.
-		int type;
-		//Value shows how the item modifies stats, ATK for weapons, DEF for armor ect.
-		int value;
-		//Name of the item for generating by name 
-		string name;
+public:
+	//ID lets us know which item it is
+	int id;
+	//Type shows which type of item it is ie. weapon, armor, potion, key item etc.
+	int type;
+	//Value shows how the item modifies stats, ATK for weapons, DEF for armor ect.
+	int value;
+	//Name of the item for generating by name
+	string name;
 
-		//Default constructor of empty item
-		item();
-		//Creating item by name
-		item(string n);
-		//Creating Random item by type
-		item(int t);
-		//Copy constructor
-		item(const item &in);
-		//For testing purposes
-		void showItem();
+	//Default constructor of empty item
+	item();
+	//Creating item by name
+	item(string n);
+	//Creating Random item by type
+	item(int t);
+	//Copy constructor
+	item(const item &in);
+	//For testing purposes
+	void showItem();
 };
 
 class monster : public stats
@@ -64,7 +64,6 @@ istream &operator>>(istream &in, character &out);
 void saveout(character &in, string txt);
 
 character savein(string txt);
-
 
 //******************************************************************************
 //BEGINNING OF STATS
@@ -133,7 +132,7 @@ item::item(string n)
 	n.erase(n.find_last_not_of("\n\r") + 1);
 	string line;
 	ifstream in("./itemFiles/keyItems.txt");
-	while(!in.eof())
+	while (!in.eof())
 	{
 		cin >> line;
 		cout << line << "\n";
@@ -156,24 +155,24 @@ item::item(int t)
 	//Code commented out is for adding the randomness in future
 	//int lines = 0;
 	ifstream in;
-	if (t == 0) 
-	{ 
-		t = (rand() % 3) + 1; 
+	if (t == 0)
+	{
+		t = (rand() % 3) + 1;
 	}
 	type = t;
 
 	switch (type)
 	{
-		//Lines will be set in each case to match number of objects in each file
-		case 1:
-			in.open("itemFiles/weapons.txt");
-			break;
-		case 2: 
-			in.open("itemFiles/armor.txt");
-			break;
-		case 3:
-			in.open("itemFiles/misc.txt");
-			break;
+	//Lines will be set in each case to match number of objects in each file
+	case 1:
+		in.open("itemFiles/weapons.txt");
+		break;
+	case 2:
+		in.open("itemFiles/armor.txt");
+		break;
+	case 3:
+		in.open("itemFiles/misc.txt");
+		break;
 	}
 
 	//int i = (rand() % lines) * 2
@@ -199,8 +198,6 @@ void item::showItem()
 	cout << "\nValue: " << value;
 	cout << "\n";
 }
-
-
 
 //END OF ITEM
 //******************************************************************************

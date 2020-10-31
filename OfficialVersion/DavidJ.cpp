@@ -5,6 +5,7 @@
  *  and reorganized the code to be easier to read
  * 
 */
+#pragma once
 #include <iostream>
 #include "JasonJ.cpp"
 #include "ScottK.cpp"
