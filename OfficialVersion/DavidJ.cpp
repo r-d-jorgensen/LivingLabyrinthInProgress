@@ -6,7 +6,8 @@
  * 
 */
 #include <iostream>
-
+#include "JasonJ.cpp"
+#include "ScottK.cpp"
 using namespace std;
 
 //Declarations
@@ -22,12 +23,11 @@ void Armoury();
 void generalStore();
 void buyItem();
 void questNPC();
-void explore();
+void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "");
+void dialogue(string str, int msgType = 0, string speaker = "Self");
 void camp();
-void movementNorth();
-void movementEast();
-void movementWest();
-void movementSouth();
+void explore();
+void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void reward();
 //End of Declarations
 
@@ -429,12 +429,18 @@ void questNPC()
     }
 }
 
+//not sure yet how it will be implemented, leaving hook for later
+void camp()
+{
+    return;
+}
+
 //explore to hook realms with encounters
 void explore()
 {
     char choice;
     cout << endl
-         << "Menu" << endl
+         << "Explore the area?" << endl
          << endl;
     cout << "1: Camp" << endl;
     cout << "2: Move North" << endl;
@@ -453,19 +459,18 @@ void explore()
             camp();
             break;
         case '2':
-            movementNorth();
+            move(25, 20, 20, 20);
             break;
         case '3':
-            movementWest();
+            move(20, 25, 20, 20);
             break;
         case '4':
-            movementEast();
+            move(20, 20, 25, 20);
             break;
         case '5':
-            movementSouth();
+            move(20, 20, 20, 25);
             break;
         case '6':
-            //need character to be global
             //showStats();
             break;
         default:
@@ -475,32 +480,148 @@ void explore()
     return;
 }
 
-//not sure yet how it will be implemented, leaving hook for later
-void camp()
-{
-    return;
-}
-
-//hooks are ready, need to go over how we will be combining explore with encounter
-void movementNorth()
-{
-    return;
-}
-
-void movementEast()
-{
-    return;
-}
-void movementWest()
-{
-    return;
-}
-void movementSouth()
-{
-    return;
-}
-
 void reward()
 {
+    return;
+}
+
+void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
+{
+    int nothing = 15;
+    int luck = 5; //pull from character sheet
+    int roll = (rand() + time(NULL)) % 100;
+    if (roll < nothing - luck)
+    {
+        //nothing
+        cout << "You walk down the path but there is nothing but another crossroads.\n";
+        return;
+    }
+    else if (roll < nothing)
+    {
+        luckyEncounter();
+        return;
+    }
+    else if (roll < nothing + trapChance)
+    {
+        trapEncounter();
+        return;
+    }
+    else if (roll < nothing + trapChance + majorChance)
+    {
+        majorEncounter();
+        return;
+    }
+    else if (roll < nothing + trapChance + majorChance + monsterChance)
+    {
+        monsterEncounter(1); // level of monster passed
+
+        return;
+    }
+    else
+    {
+        gamblingEncounter();
+
+        return;
+    }
+    return;
+}
+
+void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
+{
+    //parse
+    string delimiter = " ";
+    size_t pos = 0;
+    int i = 0;
+    string parsedStr[100];
+    while ((pos = str.find(delimiter)) != string::npos)
+    {
+        parsedStr[i] = str.substr(0, pos);
+        str.erase(0, pos + delimiter.length());
+        i++;
+    }
+    parsedStr[i] = str;
+
+    //print
+    int lineLength = startStr.length();
+    cout << startStr;
+    for (i = 0; i < sizeof(parsedStr) / sizeof(parsedStr[0]); i++)
+    {
+        if (parsedStr[i] == "")
+        {
+            break;
+        }
+        lineLength += parsedStr[i].length() + 1;
+        cout << parsedStr[i] + " ";
+        if (lineLength + parsedStr[i + 1].length() > 80)
+        {
+            cout << endl
+                 << padding;
+            lineLength = paddingLength;
+        }
+    }
+}
+
+void dialogue(string str, int msgType = 0, string speaker = "Self")
+{
+    int textType = 2; //import from save file
+    switch (textType)
+    {
+    //bare format
+    case 0:
+    {
+        if (str.length() < 60)
+        {
+            cout << str;
+        }
+        else
+        {
+            dialogueLong(str);
+        }
+        break;
+    }
+    //simple format
+    case 1:
+        if (str.length() + speaker.length() + 2 < 60)
+        {
+            cout << speaker << ": " << str;
+        }
+        else
+        {
+            dialogueLong(str, speaker + ": ", 8, "\t");
+        }
+        break;
+    //stylized format
+    case 2:
+    {
+        string edge = "***";
+        string internalSpace = "\t\t\t";
+        string leftPadding = edge + internalSpace;
+        string rightPadding = internalSpace + edge + "\n";
+        cout << edge;
+        switch (msgType)
+        {
+        //Self
+        case 0:
+            cout << "@@  " << str << "  @@";
+            break;
+        //Enviroment
+        case 1:
+            cout << "//  " << str << "  \\\\";
+            break;
+        //NPC
+        case 2:
+            cout << "&& " << speaker << ":\t" << str << "  &&";
+            break;
+        default:
+            cout << "Something is wrong with the fuction this was called from.\n";
+        }
+        cout << "\t" + edge << endl
+             << edge + internalSpace + internalSpace + internalSpace + edge;
+        break;
+    }
+    default:
+        cout << "Something is wrong with the save file textType.\n";
+    }
+    cout << endl;
     return;
 }

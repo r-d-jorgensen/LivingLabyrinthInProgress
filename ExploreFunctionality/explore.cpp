@@ -1,5 +1,6 @@
 #include "explore.h"
-#include"encounters.h"
+#include "encounters.h"
+
 //explore to hook realms with encounters
 void explore()
 {
@@ -58,7 +59,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else if (roll < nothing)
     {
-luckyEncounter();
+        luckyEncounter();
         return;
     }
     else if (roll < nothing + trapChance)
@@ -73,7 +74,7 @@ luckyEncounter();
     }
     else if (roll < nothing + trapChance + majorChance + monsterChance)
     {
-        monsterEncounter(1);// level of monster passed
+        monsterEncounter(1); // level of monster passed
 
         return;
     }
