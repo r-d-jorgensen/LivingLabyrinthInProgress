@@ -1,4 +1,7 @@
 //Jason Jellie
+//Created the item class, Definition is on line 32, code starts on line 122
+
+
 #include <iostream>
 #include <fstream>
 
@@ -23,6 +26,31 @@ class character : public stats
 		character(string n);
 		character(const character &in);
 		void showStats();
+};
+
+//New Class for Lab 
+class item
+{
+	public:
+		//ID lets us know which item it is
+		int id;
+		//Type shows which type of item it is ie. weapon, armor, potion, key item etc.
+		int type;
+		//Value shows how the item modifies stats, ATK for weapons, DEF for armor ect.
+		int value;
+		//Name of the item for generating by name 
+		string name;
+
+		//Default constructor of empty item
+		item();
+		//Creating item by name
+		item(string n);
+		//Creating Random item by type
+		item(int t);
+		//Copy constructor
+		item(const item &in);
+		//For testing purposes
+		void showItem();
 };
 
 class monster : public stats
@@ -90,6 +118,91 @@ void character::showStats()
 }
 
 //END OF STATS
+//******************************************************************************
+//BEGINNING OF ITEM
+item::item()
+{
+	name = "";
+	id = 0;
+	type = 0;
+	value = 0;
+}
+
+item::item(string n)
+{
+	n.erase(n.find_last_not_of("\n\r") + 1);
+	string line;
+	ifstream in("./itemFiles/keyItems.txt");
+	while(!in.eof())
+	{
+		cin >> line;
+		cout << line << "\n";
+		line.erase(n.find_last_not_of("\n\r") + 1);
+		if (line == n)
+		{
+			name = line;
+			cin >> id;
+			type = 0;
+			cin >> value;
+			break;
+		}
+	}
+}
+
+item::item(int t)
+{
+	//Used to determine the # of lines in the specific file, used to generate random num
+	//for now it will always be 0 until more items are added to the files
+	//Code commented out is for adding the randomness in future
+	//int lines = 0;
+	ifstream in;
+	if (t == 0) 
+	{ 
+		t = (rand() % 3) + 1; 
+	}
+	type = t;
+
+	switch (type)
+	{
+		//Lines will be set in each case to match number of objects in each file
+		case 1:
+			in.open("itemFiles/weapons.txt");
+			break;
+		case 2: 
+			in.open("itemFiles/armor.txt");
+			break;
+		case 3:
+			in.open("itemFiles/misc.txt");
+			break;
+	}
+
+	//int i = (rand() % lines) * 2
+	//while (i > 0) { in >> temp; i--; }
+	in >> name;
+	in >> id;
+	in >> value;
+}
+
+item::item(const item &in)
+{
+	name = in.name;
+	id = in.id;
+	type = in.type;
+	value = in.value;
+}
+
+void item::showItem()
+{
+	cout << "Name: " << name;
+	cout << "\nID: " << id;
+	cout << "\nType: " << type;
+	cout << "\nValue: " << value;
+	cout << "\n";
+}
+
+
+
+//END OF ITEM
 //******************************************************************************
 //BEGINNING OF SAVE
 
