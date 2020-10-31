@@ -1,6 +1,26 @@
-#include "save.h"
+//Jason Jellie
+#pragma once
+#include <iostream>
+#include <fstream>
+#include "stats.cpp"
 
-std::ostream &operator<<(std::ostream &out, const character &in)
+using namespace std;
+
+//Item <<, used in Character <<
+/* Removed because unnecessary
+   Character << only needs item id
+ostream &operator<<(ostream &out, const item &in)
+{
+	out << in.name << " "
+		<< in.id << " "
+		<< in.type << " "
+		<< in.value;
+	return out;
+}
+*/
+
+//Character <<
+ostream &operator<<(ostream &out, const character &in)
 {
 	out << in.name << "\n"
 		<< in.lvl << "\n"
@@ -8,27 +28,40 @@ std::ostream &operator<<(std::ostream &out, const character &in)
 		<< in.HP << "\n";
 	for (int x = 0; x < 5; x++)
 	{
-		out << in.stats[x] << " ";
+		out << in.stat[x] << " ";
+	}
+	out << "\n";
+	for (int i = 0; i < 25; i++)
+	{
+		out << in.inv[i].id << " ";
 	}
 	return out;
 }
 
-std::istream &operator>>(std::istream &in, character &out)
+//Character >>
+istream &operator>>(istream &in, character &out)
 {
+	int temp = 0;
+
 	in >> out.name;
 	in >> out.lvl;
 	in >> out.maxHP;
 	in >> out.HP;
 	for (int x = 0; x < 5; x++)
 	{
-		in >> out.stats[x];
+		in >> out.stat[x];
+	}
+	for (int i = 0; i < 25; i++)
+	{
+		in >> temp;
+		out.inv[i] = item(temp);
 	}
 	return in;
 }
 
-void saveout(character &in, std::string txt)
+void saveOut(character &in, string txt)
 {
-	std::ofstream out;
+	ofstream out;
 	out.open(txt);
 	if (out.is_open())
 	{
@@ -36,12 +69,12 @@ void saveout(character &in, std::string txt)
 		out.close();
 	}
 	else
-		std::cout << "Unable to open file";
+		cout << "Unable to open file";
 }
 
-character savein(std::string txt)
+character loadIn(string txt)
 {
-	std::ifstream in;
+	ifstream in;
 	in.open(txt);
 	character temp = character();
 	if (in.is_open())
@@ -50,6 +83,6 @@ character savein(std::string txt)
 		in.close();
 	}
 	else
-		std::cout << "Unable to open file";
+		cout << "Unable to open file";
 	return temp;
 }
