@@ -7,19 +7,19 @@ using namespace std;
 
 class item
 {
-	public:
-		int id;
-		int type;
-		int value;
-		string name;
+public:
+	int id;
+	int type;
+	int value;
+	string name;
 
-		item();
-		item(string n);
-		//item(int t);
-		item(int id);
-		item(const item &in);
+	item();
+	item(string n);
+	//item(int t);
+	item(int id);
+	item(const item &in);
 
-		void showItem();
+	void showItem();
 };
 
 item::item()
@@ -35,7 +35,7 @@ item::item(string n)
 	n.erase(n.find_last_not_of("\n\r") + 1);
 	string line;
 	ifstream in("./Items/keyItems.txt");
-	while(!in.eof())
+	while (!in.eof())
 	{
 		in >> line;
 		line.erase(n.find_last_not_of("\n\r") + 1);
@@ -81,7 +81,7 @@ item::item(int i)
 	ifstream in("./Items/items.txt");
 	if (in.is_open())
 	{
-		while(!in.eof())
+		while (!in.eof())
 		{
 			in >> token;
 			if (token == "/" + to_string(i))
@@ -91,7 +91,9 @@ item::item(int i)
 				in >> type;
 				in >> value;
 				return;
-			} else {
+			}
+			else
+			{
 				temp = token;
 			}
 		}

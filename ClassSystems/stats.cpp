@@ -10,28 +10,28 @@ using namespace std;
 
 class stats
 {
-	public:
-		int lvl, maxHP, HP, stat[5];
+public:
+	int lvl, maxHP, HP, stat[5];
 
-		stats();
+	stats();
 };
 
 class character : public stats
 {
-	public:
-		item inv[25];
-		//item eqpt[5];
-		string name;
-		int gold;
+public:
+	item inv[25];
+	//item eqpt[5];
+	string name;
+	int gold;
 
-		character();
-		character(string n);
-		character(const character &in);
-		void showStats();
-		void showInv();
-		//Following Function is for testing only,
-		//Fills the characters inventory with items
-		void fillInv();
+	character();
+	character(string n);
+	character(const character &in);
+	void showStats();
+	void showInv();
+	//Following Function is for testing only,
+	//Fills the characters inventory with items
+	void fillInv();
 };
 
 class monster : public stats
@@ -111,7 +111,7 @@ void character::fillInv()
 	srand(time(0));
 	for (int i = 0; i < 25; i++)
 	{
-		inv[i] = item((rand()%3)+1);
+		inv[i] = item((rand() % 3) + 1);
 	}
 }
 //END OF STATS
