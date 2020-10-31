@@ -4,9 +4,11 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
+<<<<<<< HEAD
 class stats
 {
 public:
@@ -51,7 +53,62 @@ public:
 	item(const item &in);
 	//For testing purposes
 	void showItem();
+=======
+class item
+{
+	public:
+		//ID lets us know which item it is
+		int id;
+		//Type shows which type of item it is ie. weapon, armor, potion, key item etc.
+		int type;
+		//Value shows how the item modifies stats, ATK for weapons, DEF for armor ect.
+		int value;
+		//Name of the item for generating by name 
+		string name;
+
+		//Default constructor of empty item
+		item();
+		//Creating item by name
+		item(string n);
+		//Creating Random item by type
+		//item(int t);
+		//Creating item by id
+		item(int id);
+		//Copy constructor
+		item(const item &in);
+		//For testing purposes
+		void showItem();
+>>>>>>> 4b08ed4b4f9fde8ff8bf32418e47083555fee5d5
 };
+
+class stats
+{
+	public:
+		int lvl, maxHP, HP, stat[5];
+
+		stats();
+};
+
+class character : public stats
+{
+	public:
+		item inv[25];
+		//item eqpt[5];
+		string name;
+		int gold;
+
+		character();
+		character(string n);
+		character(const character &in);
+		void showStats();
+		void showInv();
+		//Following Function is for testing only,
+		//Fills the characters inventory with items
+		void fillInv();
+};
+
+//New Class for Lab 
+
 
 class monster : public stats
 {
@@ -61,9 +118,9 @@ ostream &operator<<(ostream &out, const character &in);
 
 istream &operator>>(istream &in, character &out);
 
-void saveout(character &in, string txt);
+void saveOut(character &in, string txt);
 
-character savein(string txt);
+character loadIn(string txt);
 
 //******************************************************************************
 //BEGINNING OF STATS
@@ -84,18 +141,24 @@ stats::stats()
 character::character(string n) : stats::stats()
 {
 	name = n;
+	gold = 0;
 }
 
 //Copy Constructor
 character::character(const character &in)
 {
 	name = in.name;
+	gold = in.gold;
 	lvl = in.lvl;
 	maxHP = in.maxHP;
 	HP = in.HP;
 	for (int x = 0; x < 5; x++)
 	{
 		stat[x] = in.stat[x];
+	}
+	for (int i = 0; i < 25; i++)
+	{
+		inv[i] = in.inv[i];
 	}
 }
 
@@ -116,6 +179,25 @@ void character::showStats()
 	}
 }
 
+void character::showInv()
+{
+	for (int i = 0; i < 25; i++)
+	{
+		if (inv[i].name != "")
+		{
+			inv[i].showItem();
+		}
+	}
+}
+
+void character::fillInv()
+{
+	srand(time(0));
+	for (int i = 0; i < 25; i++)
+	{
+		inv[i] = item((rand()%3)+1);
+	}
+}
 //END OF STATS
 //******************************************************************************
 //BEGINNING OF ITEM
@@ -147,7 +229,7 @@ item::item(string n)
 		}
 	}
 }
-
+/*
 item::item(int t)
 {
 	//Used to determine the # of lines in the specific file, used to generate random num
@@ -180,6 +262,32 @@ item::item(int t)
 	in >> name;
 	in >> id;
 	in >> value;
+}
+*/
+
+item::item(int i)
+{
+	string token, temp;
+
+	ifstream in("./Items/items.txt");
+	if (in.is_open())
+	{
+		while (!in.eof())
+		{
+			in >> token;
+			if (token == "/" + to_string(i))
+			{
+				id = i;
+				name = temp;
+				in >> type;
+				in >> value;
+				return;
+			} else {
+				temp = token;
+			}
+		}
+		in.close();
+	}
 }
 
 item::item(const item &in)
@@ -214,11 +322,16 @@ ostream &operator<<(ostream &out, const character &in)
 	{
 		out << in.stat[x] << " ";
 	}
+	for (int i = 0; i < 25; i++)
+	{
+		out << in.inv[i].id << " ";
+	}
 	return out;
 }
 
 istream &operator>>(istream &in, character &out)
 {
+	int temp = 0;
 	in >> out.name;
 	in >> out.lvl;
 	in >> out.maxHP;
@@ -227,11 +340,16 @@ istream &operator>>(istream &in, character &out)
 	{
 		in >> out.stat[x];
 	}
+	for (int i = 0; i < 25; i++)
+	{
+		in >> temp;
+		out.inv[i] = item(temp);
+	}
 	return in;
 }
 
 //Saving to file
-void saveout(character &in, string txt)
+void saveOut(character &in, string txt)
 {
 	ofstream out;
 	out.open(txt);
@@ -245,7 +363,7 @@ void saveout(character &in, string txt)
 }
 
 //Loading from file
-character savein(string txt)
+character loadIn(string txt)
 {
 	ifstream in;
 	in.open(txt);
