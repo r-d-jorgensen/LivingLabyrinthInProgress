@@ -10,15 +10,24 @@ void test()
 	//Currently being used to test the funcitonality of our code so far
 	cout << "Testing the save and load functions\n";
 	character test1("TEST");
+	test1.fillInv();
 	test1.showStats();
 	cout << "\n";
-	saveout(test1, "save1.txt");
-	character test2 = savein("save1.txt");
+	saveOut(test1, "save1.txt");
+	character test2 = loadIn("save1.txt");
 	test2.showStats();
 	cout << "If the two results appear the same then the process was successful\n";
+	cout << "Test weapon creation & copying? (y/n)\n";
+	cin >> test;
+	if (test == "y" || test == "Y")
+	{
+		test1.showInv();
+		cout << "\n\n";
+		test2.showInv();
+	}
 
 	cout << "\nPress enter to continue to encounter testing\n";
-	//cin.ignore();
+	cin.ignore();
 	getline(cin, test);
 
 	cout << "Testing the encounter function,\n";
