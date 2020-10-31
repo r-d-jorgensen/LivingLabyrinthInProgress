@@ -5,32 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-
 using namespace std;
 
-<<<<<<< HEAD
-class stats
-{
-public:
-	int lvl, maxHP, HP, stat[5];
-
-	stats();
-};
-
-class character : public stats
-{
-public:
-	//item inv[25];
-	//item eqpt[5];
-	string name;
-
-	character();
-	character(string n);
-	character(const character &in);
-	void showStats();
-};
-
-//New Class for Lab
 class item
 {
 public:
@@ -48,67 +24,42 @@ public:
 	//Creating item by name
 	item(string n);
 	//Creating Random item by type
-	item(int t);
+	//item(int t);
+	//Creating item by id
+	item(int id);
 	//Copy constructor
 	item(const item &in);
 	//For testing purposes
 	void showItem();
-=======
-class item
-{
-	public:
-		//ID lets us know which item it is
-		int id;
-		//Type shows which type of item it is ie. weapon, armor, potion, key item etc.
-		int type;
-		//Value shows how the item modifies stats, ATK for weapons, DEF for armor ect.
-		int value;
-		//Name of the item for generating by name 
-		string name;
-
-		//Default constructor of empty item
-		item();
-		//Creating item by name
-		item(string n);
-		//Creating Random item by type
-		//item(int t);
-		//Creating item by id
-		item(int id);
-		//Copy constructor
-		item(const item &in);
-		//For testing purposes
-		void showItem();
->>>>>>> 4b08ed4b4f9fde8ff8bf32418e47083555fee5d5
 };
 
 class stats
 {
-	public:
-		int lvl, maxHP, HP, stat[5];
+public:
+	int lvl, maxHP, HP, stat[5];
 
-		stats();
+	stats();
 };
 
 class character : public stats
 {
-	public:
-		item inv[25];
-		//item eqpt[5];
-		string name;
-		int gold;
+public:
+	item inv[25];
+	//item eqpt[5];
+	string name;
+	int gold;
 
-		character();
-		character(string n);
-		character(const character &in);
-		void showStats();
-		void showInv();
-		//Following Function is for testing only,
-		//Fills the characters inventory with items
-		void fillInv();
+	character();
+	character(string n);
+	character(const character &in);
+	void showStats();
+	void showInv();
+	//Following Function is for testing only,
+	//Fills the characters inventory with items
+	void fillInv();
 };
 
-//New Class for Lab 
-
+//New Class for Lab
 
 class monster : public stats
 {
@@ -195,7 +146,7 @@ void character::fillInv()
 	srand(time(0));
 	for (int i = 0; i < 25; i++)
 	{
-		inv[i] = item((rand()%3)+1);
+		inv[i] = item((rand() % 3) + 1);
 	}
 }
 //END OF STATS
@@ -282,7 +233,9 @@ item::item(int i)
 				in >> type;
 				in >> value;
 				return;
-			} else {
+			}
+			else
+			{
 				temp = token;
 			}
 		}
