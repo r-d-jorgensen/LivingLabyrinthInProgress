@@ -24,8 +24,8 @@ void Armoury();
 void generalStore();
 void buyItem();
 void questNPC();
-void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "");
-void dialogue(string str, int msgType = 0, string speaker = "Self");
+void dialogueLong(string str, string startStr, int paddingLength, string padding);
+void dialogue(string str, int msgType, string speaker);
 void camp();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
@@ -509,7 +509,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else if (roll < nothing + trapChance + majorChance)
     {
-        majorEncounter();
+        majorEncounter(1); //remove 1 arg after
         return;
     }
     else if (roll < nothing + trapChance + majorChance + monsterChance)
