@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 
-void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "");
-void dialogue(string str, int msgType = 0, string speaker = "Self");
+void dialogueLong(string str, string startStr, int paddingLength, string padding);
+void dialogue(string str, int msgType, string speaker);
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
