@@ -43,12 +43,11 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
 
 void dialogue(string str, int msgType = 0, string speaker = "Self")
 {
-    int textType = 2; //import from save file
+    int textType = 0; //import from save file
     switch (textType)
     {
     //bare format
     case 0:
-    {
         if (str.length() < 60)
         {
             cout << str;
@@ -58,7 +57,6 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             dialogueLong(str);
         }
         break;
-    }
     //simple format
     case 1:
         if (str.length() + speaker.length() + 2 < 60)
@@ -94,6 +92,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             break;
         default:
             cout << "Something is wrong with the fuction this was called from.\n";
+            break;
         }
         cout << "\t" + edge << endl
              << edge + internalSpace + internalSpace + internalSpace + edge;
@@ -107,7 +106,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
 
 void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
 {
-    int textType = 1; //import from save file
+    int textType = 0; //import from save file
     switch (textType)
     {
     //bare format
@@ -115,9 +114,6 @@ void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType 
         cout << menuName << endl;
         for (int i = 0; i < optionsNum; i++)
         {
-            if (optionsStr[i][1].length() > 78)
-            {
-            }
             cout << optionsStr[i][0] << ": " + optionsStr[i][1] << endl;
         }
         break;
@@ -127,9 +123,6 @@ void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType 
         cout << "================================================" << endl;
         for (int i = 0; i < optionsNum; i++)
         {
-            if (optionsStr[i][1].length() > 78)
-            {
-            }
             cout << "\t" << optionsStr[i][0] << ": " + optionsStr[i][1] << endl;
         }
         cout << "================================================" << endl;
