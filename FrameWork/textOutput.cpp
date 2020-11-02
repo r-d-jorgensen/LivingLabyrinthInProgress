@@ -48,7 +48,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
     {
     //bare format
     case 0:
-        if (str.length() < 60)
+        if (str.length() < 80)
         {
             cout << str;
         }
@@ -59,7 +59,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
         break;
     //simple format
     case 1:
-        if (str.length() + speaker.length() + 2 < 60)
+        if (str.length() + speaker.length() + 2 < 80)
         {
             cout << speaker << ": " << str;
         }
