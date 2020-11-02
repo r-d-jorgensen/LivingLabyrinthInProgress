@@ -24,7 +24,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     //print
     int lineLength = startStr.length();
     cout << startStr;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < size + 1; i++)
     {
         if (parsedStr[i] == "")
         {
