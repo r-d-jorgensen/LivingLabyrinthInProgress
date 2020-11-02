@@ -32,7 +32,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
         }
         lineLength += parsedStr[i].length() + 1;
         cout << parsedStr[i] + " ";
-        if (lineLength + parsedStr[i + 1].length() > 80)
+        if (lineLength + parsedStr[i + 1].length() > 79)
         {
             cout << endl
                  << padding;
