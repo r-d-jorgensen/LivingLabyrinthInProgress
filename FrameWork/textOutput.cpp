@@ -11,20 +11,20 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     //parse
     string delimiter = " ";
     size_t pos = 0;
-    int i = 0;
+    int size = 0;
     string parsedStr[100];
     while ((pos = str.find(delimiter)) != string::npos)
     {
-        parsedStr[i] = str.substr(0, pos);
+        parsedStr[size] = str.substr(0, pos);
         str.erase(0, pos + delimiter.length());
-        i++;
+        size++;
     }
-    parsedStr[i] = str;
+    parsedStr[size] = str;
 
     //print
     int lineLength = startStr.length();
     cout << startStr;
-    for (size_t i = 0; i < sizeof(parsedStr) / sizeof(parsedStr[0]); i++)
+    for (int i = 0; i < size; i++)
     {
         if (parsedStr[i] == "")
         {
