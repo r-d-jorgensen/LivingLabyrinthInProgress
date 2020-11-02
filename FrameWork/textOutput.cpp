@@ -132,7 +132,6 @@ void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType 
         //not implemented yet
         break;
     }
-    cout << endl;
     return;
 }
 /* testingSystems
