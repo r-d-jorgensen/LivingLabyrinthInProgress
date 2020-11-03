@@ -104,7 +104,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
     return;
 }
 
-void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
 {
     int textType = 0; //import from save file
     switch (textType)
@@ -132,7 +132,9 @@ void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType 
         //not implemented yet
         break;
     }
-    return;
+    char choice;
+    cin >> choice;
+    return choice;
 }
 /* testingSystems
 int main()

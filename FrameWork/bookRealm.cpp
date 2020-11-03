@@ -10,22 +10,18 @@ void questNPC();
 
 int bookRealm()
 {
-    char choice;
-    cout << endl
-         << "Menu" << endl
-         << endl;
-    cout << "1: Explore" << endl;
-    cout << "2: Go to the Armoury" << endl;
-    cout << "3: Go to the General Store" << endl;
-    cout << "4: Talk to Quest NPC" << endl;
-    cout << "5: Go Back to the Library" << endl;
-    cout << "6: Exit the Game" << endl;
-    cin >> choice;
+    int menuOptions = 6;
+    string menuStr[][2] = {
+        {"1", "Explore"},
+        {"2", "Go to the Armoury"},
+        {"3", "Go to the General Store"},
+        {"4", "Talk to Quest NPC"},
+        {"5", "Go Back to the Library"},
+        {"6", "Exit the Game"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Book Realm Menu", menuStr, menuOptions, 0))
         {
         case '1':
             explore();
@@ -53,21 +49,17 @@ int bookRealm()
 //added a armoury shop for users to purchess from, items still not hooked in
 void Armoury()
 {
-    char choice;
-    cout << endl
-         << "Welcome to the Armory" << endl
-         << endl;
-    cout << "1: item 1" << endl;
-    cout << "2: item 2" << endl;
-    cout << "3: item 3" << endl;
-    cout << "4: item 4" << endl;
-    cout << "5: Exit the Armory" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "item 1"},
+        {"2", "item 2"},
+        {"3", "item 3"},
+        {"4", "item 4"},
+        {"5", "item 5"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the Armory", menuStr, menuOptions, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -94,21 +86,17 @@ void Armoury()
 //added a general store for users to purchess from, items still not hooked in
 void generalStore()
 {
-    char choice;
-    cout << endl
-         << "Menu" << endl
-         << endl;
-    cout << "1: item 1" << endl;
-    cout << "2: item 2" << endl;
-    cout << "3: item 3" << endl;
-    cout << "4: item 4" << endl;
-    cout << "5: Exit General Store" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "item 1"},
+        {"2", "item 2"},
+        {"3", "item 3"},
+        {"4", "item 4"},
+        {"5", "Exit General Store"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the General Store", menuStr, menuOptions, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -140,19 +128,15 @@ void buyItem()
 
 void questNPC()
 {
-    char choice;
-    cout << endl
-         << "Intro words" << endl
-         << endl;
-    cout << "1: quest line" << endl;
-    cout << "2: Ask about background" << endl;
-    cout << "3: Stop talking to quest NPC" << endl;
-    cin >> choice;
+    int menuOptions = 3;
+    string menuStr[][2] = {
+        {"1", "quest line"},
+        {"2", "Ask about background"},
+        {"3", "Stop talking to quest NPC"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Intro words", menuStr, menuOptions, 0))
         {
         case '1':
             //quest line implement

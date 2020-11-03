@@ -36,22 +36,17 @@ void mainGameLoop()
 
 int libraryChoices()
 {
-    char choice;
     int menuOptions = 5;
-    string menuStr[][2] =
-        {
-            {"1", "Talk to book NPC"},
-            {"2", "Go to perk store"},
-            {"3", "Open char sheet"},
-            {"4", "Settings Menu"},
-            {"5", "Exit the game"}};
-    menu("Living Libary Menu", menuStr, menuOptions, 0);
-    cin >> choice;
+    string menuStr[][2] = {
+        {"1", "Talk to book NPC"},
+        {"2", "Go to perk store"},
+        {"3", "Open char sheet"},
+        {"4", "Settings Menu"},
+        {"5", "Exit the game"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Living Libary Menu", menuStr, menuOptions, 0))
         {
         case '1':
             return (bookRealmNPC()); //talk to book Realm NPC
@@ -75,20 +70,16 @@ int libraryChoices()
 
 int bookRealmNPC()
 {
-    char choice;
-    cout << endl
-         << "NPC Name" << endl
-         << endl;
-    cout << "1: Go to bookRealm" << endl;
-    cout << "2: Ask about the book" << endl;
-    cout << "3: Ask about the problems" << endl;
-    cout << "4: Walk away" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Go to bookRealm"},
+        {"2", "Ask about the book"},
+        {"3", "Ask about the problems"},
+        {"4", "Walk away"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("NPC Name", menuStr, menuOptions, 0))
         {
         case '1':
             return 2; //sends player to realm through main
@@ -109,21 +100,17 @@ int bookRealmNPC()
 
 void perkStore()
 {
-    char choice;
-    cout << endl
-         << "Welcome to the Perk Store" << endl
-         << endl;
-    cout << "1: Look at Combat Perks" << endl;
-    cout << "2: Look at Explore Perks" << endl;
-    cout << "3: Look at Shop Perks" << endl;
-    cout << "4: Look at Secret Perks" << endl;
-    cout << "5: Exit the Store" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "Look at Combat Perks"},
+        {"2", "Look at Explore Perks"},
+        {"3", "Look at Shop Perks"},
+        {"4", "Look at Secret Perks"},
+        {"5", "Exit the Store"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the Perk Store", menuStr, menuOptions, 0))
         {
         case '1':
             //combat perks
@@ -147,21 +134,15 @@ void perkStore()
 
 void settingsMenu()
 {
-    char choice;
-    cout << endl
-         << "Settings Menu" << endl
-         << endl;
-    cout << "1: Swap Menu Text Format" << endl;
-    cout << "2: Change the difficulty" << endl;
-    cout << "3: " << endl; //tbd
-    cout << "4: " << endl; //tbd
-    cout << "5: Exit the Settings" << endl;
-    cin >> choice;
+    int menuOptions = 3;
+    string menuStr[][2] = {
+        {"1", "Swap Menu Text Format"},
+        {"2", "Change the difficulty"},
+        {"3", "Exit the Settings"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Settings Menu", menuStr, menuOptions, 0))
         {
         case '1':
             textFormat();
@@ -184,20 +165,16 @@ void settingsMenu()
 
 void textFormat()
 {
-    char choice;
-    cout << endl
-         << "Text Types" << endl
-         << endl;
-    cout << "1: Default Mode" << endl;
-    cout << "2: Brief Mode" << endl;
-    cout << "3: Text Reader Mode" << endl;
-    cout << "4: Return to Settings menu" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Default Mode"},
+        {"2", "Brief Mode"},
+        {"3", "Text Reader Mode"},
+        {"4", "Return to Settings menu"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Text Types", menuStr, menuOptions, 0))
         {
         case '1':
             //bare mode
@@ -218,20 +195,16 @@ void textFormat()
 
 void difficultySetting()
 {
-    char choice;
-    cout << endl
-         << "Which Difficulty would you like?" << endl
-         << endl;
-    cout << "1: Easy" << endl;
-    cout << "2: Medium" << endl;
-    cout << "3: Hard" << endl;
-    cout << "4: Return to Settings menu" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Easy"},
+        {"2", "Medium"},
+        {"3", "Hard"},
+        {"4", "Return to Settings menu"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Which Difficulty would you like?", menuStr, menuOptions, 0))
         {
         case '1':
             //change difficulty to Easy
