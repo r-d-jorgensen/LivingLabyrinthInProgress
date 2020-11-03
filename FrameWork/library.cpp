@@ -38,14 +38,14 @@ int libraryChoices()
 {
     char choice;
     int menuOptions = 5;
-    string menu[][2] =
+    string menuStr[][2] =
         {
             {"1", "Talk to book NPC"},
             {"2", "Go to perk store"},
             {"3", "Open char sheet"},
             {"4", "Settings Menu"},
             {"5", "Exit the game"}};
-    menu("Living Libary Menu", menu, menuOptions, 0);
+    menu("Living Libary Menu", menuStr, menuOptions, 0);
     cin >> choice;
 
     bool choiceNotMade = true;
