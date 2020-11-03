@@ -1,5 +1,6 @@
 #pragma once
 #include "bookRealm.cpp"
+#include "textOutput.cpp"
 using namespace std;
 
 void mainGameLoop();
@@ -36,14 +37,15 @@ void mainGameLoop()
 int libraryChoices()
 {
     char choice;
-    cout << endl
-         << "Living Libary Menu" << endl
-         << endl;
-    cout << "1: Talk to book NPC" << endl;
-    cout << "2: Go to perk store" << endl;
-    cout << "3: Open char sheet" << endl;
-    cout << "4: Settings Menu" << endl;
-    cout << "5: Exit the game" << endl;
+    int menuOptions = 5;
+    string menu[][2] =
+        {
+            {"1", "Talk to book NPC"},
+            {"2", "Go to perk store"},
+            {"3", "Open char sheet"},
+            {"4", "Settings Menu"},
+            {"5", "Exit the game"}};
+    menu("Living Libary Menu", menu, menuOptions, 0);
     cin >> choice;
 
     bool choiceNotMade = true;
@@ -198,13 +200,13 @@ void textFormat()
         switch (choice)
         {
         case '1':
-            //normal mode
+            //bare mode
             return;
         case '2':
-            //brief mode
+            //simple mode
             return;
         case '3':
-            //text reader mode
+            //stylized mode
             return;
         case '4':
             return;

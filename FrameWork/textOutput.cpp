@@ -104,7 +104,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
     return;
 }
 
-void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
+void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
 {
     int textType = 0; //import from save file
     switch (textType)
@@ -142,7 +142,7 @@ int main()
     dialogue("It cannot be seen, cannot be felt, cannot be heard, and cannot be smelt. It lies behind stars and under hills, And empty holes it fills. It comes first and follows after, Ends life, and kills laughter. What is it?", 2, "NPC");
     
     int menuOptions = 5;
-    string menu[menuOptions][2] =
+    string menu[][2] =
     {
         {"1", "Talk to book NPC"},
         {"2", "Go to perk store"},
@@ -150,7 +150,7 @@ int main()
         {"4", "Settings Menu"},
         {"5", "Exit the game"}
     };
-    Menu("Living Libary Menu", menu, menuOptions);
+    menu("Living Libary Menu", menu, menuOptions);
 
     //size checker
     for (int i = 0; i < 8; i++)
