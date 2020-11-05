@@ -15,7 +15,7 @@ void trapEncounter()
 		trapFile.open("traps.txt");
 		string randomTrap;
 		int randNum = 0;
-	randNum = ((rand() + time(0)) % 5);
+	randNum = ((rand() + time(0)) % 5); // currently 5 different traps
 		randNum = 3*randNum;// calculation to move to each different trap
 	for (int i=0;i<randNum+1;i++) 
 		getline(trapFile, randomTrap);
@@ -44,9 +44,10 @@ void trapEncounter()
 	trapFile.close();
 		// send hp lost to character hp
 } // end trap function
-
+/*
 int main() 
 {
 	trapEncounter();
 	return 0;
 }
+*/
