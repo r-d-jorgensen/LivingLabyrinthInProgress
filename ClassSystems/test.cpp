@@ -9,7 +9,7 @@ int main()
 	string test;
 	//Currently being used to test the funcitonality of our code so far
 	cout << "Testing the save and load functions\n";
-	character test1("TEST");
+	character test1("TEST", 0);
 	test1.fillInv();
 	test1.showStats();
 	test1.showInv();

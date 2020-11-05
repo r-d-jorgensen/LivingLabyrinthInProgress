@@ -9,15 +9,15 @@ using namespace std;
 //Item <<, used in Character <<
 /* Removed because unnecessary
    Character << only needs item id
-ostream &operator<<(ostream &out, const item &in)
-{
-	out << in.name << " "
-		<< in.id << " "
-		<< in.type << " "
-		<< in.value;
-	return out;
-}
-*/
+   ostream &operator<<(ostream &out, const item &in)
+   {
+   out << in.name << " "
+   << in.id << " "
+   << in.type << " "
+   << in.value;
+   return out;
+   }
+ */
 
 //Character <<
 ostream &operator<<(ostream &out, const character &in)
@@ -25,16 +25,25 @@ ostream &operator<<(ostream &out, const character &in)
 	out << in.name << "\n"
 		<< in.lvl << "\n"
 		<< in.maxHP << "\n"
-		<< in.HP << "\n";
+		<< in.HP << "\n"
+		<< in.gold << "\n";
 	for (int x = 0; x < 5; x++)
 	{
 		out << in.stat[x] << " ";
 	}
 	out << "\n";
+	/*
+	   for (int i = 0; i < 3; x++)
+	   {
+	   out << in.eqpt[x].id << " ";
+	   }
+	   out << "\n";
+	 */
 	for (int i = 0; i < 25; i++)
 	{
 		out << in.inv[i].id << " ";
 	}
+	out << "\n" << in.textType;
 	return out;
 }
 
@@ -47,14 +56,36 @@ istream &operator>>(istream &in, character &out)
 	in >> out.lvl;
 	in >> out.maxHP;
 	in >> out.HP;
+	in >> out.gold;
 	for (int x = 0; x < 5; x++)
 	{
 		in >> out.stat[x];
 	}
+	/*
+	   for (int i = 0; i < 3; i==)
+	   {
+	   in >> temp;
+	   out.eqpt[i] = item(temp);
+	   }
+	 */
 	for (int i = 0; i < 25; i++)
 	{
 		in >> temp;
 		out.inv[i] = item(temp);
+	}
+	in >> out.textType;
+	return in;
+}
+
+istream &operator>>(istream &in, monster &out)
+{
+	in >> out.name;
+	in >> out.lvl;
+	in >> out.maxHP;
+	in >> out.HP;
+	for (int x = 0; x < 5; x++)
+	{
+		in >> out.stat[x];
 	}
 	return in;
 }
@@ -81,8 +112,19 @@ character loadIn(string txt)
 	{
 		in >> temp;
 		in.close();
-	}
-	else
-		cout << "Unable to open file";
+	} else cout << "Unable to open file";
+	return temp;
+}
+
+monster loadMonster()
+{
+	ifstream in;
+	in.open("./Monsters/monsters.txt");
+	monster temp = monster();
+	if (in.is_open())
+	{
+		in >> temp;
+		in.close();
+	} else cout << "Unable to open file";
 	return temp;
 }

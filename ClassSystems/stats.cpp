@@ -10,32 +10,38 @@ using namespace std;
 
 class stats
 {
-public:
-	int lvl, maxHP, HP, stat[5];
+	public:
+		int lvl, maxHP, HP, stat[5];
 
-	stats();
+		stats();
 };
 
 class character : public stats
 {
-public:
-	item inv[25];
-	//item eqpt[5];
-	string name;
-	int gold;
+	public:
+		item inv[25];
+		//item eqpt[5];
+		string name;
+		int gold;
+		int textType;
 
-	character();
-	character(string n);
-	character(const character &in);
-	void showStats();
-	void showInv();
-	//Following Function is for testing only,
-	//Fills the characters inventory with items
-	void fillInv();
+		character();
+		character(string n, int i);
+		character(const character &in);
+		void showStats();
+		void showInv();
+		//Following Function is for testing only,
+		//Fills the characters inventory with items
+		void fillInv();
 };
 
 class monster : public stats
 {
+	public:
+		string name;
+
+		monster(int lvl);
+		monster(string n);
 };
 
 //******************************************************************************
@@ -54,9 +60,10 @@ stats::stats()
 }
 
 //Creating a new Char.
-character::character(string n) : stats::stats()
+character::character(string n, int i) : stats::stats()
 {
 	name = n;
+	textType = i;
 	gold = 0;
 }
 
@@ -64,6 +71,7 @@ character::character(string n) : stats::stats()
 character::character(const character &in)
 {
 	name = in.name;
+	textType = in.textType;
 	gold = in.gold;
 	lvl = in.lvl;
 	maxHP = in.maxHP;
@@ -81,7 +89,7 @@ character::character(const character &in)
 //Default incase player doesn't input name.
 character::character()
 {
-	character("Librarian");
+	character("Librarian", 0);
 }
 
 void character::showStats()
@@ -112,6 +120,37 @@ void character::fillInv()
 	for (int i = 0; i < 25; i++)
 	{
 		inv[i] = item((rand() % 3) + 1);
+	}
+}
+
+monster::monster(int l)
+{
+	string token;
+	int lines;
+	srand(time(0));
+
+	ifstream in("./Monsters/monsters.txt");
+	if (in.is_open())
+	{
+		while (!in.eof())
+		{
+			getline(in, token);
+			lines++;
+		}
+		in.seekg(0);
+		in.clear();
+
+		int i = (rand() % lines/2) * 2;
+		while (i > 0) { getline(in, token); i--; }
+		//
+		in >> name;
+		lvl = l;
+		in >> maxHP;
+		in >> HP;
+		for (in x = 0; x < 5; x++)
+		{
+			in >> stat[x];
+		}	
 	}
 }
 //END OF STATS
