@@ -1,0 +1,15 @@
+Oh, No! There are a bunch of boulders rolling toward you!
+Whew, you were able to avoid them with your agility.
+You get knocked overand rolled over by one.
+Whoa! You are falling into a hole!
+Way to go, you were able to catch yourself on the edge before falling in.
+Damn. You were unable to avoid falling in. you get  pierced by a spike.
+There is a spear flying at you!
+You nimbly get out of the way. Most impressive.
+You are unable to get out of the way. It pierces you.
+Yikes! You fall into a pit of snakes!
+Somehow you jumped out of the pit before any of them could bite you.
+aahhgh! You are bitten before being able to jump out.
+Oh crap! There is a griffin coming at you with its claws ready to grab you!
+Good job, you were able to evade the creature. The griffin flies away
+Ouch! The griffin grabs you and drops you off about 100 feet away. 
