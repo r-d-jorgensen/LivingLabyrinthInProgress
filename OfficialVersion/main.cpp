@@ -32,19 +32,11 @@ void test()
 
 	cout << "Testing the encounter function,\n";
 	//Following code taken from the main of Scott's encounter function
-	int level;
-	int maxEncounters;
-	int encounterCount = 1;
-	cout << "What level do you want to play? \n";
-	cin >> level;
-	/* calculate max number  of encounters, 
-	 * majorEncounters = level +2, letters in anagram) */
-	maxEncounters = (level + 2) * 10;
-	while (encounterCount <= maxEncounters)
-	{
-		/* passes level and current count, returns new count which is either count+1 
-		 * or increased to next multiple of 10 +1, if majorEncounter randomly picked*/
-		encounterCount = encounterType(level, encounterCount);
+	gamblingEncounter();
+luckyEncounter();
+trapEncounter.cpp
+	monsterEncounter(3);
+majorEncounter();
 	}
 }
 
