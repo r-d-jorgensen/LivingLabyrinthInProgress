@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "stats.cpp"
 using namespace std;
 
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
@@ -142,6 +143,7 @@ void statsDisplay()
 {
     int textType = 0;
     string statsStrings[] = {"STR: ", "INT: ", "DEX: ", "AGL: ", "LCK: "};
+    character test1(); //to be removed latter
     switch (textType)
     {
     case 0:
