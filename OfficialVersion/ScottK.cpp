@@ -1,6 +1,5 @@
-//#pragma once
+#pragma once
 #include<iostream>
-#include"DavidJ.cpp"
 #include<string>
 #include<fstream>
 using namespace std;
@@ -13,6 +12,9 @@ void trapEncounter();
 void gamblingEncounter();
 void printGreeting();
 int doorGame();
+void majorEncounter();
+#include"DavidJ.cpp"
+
 /* function takes in a string and converts all letters to lower case so
  * when comparing player's guess to the answer, the case doesn't matter */ 
 string strLower(string n) {

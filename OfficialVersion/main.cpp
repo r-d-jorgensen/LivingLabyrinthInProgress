@@ -1,6 +1,6 @@
-#include "DavidJ.cpp"
 #include "JasonJ.cpp"
 #include "ScottK.cpp"
+#include "DavidJ.cpp"
 
 using namespace std;
 
@@ -32,7 +32,6 @@ void test()
 			saveOut(test1, "save1.txt");
 			character test2 = loadIn("save1.txt");
 			test2.showStats();
-			character test1("TEST");
 			cout << "If the two results appear the same then the process was successful\n";
 			cout << "Test weapon creation & copying? (y/n)\n";
 			cin >> test;
