@@ -8,7 +8,6 @@
 #pragma once
 #include <iostream>
 #include "JasonJ.cpp"
-#include "ScottK.cpp"
 using namespace std;
 
 //Declarations
@@ -30,6 +29,7 @@ void camp();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void reward();
+#include "ScottK.cpp"
 //End of Declarations
 
 void mainGameLoop()
