@@ -34,11 +34,10 @@ void test()
 	//Following code taken from the main of Scott's encounter function
 	gamblingEncounter();
 luckyEncounter();
-trapEncounter.cpp
+trapEncounter();
 	monsterEncounter(3);
 majorEncounter();
 	}
-}
 
 int main()
 {
