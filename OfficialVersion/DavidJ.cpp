@@ -509,7 +509,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else if (roll < nothing + trapChance + majorChance)
     {
-        majorEncounter(1); //remove 1 arg after
+        majorEncounter();
         return;
     }
     else if (roll < nothing + trapChance + majorChance + monsterChance)
