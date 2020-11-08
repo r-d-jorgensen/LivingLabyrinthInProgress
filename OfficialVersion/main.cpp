@@ -6,6 +6,7 @@ using namespace std;
 
 void test()
 {
+	//Jasons Tests
 	string test;
 	//Currently being used to test the funcitonality of our code so far
 	cout << "Testing the save and load functions\n";
@@ -16,6 +17,30 @@ void test()
 	saveOut(test1, "save1.txt");
 	character test2 = loadIn("save1.txt");
 	test2.showStats();
+
+	//Davids Tests
+	dialogue("Hello world");
+	dialogue("Rumble", 1, "Enviroment");
+	dialogue("It cannot be seen, cannot be felt, cannot be heard, and cannot be smelt. It lies behind stars and under hills, And empty holes it fills. It comes first and follows after, Ends life, and kills laughter. What is it?", 2, "NPC");
+	/*
+	int menuOptions = 5;
+	string menuStr[][2] =
+		{
+			{"1", "Talk to book NPC"},
+			{"2", "Go to perk store"},
+			{"3", "Open char sheet"},
+			{"4", "Settings Menu"},
+			{"5", "Exit the game"}};
+	menu("Living Libary Menu", menuStr, menuOptions);
+
+	statsDisplay();
+	*/
+	//size checker
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < 10; j++)
+			cout << j;
+
+	//Scotts Tests
 	cout << "If the two results appear the same then the process was successful\n";
 	cout << "Test weapon creation & copying? (y/n)\n";
 	cin >> test;
@@ -33,11 +58,11 @@ void test()
 	cout << "Testing the encounter function,\n";
 	//Following code taken from the main of Scott's encounter function
 	gamblingEncounter();
-luckyEncounter();
-trapEncounter();
+	luckyEncounter();
+	trapEncounter();
 	monsterEncounter(3);
-majorEncounter();
-	}
+	majorEncounter();
+}
 
 int main()
 {

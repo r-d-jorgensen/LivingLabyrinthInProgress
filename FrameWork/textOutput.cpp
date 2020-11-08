@@ -176,31 +176,3 @@ void statsDisplay()
     }
     return;
 }
-/* testingSystems
-int main()
-{
-    dialogue("Hello world");
-    dialogue("Rumble" , 1, "Enviroment");
-    dialogue("It cannot be seen, cannot be felt, cannot be heard, and cannot be smelt. It lies behind stars and under hills, And empty holes it fills. It comes first and follows after, Ends life, and kills laughter. What is it?", 2, "NPC");
-    
-    int menuOptions = 5;
-    string menuStr[][2] =
-    {
-        {"1", "Talk to book NPC"},
-        {"2", "Go to perk store"},
-        {"3", "Open char sheet"},
-        {"4", "Settings Menu"},
-        {"5", "Exit the game"}
-    };
-    menu("Living Libary Menu", menuStr, menuOptions);
-
-    statsDisplay();
-
-    //size checker
-    for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 10; j++)
-            cout << j;
-
-    return 0;
-}
-*/
