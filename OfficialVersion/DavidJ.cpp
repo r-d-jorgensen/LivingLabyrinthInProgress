@@ -564,7 +564,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
 
 void dialogue(string str, int msgType = 0, string speaker = "Self")
 {
-    int textType = 2; //import from save file
+    int textType = 0; //import from save file
     switch (textType)
     {
     //bare format
