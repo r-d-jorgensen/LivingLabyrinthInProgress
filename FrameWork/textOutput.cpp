@@ -5,6 +5,7 @@ using namespace std;
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
 void dialogue(string str, int msgType, string speaker);
 void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+void statsDisplay();
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
@@ -136,6 +137,43 @@ int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType =
     cin >> choice;
     return choice;
 }
+
+void statsDisplay()
+{
+    int textType = 0;
+    string statsStrings[] = {"STR: ", "INT: ", "DEX: ", "AGL: ", "LCK: "};
+    switch (textType)
+    {
+    case 0:
+        cout << "Name: " << character.name << endl;
+        cout << "Level: " << character.lvl << endl;
+        cout << "Health: " << character.hp << " / " << character.maxHp << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            cout << statsStrings[i] << character.stats[i];
+        }
+        break;
+    case 1:
+        cout << "Name: " << character.name << "\t";
+        cout << "Level: " << character.lvl << "\t";
+        cout << "Health: " << character.hp << " / " << character.maxHp << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "\t" << statsStrings[i] << character.stats[i];
+            if (i + 1 % 2 == 0)
+            {
+                cout << endl;
+            }
+        }
+        break;
+    //stylized is yet to be implemented
+    case 2:
+        break;
+    default:
+        cout << "sonthing is wrong with the save file";
+    }
+    return;
+}
 /* testingSystems
 int main()
 {
@@ -153,6 +191,8 @@ int main()
         {"5", "Exit the game"}
     };
     menu("Living Libary Menu", menuStr, menuOptions);
+
+    statsDisplay();
 
     //size checker
     for (int i = 0; i < 8; i++)
