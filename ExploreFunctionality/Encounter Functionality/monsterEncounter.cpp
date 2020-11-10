@@ -1,11 +1,40 @@
-/* monster function selects monster */
+/* function receives an int which indicates level of the monster if received 
+ * from majorEncounter. A 100  indicates that monsterEncounter was called 
+ * from Explore. function adjusts monster using randomization and cahar's lvl */ 
 #include<iostream>
 using namespace std;
 void monsterEncounter(int level);
 void monsterEncounter(int level)
-{ cout << "there is a monster at level " << level << endl;
-    /* I think that maybe we use this function to find a monster from the  monster.txt file,
-     * create the armor class, hp and everything and then pass those attributes on  to
-     * the monstercombat function with all of the parameters passes to it. not sure */
-// call to monsterCombat function?
+{ 
+	int monsterLevel = 0;
+	if (level == 100) {
+		int randNum = ((rand() + time(0)) % 100);
+		if (randNum < 100)
+			monsterLevel = 1;
+		if (randNum <94)
+			monsterLevel = 0;
+		if (randNum < 87)
+			monsterLevel = -1;
+		if (randNum < 75)
+			monsterLevel = -2;
+		if (randNum < 50)
+			monsterLevel = -3;
+	} else {
+		int randNum = ((rand() + time(0)) % 3);
+		monsterLevel = level + randNum -1;
+	}
+	int charLevel = 1; // call char.lvl();
+	monsterLevel += charLevel;
+//	 monster = new monster(monsterLevel);
+	//monsterCombat();
+	cout << monsterLevel << endl;
 }
+/*
+int main() {
+	int i;
+	for (i = 0; i<10;i++)
+		monsterEncounter(2);
+	for (i = 0; i<10;i++)
+		monsterEncounter(100);
+}
+*/
