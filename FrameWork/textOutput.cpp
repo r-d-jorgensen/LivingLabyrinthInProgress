@@ -147,18 +147,18 @@ void statsDisplay()
     switch (textType)
     {
     case 0:
-        cout << "Name: " << character.name << endl;
-        cout << "Level: " << character.lvl << endl;
-        cout << "Health: " << character.hp << " / " << character.maxHp << endl;
+        cout << "Name: " << character.name << endl
+             << "Level: " << character.lvl << endl
+             << "Health: " << character.hp << " / " << character.maxHp << endl;
         for (int i = 0; i < 5; i++)
         {
             cout << statsStrings[i] << character.stats[i];
         }
         break;
     case 1:
-        cout << "Name: " << character.name << "\t";
-        cout << "Level: " << character.lvl << "\t";
-        cout << "Health: " << character.hp << " / " << character.maxHp << endl;
+        cout << "Name: " << character.name << "\t"
+             << "Level: " << character.lvl << "\t"
+             << "Health: " << character.hp << " / " << character.maxHp << endl;
         for (int i = 0; i < 5; i++)
         {
             cout << "\t" << statsStrings[i] << character.stats[i];
@@ -172,7 +172,111 @@ void statsDisplay()
     case 2:
         break;
     default:
-        cout << "sonthing is wrong with the save file";
+        cout << "Something is wrong with the save file textType.\n";
+    }
+    return;
+}
+
+string playerCombatString(int actionPlayer)
+{
+    int weaponType = 0; //pull from charClass
+    switch (actionPlayer)
+    {
+    //Light Attack
+    case 0:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You jab out shoving";
+        //DEX
+        case 1:
+            return "You go in for a clean cut";
+        //INT
+        case 2:
+            return "You target for a precise zap";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Medium Attack
+    case 1:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You take a good swing";
+        //DEX
+        case 1:
+            return "You go in for a stab";
+        //INT
+        case 2:
+            return "You fire off a bolt";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Heavy Attack
+    case 2:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You fully swing with for a heavy blow";
+        //DEX
+        case 1:
+            return "You get close and stab in a vitals";
+        //INT
+        case 2:
+            return "You charge and let loose a large blast";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Block
+    case 3:
+        return "You try and block";
+    //Dodge
+    case 4:
+        return "You try and dodge";
+    default:
+        return "Something is wrong with the combat selection where this was called from";
+    }
+    return "Should not be reachable";
+}
+
+void combatText(int dmgPlayer, int actionPlayer, bool critPlayer, string nameMonster,
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster)
+{
+    string nameChar = "Libarian"; //pull from charClass
+    int hpPlayer = 50;            //pull from charClass
+
+    string playerActionStr = playerCombatString(actionPlayer);
+    string attackStrMonster = "";
+
+    int textType = 1; //import from save file
+    switch (textType)
+    {
+    case 0:
+        cout << nameChar << " HP: " << hpPlayer << endl
+             << playerActionStr << endl
+             << "You deal " << dmgPlayer << " damgage" << endl;
+        cout << nameMonster << " HP: " << hpPlayer << endl
+             << playerActionStr << endl
+             << "The creature deals " << dmgMonster << " damgage" << endl;
+        break;
+    //bare
+    case 1:
+    {
+        string middlePadding = "\t\t\t";
+        cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpPlayer << endl
+             << playerActionStr << middlePadding << attackStrMonster << endl
+             << "You deal " << dmgPlayer << " damgage" << middlePadding << "The creature deals " << dmgMonster << " damgage" << endl;
+        break;
+    }
+    //simple
+    case 2:
+        //stylized verion
+        break;
+    default:
+        cout << "Something is wrong with the save file textType.\n";
     }
     return;
 }
