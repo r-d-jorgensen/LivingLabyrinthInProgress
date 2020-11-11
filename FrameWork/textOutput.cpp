@@ -7,6 +7,9 @@ void dialogueLong(string str, string startStr, int paddingLength, string padding
 void dialogue(string str, int msgType, string speaker);
 void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
 void statsDisplay();
+string playerCombatString(int actionPlayer);
+void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
@@ -220,7 +223,7 @@ string playerCombatString(int actionPlayer)
         {
         //STR
         case 0:
-            return "You fully swing with for a heavy blow";
+            return "You fully swing for a heavy blow";
         //DEX
         case 1:
             return "You get close and stab in a vitals";
@@ -242,7 +245,7 @@ string playerCombatString(int actionPlayer)
     return "Should not be reachable";
 }
 
-void combatText(int dmgPlayer, int actionPlayer, bool critPlayer, string nameMonster,
+void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster)
 {
     string nameChar = "Libarian"; //pull from charClass
@@ -256,19 +259,37 @@ void combatText(int dmgPlayer, int actionPlayer, bool critPlayer, string nameMon
     {
     case 0:
         cout << nameChar << " HP: " << hpPlayer << endl
-             << playerActionStr << endl
-             << "You deal " << dmgPlayer << " damgage" << endl;
+             << playerActionStr << endl;
+        if (critPlayer)
+        {
+            cout << "YOU HAVE CRITICLY HIT" << endl;
+        }
+        cout << "You deal " << dmgPlayer << " damgage" << endl;
         cout << nameMonster << " HP: " << hpPlayer << endl
-             << playerActionStr << endl
-             << "The creature deals " << dmgMonster << " damgage" << endl;
+             << playerActionStr << endl;
+        if (critMonster)
+        {
+            cout << "YOU HAVE BEEN CRITICLY HIT" << endl;
+        }
+        cout << "The creature deals " << dmgMonster << " damgage" << endl;
         break;
     //bare
     case 1:
     {
         string middlePadding = "\t\t\t";
         cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpPlayer << endl
-             << playerActionStr << middlePadding << attackStrMonster << endl
-             << "You deal " << dmgPlayer << " damgage" << middlePadding << "The creature deals " << dmgMonster << " damgage" << endl;
+             << playerActionStr << "\t" << attackStrMonster << endl;
+        if (critPlayer)
+        {
+            cout << "\t\t"
+                 << "YOU HAVE CRITICLY HIT THE CREATURE" << endl;
+        }
+        else if (critMonster)
+        {
+            cout << "\t\t"
+                 << "YOU HAVE BEEN CRITICLY HIT BY THE CREATURE" << endl;
+        }
+        cout << "You deal " << dmgPlayer << " damgage" << middlePadding << "The creature deals " << dmgMonster << " damgage" << endl;
         break;
     }
     //simple
