@@ -245,14 +245,78 @@ string playerCombatString(int actionPlayer)
     return "Should not be reachable";
 }
 
+string mosterCombatString(int monsterAction, int weaponType)
+{
+    switch (monsterAction)
+    {
+    //Light Attack
+    case 0:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature shoves at you";
+        //DEX
+        case 1:
+            return "Creature goes in for a clean cut";
+        //INT
+        case 2:
+            return "Creature targets for a precise zap";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Medium Attack
+    case 1:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature takes a good swing";
+        //DEX
+        case 1:
+            return "Creature goes in for a stab";
+        //INT
+        case 2:
+            return "Creature fires off a bolt";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Heavy Attack
+    case 2:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature fully swings for a heavy blow";
+        //DEX
+        case 1:
+            return "Creature gets close and stabs at your vitals";
+        //INT
+        case 2:
+            return "Creature charges and let loose a large blast";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Block
+    case 3:
+        return "Creature trys to block";
+    //Dodge
+    case 4:
+        return "Creature trys to dodge";
+    default:
+        return "Something is wrong with the combat selection where this was called from";
+    }
+    return "Should not be reachable";
+}
+
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
-                int hpMonster, int dmgMonster, int actionMonster, bool critMonster)
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster, int monsterWeapon)
 {
     string nameChar = "Libarian"; //pull from charClass
     int hpPlayer = 50;            //pull from charClass
 
     string playerActionStr = playerCombatString(actionPlayer);
-    string attackStrMonster = "";
+    string attackStrMonster = mosterCombatString(actionMonster, monsterWeapon);
 
     int textType = 1; //import from save file
     switch (textType)
@@ -277,12 +341,13 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     case 1:
     {
         string middlePadding = "\t\t\t";
-        cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpPlayer << endl
+        cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
         {
-            cout << "\t\t"
-                 << "YOU HAVE CRITICLY HIT THE CREATURE" << endl;
+            cout << "\n\t\t"
+                 << "YOU HAVE CRITICLY HIT THE CREATURE\n"
+                 << endl;
         }
         else if (critMonster)
         {

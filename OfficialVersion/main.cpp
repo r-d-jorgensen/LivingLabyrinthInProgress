@@ -61,6 +61,7 @@ void test()
 			menu("Living Libary Menu", menuStr, menuOptions);
 
 			statsDisplay();
+			combatText(2, 10, true, "goblin", 20, 2, 1, 1, false);
 			*/
 			//size checker
 			for (int i = 0; i < 8; i++)
