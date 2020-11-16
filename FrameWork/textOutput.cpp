@@ -310,7 +310,8 @@ string mosterCombatString(int monsterAction, int weaponType)
 }
 
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
-                int hpMonster, int dmgMonster, int actionMonster, bool critMonster, int monsterWeapon)
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster,
+                int monsterWeapon, bool playerGoesFirst)
 {
     string nameChar = "Libarian"; //pull from charClass
     int hpPlayer = 50;            //pull from charClass
@@ -322,6 +323,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     switch (textType)
     {
     case 0:
+        cout << playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat";
         cout << nameChar << " HP: " << hpPlayer << endl
              << playerActionStr << endl;
         if (critPlayer)
@@ -341,6 +343,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     case 1:
     {
         string middlePadding = "\t\t\t";
+        cout << playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat";
         cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
