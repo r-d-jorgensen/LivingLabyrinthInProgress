@@ -1,0 +1,22 @@
+HIT,DMG,CRIT%,NAME
+INT
+6,3,0,wand
+7,2,0,orb
+5,4,0,short staff
+4,5,0,long staff
+4,4,0,battle staff
+2,7,0,Wild magic gloves
+SRT
+4,5,25,long sword
+3,7,25,bastard sword
+4,10,10,maul
+4,5,5,club
+4,4,20,axe
+3,5,20,warhammer
+DEX
+6,2,75,dagger
+7,1,50,raipier
+5,3,40,short sword
+4,4,30,katana
+7,3,50,bladed claws
+5,1,70,flexible sword
