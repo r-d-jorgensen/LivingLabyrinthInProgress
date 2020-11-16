@@ -27,7 +27,7 @@ ostream &operator<<(ostream &out, const character &in)
 		<< in.maxHP << "\n"
 		<< in.HP << "\n"
 		<< in.gold << "\n";
-	for (int x = 0; x < 5; x++)
+	for (int x = 0; x < 6; x++)
 	{
 		out << in.stat[x] << " ";
 	}
@@ -57,7 +57,7 @@ istream &operator>>(istream &in, character &out)
 	in >> out.maxHP;
 	in >> out.HP;
 	in >> out.gold;
-	for (int x = 0; x < 5; x++)
+	for (int x = 0; x < 6; x++)
 	{
 		in >> out.stat[x];
 	}
@@ -77,13 +77,14 @@ istream &operator>>(istream &in, character &out)
 	return in;
 }
 
+//Monster >>
 istream &operator>>(istream &in, monster &out)
 {
 	in >> out.name;
 	in >> out.lvl;
 	in >> out.maxHP;
 	in >> out.HP;
-	for (int x = 0; x < 5; x++)
+	for (int x = 0; x < 6; x++)
 	{
 		in >> out.stat[x];
 	}

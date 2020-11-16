@@ -19,5 +19,8 @@ int main()
 	test2.showStats();
 	test2.showInv();
 	cout << "If the two results appear the same then the process was successful\n";
+	cout << "Random item by type test\n";
+	item titem("1");
+	titem.showItem();
 	return 0;
 }
