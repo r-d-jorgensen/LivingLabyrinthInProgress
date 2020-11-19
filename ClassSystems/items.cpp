@@ -79,6 +79,9 @@ item::item(string t)
 	string txt = "./Items/";
 	int lines = 0;
 	string temp, idtemp;
+
+	if (t == "0") { t = (rand() % 3) + 1; }
+
 	switch(stoi(t))
 	{
 		case 1: txt += "armor.txt"; type = 1; break;
