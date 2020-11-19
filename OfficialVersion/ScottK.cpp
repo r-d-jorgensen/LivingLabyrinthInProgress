@@ -198,7 +198,7 @@ int doorgame()
 int riddle()
 {
 	ifstream riddleFile;
-		riddleFile.open("riddles.txt");
+		riddleFile.open("./txtFile/riddles.txt");
 		string randomRiddle;
 		string guess;
 		string answer;
@@ -230,7 +230,7 @@ int riddle()
 int question()
 {
 	ifstream questionFile;
-		questionFile.open("questions.txt");
+		questionFile.open("./txtFiles/questions.txt");
 		string randomQuestion;
 		string guess;
 		string answer;
@@ -375,7 +375,7 @@ void trapEncounter()
 	int dexterity = 8; // from stats
 	int hpLost = 0;
 	ifstream trapFile;
-		trapFile.open("traps.txt");
+		trapFile.open("./txtFiles/traps.txt");
 		string randomTrap;
 		int randNum = 0;
 	randNum = ((rand() + time(0)) % 5);
