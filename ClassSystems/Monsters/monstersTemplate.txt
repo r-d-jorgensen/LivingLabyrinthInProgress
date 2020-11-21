@@ -20,3 +20,8 @@ con, str, dex, int, agl, luck, MonsterDifficulty, name
 1,10,10,0,10,10,10,mad man
 2,0,5,5,0,4,flying book
 10,2,2,0,0,0,4,slime monster
+
+monsters.txt template
+
+Name
+con str dex int agl lck dif

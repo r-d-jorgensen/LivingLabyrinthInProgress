@@ -20,3 +20,8 @@ DEX
 4,4,30,katana
 7,3,50,bladed claws
 5,1,70,flexible sword
+
+weapons.txt template
+
+Name
+/id subtype dmg hit crit%

@@ -23,12 +23,12 @@ class stats
    HP is the players current HP, which cannot be higher than maxHP
 
    stat[6] is where the players stats are stored,
-   1 CON effects HP
-   2 STR mainly effects Dmg with str weapons, block % when blocking
-   3 DEX mainly effects Dmg with dex weapons 
-   4 INT mainly effects Dmg with int weapons
-   5 AGL mainly effects player speed (who goes first in combat), and dogde % when dodging
-   6 LCK has a small effect in almost everything in the game, from item 
+   0 CON effects HP
+   1 STR mainly effects Dmg with str weapons, block % when blocking
+   2 DEX mainly effects Dmg with dex weapons 
+   3 INT mainly effects Dmg with int weapons
+   4 AGL mainly effects player speed (who goes first in combat), and dogde % when dodging
+   5 LCK has a small effect in almost everything in the game, from item 
      generation to combat %'s
 */
 
@@ -36,20 +36,26 @@ class character : public stats
 {
 	public:
 		item inv[25];
-		//item eqpt[5];
+		item eqpt[4];
 		string name;
 		int gold;
 		int textType;
+		int difficulty;
 
 		character();
-		character(string n, int i);
+		character(string n, int i, int d);
 		character(const character &in);
+		void equip(const item &i);
+		void unequip(int eqp, const item &in);
+		void discard(item i);
 		void showStats();
 		void showInv();
 		//Following Function is for testing only,
 		//Fills the characters inventory with items
 		void fillInv();
 };
+
+extern character player;
 /*
    inv[25] is an array of items that hold the players inventory
    	of armor, weapons, and misc items
@@ -70,13 +76,17 @@ class monster : public stats
 {
 	public:
 		string name;
+		int diff;
 		
 		monster();
 		monster(int lvl);
 		monster(string n);
+		monster(const monster &in);
 };
 /*
    name is the name of the monster
+   diff is the monster difficulty, used when generating monsters to ensure 
+   that the player doesnt run into a super hard monster early on
 */
 
 //******************************************************************************
@@ -86,20 +96,27 @@ class monster : public stats
 stats::stats()
 {
 	lvl = 1;
-	maxHP = 100;
-	HP = maxHP;
 	for (int x = 0; x < 6; x++)
 	{
 		stat[x] = 1;
 	}
+	maxHP = 100;
+	HP = maxHP;
 }
 
 //Creating a new Char.
-character::character(string n, int i) : stats::stats()
+character::character(string n, int i, int d) : stats::stats()
 {
 	name = n;
 	textType = i;
 	gold = 0;
+	difficulty = d;
+	for (int i = 0; i < 4; i++)
+	{
+		eqpt[i] = item();
+	}
+	maxHP = (stat[1] * (.5 + (.25 * (stat[1] / 5))) * lvl) * difficulty;
+	HP = maxHP;
 }
 
 //Copy Constructor
@@ -111,9 +128,10 @@ character::character(const character &in)
 	lvl = in.lvl;
 	maxHP = in.maxHP;
 	HP = in.HP;
-	for (int x = 0; x < 5; x++)
+	difficulty = in.difficulty;
+	for (int i = 0; i < 5; i++)
 	{
-		stat[x] = in.stat[x];
+		stat[i] = in.stat[i];
 	}
 	for (int i = 0; i < 25; i++)
 	{
@@ -124,14 +142,52 @@ character::character(const character &in)
 //Default incase player doesn't input name.
 character::character()
 {
-	character("Librarian", 0);
+	character("Librarian", 0, 10);
+}
+
+void unequip(int eqp, const item &in)
+{
+	for (int i = 0; i < 25; i++)
+	{
+		if (player.inv[i].id == in.id)
+		{
+			item temp = player.eqpt[eqp];
+			player.eqpt[eqp] = in;
+			player.inv[i] = temp;
+			break;
+		}
+	}
+}
+
+void equip(const item &i)
+{
+	switch (i.type)
+	{
+		case 1:
+			switch(i.subType)
+			{
+				case 1: 
+					unequip(2, i);
+					break;
+				case 2:
+					unequip(3, i);
+					break;
+				case 3:
+					unequip(4, i);
+					break;
+			}
+			break;
+		case 2:
+			unequip(1, i);
+			break;
+	}
 }
 
 void character::showStats()
 {
 	const char *s[6] = {"CON","STR", "DEX", "INT", "AGL", "LCK"};
 	cout << "Name: " << name << "\n";
-	printf("LVL: %i\nMax HP: %i\nHP: %i\n", lvl, maxHP, HP);
+	printf("LVL: %i\nMax HP: %i\nHP: %i\nDifficulty: %i\n", lvl, maxHP, HP, difficulty);
 	for (int x = 0; x < 6; x++)
 	{
 		printf("%s: %i\n", s[x], stat[x]);
@@ -142,7 +198,7 @@ void character::showInv()
 {
 	for (int i = 0; i < 25; i++)
 	{
-		if (inv[i].name != "")
+		if (inv[i].id != 0)
 		{
 			inv[i].showItem();
 		}
@@ -191,14 +247,32 @@ monster::monster(int l)
 		while (i > 0) { getline(in, token); i--; }
 		//
 		in >> name;
-		lvl = l;
 		in >> maxHP;
 		in >> HP;
 		for (int x = 0; x < 6; x++)
 		{
 			in >> stat[x];
-		}	
+		}
+		in >> diff;
+		lvl = (player.lvl + l) - diff;
+		if (diff < 1) 
+		{ 
+			*this = monster(l); 
+		}
 	}
+}
+
+//Copy Constructor
+monster::monster(const monster &in)
+{
+	name = in.name;
+	maxHP = in.maxHP;
+	HP = in.HP;
+	for (int x = 0; x < 5; x++)
+	{
+		stat[x] = in.stat[x];
+	}
+	diff = in.diff;
 }
 //END OF STATS
 //******************************************************************************

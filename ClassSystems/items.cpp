@@ -13,6 +13,8 @@ class item
 		int type;
 		int subType;
 		int value;
+		int subValue;
+		int percent;
 		string name;
 
 		item();
@@ -39,6 +41,11 @@ class item
    	different stats. i.e. armor = def, weapon = dmg, misc may be 
 	HP, dmg, crit chance ect depending on the item
 
+   subvalue is a special value for items, weapons are hit chance,
+   	armor is weight, unknown if misc will use this value
+
+   percent is (for now) used exclusively for weapon crit%
+
    name is the name of the item, exists simply for the player
 */
 
@@ -49,6 +56,8 @@ item::item()
 	type = 0;
 	subType = 0;
 	value = 0;
+	subValue = 0;
+	percent = 0;
 }
 /* Taken out as key items aren't implemented as of yet
    and it is unknown how they will actually be used/stored
@@ -103,11 +112,23 @@ item::item(string t)
 	int i = (rand() % (lines/2)) * 2;
 	while (i > 0) { getline(in, temp); i--; }
 	in >> name;
+	//Item names are stored int a text file using underscores so names are one "word"
+	//This block replaces the underscore with a space
+	for (size_t i = 0; i < temp.length(); i++) 
+	{ 
+		if (name[i] == '_') 
+		{ 
+			name[i] = ' '; 
+		}
+	}
+	//Items id's are stored with a / at the beginning, this is explained in item(int i)
 	in >> idtemp;
-	in >> subType;
-	in >> value;
 	idtemp = idtemp.substr(1, idtemp.size() - 1);
 	id = stoi(idtemp);
+	in >> subType;
+	in >> value;
+	in >> subValue;
+	in >> percent;
 	in.close();
 }
 
@@ -117,6 +138,9 @@ item::item(int i)
 	string temp;
 	string txt = "./Items/";
 
+	/*Item id's contain what type of item they are, with the first digit being
+	important one. The next line rounds the number to the nearest hundredth,
+	then divides the number by 100 to find the first digit. */
 	switch((i - (i % 100)) / 100)
 	{
 		case 1: txt += "armor.txt"; type = 1; break;
@@ -130,6 +154,10 @@ item::item(int i)
 	{
 		while (!in.eof())
 		{
+			/*Items are stored with a / at the beginning of them in order to 
+			  easily differenciate them from other item values. It is simple
+			  deal with this / by comparing the token to the wanted id with
+			  a / added to the beginning of it */
 			in >> token;
 			if (token == "/" + to_string(i))
 			{
@@ -137,6 +165,8 @@ item::item(int i)
 				name = temp;
 				in >> subType;
 				in >> value;
+				in >> subValue;
+				in >> percent;
 				return;
 			}
 			else
@@ -155,15 +185,74 @@ item::item(const item &in)
 	type = in.type;
 	subType = in.subType;
 	value = in.value;
+	subValue = in.subValue;
 }
 
 void item::showItem()
 {
-	cout.setf(ios::left);
-	cout << setw(20) << "Name: " + name;
-	cout << setw(10) << "ID: " + to_string(id);
-	cout << setw(10) << "Type: " + to_string(type);
-	cout << setw(12) << "Subtype: " + to_string(subType);
-	cout << setw(10) << "Value: " + to_string(value);
-	cout << "\n";
+	if (type != 0)
+	{
+		cout.setf(ios::left);
+		cout << setw(23) << "Name: " + name;
+		cout << setw(10) << "ID: " + to_string(id);
+		
+		switch(type)
+		{ 
+			case 1: 
+				cout << setw(15) << "Type: Armor"; 
+				switch(subType)
+				{
+					case 1: 
+						cout << setw(17) << "Class: Head";
+						break;
+					case 2:	
+						cout << setw(17) << "Class: Chest";
+					        break;
+					case 3:	
+						cout << setw(17) << "Class: Head"; 
+						break;
+				}
+				cout << setw(9) << "Defense: " << setw(4) << to_string(value);
+				cout << setw(8) << "Weight: " << setw(4) << to_string(subValue);
+				//cout << setw(10) << "Percent: " + to_string(percent);
+				break;
+			case 2: 
+				cout << setw(15) << "Type: Weapon"; 
+				switch(subType)
+				{
+					case 1: 
+						cout << setw(17) << "Class: INT";
+						break;
+					case 2:	
+						cout << setw(17) << "Class: STR";
+					        break;
+					case 3:	
+						cout << setw(17) << "Class: DEX"; 
+						break;
+				}
+				cout << setw(9) << "Damage: " << setw(4) << to_string(value);
+				cout << setw(8) << "Hit%: " << setw(4) << to_string(subValue);
+				cout << setw(10) << "Crit%: " + to_string(percent);
+				break;
+			case 3: 
+				cout << setw(15) << "Type: Misc"; 
+				switch(subType)
+				{
+					case 1: 
+						cout << setw(17) << "Class: Healing";
+						break;
+					case 2:	
+						cout << setw(17) << "Class: Damage";
+					        break;
+					case 3:	
+						cout << setw(17) << "Class: Speed"; 
+						break;
+				}
+				cout << setw(9) << "Value: " << setw(4) << to_string(value);
+				//cout << setw(14) << "Weight: " + to_string(subValue);
+				//cout << setw(10) << "Percent: " + to_string(percent);
+				break;
+		}
+		cout << "\n";
+	}
 }
