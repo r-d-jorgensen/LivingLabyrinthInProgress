@@ -1,0 +1,27 @@
+HIT,DMG,CRIT%,WORTH,NAME
+INT
+6,3,0,20,wand
+7,2,0,25,orb
+5,4,0,53,short staff
+4,5,0,40,long staff
+4,4,0,78,battle staff
+2,7,0,50,Wild magic gloves
+SRT
+4,5,25,40,long sword
+3,7,25,60,bastard sword
+4,10,10,20,maul
+4,5,5,10,club
+4,4,20,15,axe
+3,5,20,25,warhammer
+DEX
+6,2,75,10,dagger
+7,1,50,25,raipier
+5,3,40,30,short sword
+4,4,30,70,katana
+7,3,50,50,bladed claws
+5,1,70,60,flexible sword
+
+weapons.txt template
+
+Name
+/id subtype dmg hit crit%
