@@ -27,6 +27,7 @@ void explore()
     cout << "4: Move East" << endl;
     cout << "5: Move South" << endl;
     cout << "6: Look at Character Sheet" << endl;
+    cout << "7: Stop exploring";
     cin >> choice;
 
     bool choiceNotMade = true;
@@ -52,6 +53,8 @@ void explore()
         case '6':
             //showStats();
             break;
+        case '7':
+            return;
         default:
             cout << "Invalid entry please try again" << endl;
         }
