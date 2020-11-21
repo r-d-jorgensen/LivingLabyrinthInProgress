@@ -90,7 +90,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else if (roll < nothing + trapChance + majorChance + monsterChance)
     {
-        monsterEncounter(1); // level of monster passed
+        monsterEncounter();
 
         return;
     }
