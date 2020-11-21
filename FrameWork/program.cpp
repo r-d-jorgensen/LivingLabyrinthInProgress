@@ -1,13 +1,13 @@
 /* describesLiving Labyrinth, gives instructions if requested by player */
 
 #pragma once
-#include<iostream>
-#include<string>
-#include"textOutput.cpp"
+#include <iostream>
+#include <string>
+#include "textOutput.cpp"
 using namespace std;
 
 int program();
-int program() 
+int program()
 {
 	dialogue("Welcome to the Living Labyrinth");
 	dialogue("You have been selected because of your superior knowledge and ");
@@ -18,21 +18,23 @@ int program()
 	dialogue("Otherwise,press '2' to start playing ");
 	int choice = 0;
 	cin >> choice;
-	while ((cin.fail()) || !(choice >= 1 && choice <= 2)) {
+	while ((cin.fail()) || !(choice >= 1 && choice <= 2))
+	{
 		cin.clear();
 		cin.ignore();
 		dialogue("Please choose either 1 or 2");
 		cin >> choice;
 	}
-	if (choice == 1) {
+	if (choice == 1)
+	{
 		dialogue("The Living Labyrinth is primarily a menu driven,");
 		dialogue("single player, fantasy RPG. One exciting innovation");
-		dialogue("we have implemented is the option for users to choose a game that"); 
+		dialogue("we have implemented is the option for users to choose a game that");
 		dialogue("includes a lot of graphics that are visually appealing to most");
 		dialogue("players but there is an additional option that is text based,");
 		dialogue("which is more user friendly for the blind and visually impaired. ");
 		dialogue("This iteration will only have bare, which is text only, and sparse,");
-		dialogue("which has a few visuals and places text in various spots on screen");  
+		dialogue("which has a few visuals and places text in various spots on screen");
 		dialogue("You will be asked your preference after this explanation");
 		dialogue("Another exciting aspect of the game is that you do not have to");
 		dialogue("finish it in one sitting. You can stop the game and your character");
@@ -71,7 +73,7 @@ int program()
 		dialogue("functionality in our next iteration. ");
 		dialogue("After choosing your anagram level, you will be in the library.");
 		dialogue("In the library, you can choose among:");
-		dialogue("Talk to NPC, Perk store, Character sheet, and Settings"); 
+		dialogue("Talk to NPC, Perk store, Character sheet, and Settings");
 		dialogue("If you want to change from graphical to text-based, go to settings");
 		dialogue("and make the change. After that, you may want to look at your ");
 		dialogue("character sheet or check out the perk store.");
@@ -91,7 +93,8 @@ int program()
 	int graphics;
 	dialogue("Choose your graphics level. '0' for bare, '1' for sparse, full N/A");
 	cin >> graphics;
-	while ((cin.fail()) || !(graphics >= 0 && graphics <= 1)) {
+	while ((cin.fail()) || !(graphics >= 0 && graphics <= 1))
+	{
 		cin.clear();
 		cin.ignore();
 		dialogue("Please choose 0 or 1");
@@ -102,7 +105,8 @@ int program()
 	dialogue("difficulty you want to play (1 to 7'?");
 	int level;
 	cin >> level;
-	while ((cin.fail()) || !(level >= 1 && level <= 7)) {
+	while ((cin.fail()) || !(level >= 1 && level <= 7))
+	{
 		cin.clear();
 		cin.ignore();
 		dialogue("Please choose 1 to 7");
