@@ -1,10 +1,10 @@
 #pragma once
 #include <cstdlib>
 #include <ctime>
-#include <bits/stdc++.h> 
-#include<iostream>
-#include<string>
-#include<fstream>
+#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <fstream>
 using namespace std;
 int program();
 void camp();
@@ -18,130 +18,146 @@ void gamblingEncounter();
 void printGreeting();
 int doorGame();
 void majorEncounter();
-#include"DavidJ.cpp"
+#include "DavidJ.cpp"
 
 string questAnswer(int levelChoice);
-string  anagram(string originalWord);
-class FinalPuzzle 
+string anagram(string originalWord);
+
+class FinalPuzzle
 {
-    public:
-           // default constructor
-           FinalPuzzle(); 
-           // constructor
-           FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded); 
-           void setFinalPuzzle(string finalPuzzle); // Mutator    
-           string getFinalPuzzle() const;        // Accessor
-           void printFinalPuzzle() const;
-               void setFinalSolution(string finalSolution); // Mutator    
-           string getFinalSolution() const;        // Accessor
-           void printFinalSolution() const;
-               void setTotalRingsNeeded(int totalRings);
-               int getTotalRingsNeeded() const;
-           void setCurrentRings(int totalRings);
-               int getCurrentRings() const;
-    private:
-            string jumbledWord;
-                string correctWord;
-                int totalRingsNeeded;
-                int ringsFound;
-}; // end of class definition 
+public:
+    // default constructor
+    FinalPuzzle();
+    // constructor
+    FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+    void setFinalPuzzle(string finalPuzzle); // Mutator
+    string getFinalPuzzle() const;           // Accessor
+    void printFinalPuzzle() const;
+    void setFinalSolution(string finalSolution); // Mutator
+    string getFinalSolution() const;             // Accessor
+    void printFinalSolution() const;
+    void setTotalRingsNeeded(int totalRings);
+    int getTotalRingsNeeded() const;
+    void setCurrentRings(int totalRings);
+    int getCurrentRings() const;
+
+private:
+    string jumbledWord;
+    string correctWord;
+    int totalRingsNeeded;
+    int ringsFound;
+}; // end of class definition
 
 // default constructor
-FinalPuzzle::FinalPuzzle() {
+FinalPuzzle::FinalPuzzle()
+{
     this->jumbledWord = "none";
-        this->correctWord = "none";
-        this->totalRingsNeeded = 0;
-        this->ringsFound = 0;
+    this->correctWord = "none";
+    this->totalRingsNeeded = 0;
+    this->ringsFound = 0;
 }
 // constructor
-FinalPuzzle::FinalPuzzle(string solution, string puzzle, int curRings, int ringsNeeded) { 
+FinalPuzzle::FinalPuzzle(string solution, string puzzle, int curRings, int ringsNeeded)
+{
     this->correctWord = solution;
-        this->jumbledWord = puzzle;
-        this->ringsFound = curRings;
-        this->totalRingsNeeded = ringsNeeded;
+    this->jumbledWord = puzzle;
+    this->ringsFound = curRings;
+    this->totalRingsNeeded = ringsNeeded;
 }
-void FinalPuzzle::setFinalPuzzle(string finalPuzzle) { 
+void FinalPuzzle::setFinalPuzzle(string finalPuzzle)
+{
     jumbledWord = finalPuzzle;
-        return;
+    return;
 }
 
-string FinalPuzzle::getFinalPuzzle() const { 
+string FinalPuzzle::getFinalPuzzle() const
+{
     return jumbledWord;
 }
 
-void FinalPuzzle::printFinalPuzzle() const {
+void FinalPuzzle::printFinalPuzzle() const
+{
     cout << "The letters you need to re-arrange are " << jumbledWord << endl;
-        return;
+    return;
 }
 
-void FinalPuzzle::setFinalSolution(string finalSolution) { 
+void FinalPuzzle::setFinalSolution(string finalSolution)
+{
     correctWord = finalSolution;
-        return;
+    return;
 }
 
-string FinalPuzzle::getFinalSolution() const {
+string FinalPuzzle::getFinalSolution() const
+{
     return correctWord;
 }
 
-void FinalPuzzle::printFinalSolution() const {
+void FinalPuzzle::printFinalSolution() const
+{
     cout << "The answer is: " << correctWord << endl;
-        return;
+    return;
 }
 
-void FinalPuzzle::setTotalRingsNeeded(int totalRings) {
+void FinalPuzzle::setTotalRingsNeeded(int totalRings)
+{
     totalRingsNeeded = totalRings;
-        return;
+    return;
 }
 
-int FinalPuzzle::getTotalRingsNeeded() const {
+int FinalPuzzle::getTotalRingsNeeded() const
+{
     return totalRingsNeeded;
 }
 
-void FinalPuzzle::setCurrentRings(int currentRings) {
+void FinalPuzzle::setCurrentRings(int currentRings)
+{
     ringsFound = currentRings;
-        return;
+    return;
 }
 
-int FinalPuzzle::getCurrentRings() const {
+int FinalPuzzle::getCurrentRings() const
+{
     return ringsFound;
 }; // end class definition
 
 /* function to select solution for quest */
-string questAnswer(int levelChoice) 
+string questAnswer(int levelChoice)
 {
-    int randNum = (rand()+time(0))%2; // need to increase %2 as add words to file
+    int randNum = (rand() + time(0)) % 2; // need to increase %2 as add words to file
     int pick;
-        pick = 2*(levelChoice-1) + randNum;// need to adjust as add more words
+    pick = 2 * (levelChoice - 1) + randNum; // need to adjust as add more words
     string word[] = {"now", "cue", "when", "thus", "stout", "stint", "summer", "spring", "prosper", "finding", "kindness", "handsome", "beautiful", "difficult"};
-        string randomword;
-        randomword = word[pick];
-        return randomword;
-} 
+    string randomword;
+    randomword = word[pick];
+    return randomword;
+}
 
 /* function to jumble letters in word */
-string anagram(string originalWord) 
+string anagram(string originalWord)
 {
     string jumbledWord;
-        unsigned choice; 
-        unsigned temp;
-        int count=0;
-        for (size_t i=0;i<originalWord.size();i++) {
-            count++;
-                choice = (rand()+time(0))%(originalWord.size()-i); 
-                jumbledWord[originalWord.size()-i-1] = originalWord[choice];
-                temp = choice;
-                originalWord[temp]= originalWord[originalWord.size()-i-1];
-                originalWord[originalWord.size()-i-1] = originalWord[choice];
-        }
+    unsigned choice;
+    unsigned temp;
+    int count = 0;
+    for (size_t i = 0; i < originalWord.size(); i++)
+    {
+        count++;
+        choice = (rand() + time(0)) % (originalWord.size() - i);
+        jumbledWord[originalWord.size() - i - 1] = originalWord[choice];
+        temp = choice;
+        originalWord[temp] = originalWord[originalWord.size() - i - 1];
+        originalWord[originalWord.size() - i - 1] = originalWord[choice];
+    }
     string jumble = "";
-        int k;
-        for (k=0;k<count;k++){
-            jumble = jumble +jumbledWord[k];
-        }
+    int k;
+    for (k = 0; k < count; k++)
+    {
+        jumble = jumble + jumbledWord[k];
+    }
     return jumble;
 }
 /* describesLiving Labyrinth, gives instructions if requested by player */
-int program() 
+int program()
 {
     dialogue("Welcome to the Living Labyrinth");
     dialogue("You have been selected because of your superior knowledge and ");
@@ -152,21 +168,23 @@ int program()
     dialogue("Otherwise,press '2' to start playing ");
     int choice = 0;
     cin >> choice;
-    while ((cin.fail()) || !(choice >= 1 && choice <= 2)) {
+    while ((cin.fail()) || !(choice >= 1 && choice <= 2))
+    {
         cin.clear();
         cin.ignore();
         dialogue("Please choose either 1 or 2");
         cin >> choice;
     }
-    if (choice == 1) {
+    if (choice == 1)
+    {
         dialogue("The Living Labyrinth is primarily a menu driven,");
         dialogue("single player, fantasy RPG. One exciting innovation");
-        dialogue("we have implemented is the option for users to choose a game that"); 
+        dialogue("we have implemented is the option for users to choose a game that");
         dialogue("includes a lot of graphics that are visually appealing to most");
         dialogue("players but there is an additional option that is text based,");
         dialogue("which is more user friendly for the blind and visually impaired. ");
         dialogue("This iteration will only have bare, which is text only, and sparse,");
-        dialogue("which has a few visuals and places text in various spots on screen");  
+        dialogue("which has a few visuals and places text in various spots on screen");
         dialogue("You will be asked your preference after this explanation");
         dialogue("Another exciting aspect of the game is that you do not have to");
         dialogue("finish it in one sitting. You can stop the game and your character");
@@ -205,7 +223,7 @@ int program()
         dialogue("functionality in our next iteration. ");
         dialogue("After choosing your anagram level, you will be in the library.");
         dialogue("In the library, you can choose among:");
-        dialogue("Talk to NPC, Perk store, Character sheet, and Settings"); 
+        dialogue("Talk to NPC, Perk store, Character sheet, and Settings");
         dialogue("If you want to change from graphical to text-based, go to settings");
         dialogue("and make the change. After that, you may want to look at your ");
         dialogue("character sheet or check out the perk store.");
@@ -225,7 +243,8 @@ int program()
     int graphics;
     dialogue("Choose your graphics level. '0' for bare, '1' for sparse, full N/A");
     cin >> graphics;
-    while ((cin.fail()) || !(graphics >= 0 && graphics <= 1)) {
+    while ((cin.fail()) || !(graphics >= 0 && graphics <= 1))
+    {
         cin.clear();
         cin.ignore();
         dialogue("Please choose 0 or 1");
@@ -236,7 +255,8 @@ int program()
     dialogue("difficulty you want to play (1 to 7'?");
     int level;
     cin >> level;
-    while ((cin.fail()) || !(level >= 1 && level <= 7)) {
+    while ((cin.fail()) || !(level >= 1 && level <= 7))
+    {
         cin.clear();
         cin.ignore();
         dialogue("Please choose 1 to 7");
@@ -246,9 +266,9 @@ int program()
     string jumble;
     questKey = questAnswer(level);
     jumble = anagram(questKey);
-/* constructor filled with parameters */
-    static FinalPuzzle *puzzle1= new FinalPuzzle(questKey, jumble, 0, level + 2);
-/* get functions will be removed, just for testing */
+    /* constructor filled with parameters */
+    static FinalPuzzle *puzzle1 = new FinalPuzzle(questKey, jumble, 0, level + 2);
+    /* get functions will be removed, just for testing */
     dialogue("current rings: " + to_string(puzzle1->getCurrentRings()));
     dialogue("Rings Needed: " + to_string(puzzle1->getTotalRingsNeeded()));
     dialogue("Solution: " + puzzle1->getFinalSolution());
@@ -259,21 +279,24 @@ int program()
 /* camp function is called when player wants to rest. there is a 10% chance 
  * that a monster will ambush the player, so no rest is attained. Otherwise, if
  *  allowed to rest, then player increases hit points by a constant factor 
- *  based on constitution and a random number*/ 
+ *  based on constitution and a random number*/
 void camp()
 {
     int randEnc = ((rand() + time(0)) % 10);
-    if (randEnc == 1){
+    if (randEnc == 1)
+    {
         dialogue("You hear a noise that wakes you from your slumber");
         dialogue("You prepare for some kind of attack.");
         monsterEncounter(100); //call monsterEncounter function
-    } else {
-        int maxHP = 40; // call player.maxHp;
+    }
+    else
+    {
+        int maxHP = 40;     // call player.maxHp;
         int currentHP = 30; //call player.hp;
         int diff = maxHP - currentHP;
         int constitution = 7; // call player.con
-        int randNum = ((rand() + time(0)) % (maxHP/2));
-        int conAdjustment = constitution * (maxHP/20); // incorporates player con to heal 
+        int randNum = ((rand() + time(0)) % (maxHP / 2));
+        int conAdjustment = constitution * (maxHP / 20); // incorporates player con to heal
         int hpFactor = conAdjustment + randNum;
         currentHP = currentHP + ((diff * hpFactor) / maxHP);
 
@@ -286,15 +309,17 @@ void camp()
 }
 
 /* function takes in a string and converts all letters to lower case so
- * when comparing player's guess to the answer, the case doesn't matter */ 
-string strLower(string n) {
-    for (size_t i=0;i<n.size();i++){
+ * when comparing player's guess to the answer, the case doesn't matter */
+string strLower(string n)
+{
+    for (size_t i = 0; i < n.size(); i++)
+    {
         n[i] = tolower(n[i]);
     }
     return n;
 }
 /* function randomly chooses among 5 different greetings for variety 
- * in major Encounters */ 
+ * in major Encounters */
 void printgreeting()
 {
     string greeting[5] = {
@@ -318,93 +343,103 @@ int doorgame()
     cin >> guess;
     /* call to convert to lower case for comparison */
     guess = strLower(guess);
-    if (guess == door[randNum]) {
+    if (guess == door[randNum])
+    {
         monsterlevel = 0;
-    } else{
+    }
+    else
+    {
         monsterlevel = 2;
     }
-    dialogue("Good Luck", 2, "Door Master");    
+    dialogue("Good Luck", 2, "Door Master");
     return monsterlevel;
 }
 /* function is called by majorEncounter. It randomly selects a riddle from 
  * riddle.txt file, the player guesses the answer. An incorrect answer return
- * a 1 increasing the monster difficulty by 1 at end of major encounter */ 
+ * a 1 increasing the monster difficulty by 1 at end of major encounter */
 int riddle()
 {
     ifstream riddleFile;
-        riddleFile.open("./txtFiles/riddles.txt");
-        string randomRiddle;
-        string guess;
-        string answer;
-        int monsterlevel; //int returned by function to determine monster difficulty
+    riddleFile.open("./txtFiles/riddles.txt");
+    string randomRiddle;
+    string guess;
+    string answer;
+    int monsterlevel; //int returned by function to determine monster difficulty
     int num = ((rand() + time(0)) % 63);
-        num = 2*num;
-        for (int i=0;i<num+1;i++) 
-            getline(riddleFile, randomRiddle);
-                dialogue((randomRiddle) + " ",2 , "Riddle Master");
-                getline(riddleFile, answer);
-                answer = strLower(answer);
-                answer.erase(answer.find_last_not_of("\n\r") + 1);
-                getline(cin, guess);
-                guess.erase(guess.find_last_not_of("\n\r") + 1);
-                /* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
-                guess = strLower(guess);
-                /* if wrong then get more difficult monster otherwise no monster or easier monster */
-                if (guess.compare(answer) == 0) {
-                    dialogue("Good job. Go through that door andd meet the Question Master", 2, "Riddle Master");
-                        monsterlevel = 0;
-                }	else	{
-                    dialogue("Sorry, that is incorrect but go ahead through that door");
-                        dialogue("Talk to the Question Master.", 2, "Riddle Master");
-                        monsterlevel = 1;
-                }
+    num = 2 * num;
+    for (int i = 0; i < num + 1; i++)
+        getline(riddleFile, randomRiddle);
+    dialogue((randomRiddle) + " ", 2, "Riddle Master");
+    getline(riddleFile, answer);
+    answer = strLower(answer);
+    answer.erase(answer.find_last_not_of("\n\r") + 1);
+    getline(cin, guess);
+    guess.erase(guess.find_last_not_of("\n\r") + 1);
+    /* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
+    guess = strLower(guess);
+    /* if wrong then get more difficult monster otherwise no monster or easier monster */
+    if (guess.compare(answer) == 0)
+    {
+        dialogue("Good job. Go through that door andd meet the Question Master", 2, "Riddle Master");
+        monsterlevel = 0;
+    }
+    else
+    {
+        dialogue("Sorry, that is incorrect but go ahead through that door");
+        dialogue("Talk to the Question Master.", 2, "Riddle Master");
+        monsterlevel = 1;
+    }
     riddleFile.close();
-        return monsterlevel;
+    return monsterlevel;
 } // end riddle function
 int question()
 {
     ifstream questionFile;
-        questionFile.open("./txtFiles/questions.txt");
-        string randomQuestion;
-        string guess;
-        string answer;
-        int monsterlevel; //int returned by function to determine monster difficulty
+    questionFile.open("./txtFiles/questions.txt");
+    string randomQuestion;
+    string guess;
+    string answer;
+    int monsterlevel; //int returned by function to determine monster difficulty
     int randNum = ((rand() + time(0)) % 47);
-        randNum = 2*randNum;
-        for (int i=0;i<randNum+1;i++) 
-            getline(questionFile, randomQuestion);
-                dialogue((randomQuestion) + " ",2, "Question Master");
-                getline(questionFile, answer);
-                answer = strLower(answer);
-                answer.erase(answer.find_last_not_of("\n\r") + 1);
-                getline(cin, guess);
-                guess.erase(guess.find_last_not_of("\n\r") + 1);
-                /* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
-                guess = strLower(guess);
-                /* if wrong then get more difficult monster otherwise no monster or easier monster */
-                if (guess.compare(answer) == 0) {
-                    dialogue("Good job. Go through that door andd meet the Door Master", 2, "Question Master");
-                        monsterlevel = 0;
-                } else {
-                    dialogue("Sorry, that is incorrect.");
-                        dialogue("Go through that door and talk to the Door Master", 2,"Question Master");
-                        monsterlevel = 1;
-                }
+    randNum = 2 * randNum;
+    for (int i = 0; i < randNum + 1; i++)
+        getline(questionFile, randomQuestion);
+    dialogue((randomQuestion) + " ", 2, "Question Master");
+    getline(questionFile, answer);
+    answer = strLower(answer);
+    answer.erase(answer.find_last_not_of("\n\r") + 1);
+    getline(cin, guess);
+    guess.erase(guess.find_last_not_of("\n\r") + 1);
+    /* function call to convert all letters to lowercase, so simple capitalization doesn't cause a wrong answer */
+    guess = strLower(guess);
+    /* if wrong then get more difficult monster otherwise no monster or easier monster */
+    if (guess.compare(answer) == 0)
+    {
+        dialogue("Good job. Go through that door andd meet the Door Master", 2, "Question Master");
+        monsterlevel = 0;
+    }
+    else
+    {
+        dialogue("Sorry, that is incorrect.");
+        dialogue("Go through that door and talk to the Door Master", 2, "Question Master");
+        monsterlevel = 1;
+    }
     questionFile.close();
-        return monsterlevel;
+    return monsterlevel;
 } // end question function
 
 /* function receives an int which indicates level of the monster if received 
  * from majorEncounter. A 100  indicates that monsterEncounter was called 
- * from Explore. function adjusts monster using randomization and chaar's lvl */ 
+ * from Explore. function adjusts monster using randomization and chaar's lvl */
 void monsterEncounter(int level)
-{ 
+{
     int monsterLevel = 0;
-    if (level == 100) {
+    if (level == 100)
+    {
         int randNum = ((rand() + time(0)) % 100);
         if (randNum < 100)
             monsterLevel = 1;
-        if (randNum <94)
+        if (randNum < 94)
             monsterLevel = 0;
         if (randNum < 87)
             monsterLevel = -1;
@@ -412,9 +447,11 @@ void monsterEncounter(int level)
             monsterLevel = -2;
         if (randNum < 50)
             monsterLevel = -3;
-    } else {
+    }
+    else
+    {
         int randNum = ((rand() + time(0)) % 3);
-        monsterLevel = level + randNum -1;
+        monsterLevel = level + randNum - 1;
     }
     int charLevel = 1; // call char.lvl();
     monsterLevel += charLevel;
@@ -423,123 +460,126 @@ void monsterEncounter(int level)
     cout << "Monster sent to combat is level " << monsterLevel << endl;
 }
 
-
 /* lucky encounter  function selects a random lucky find
  * gold, weapon, armor, or artifact */
 void luckyEncounter()
-{int gold = 100; // pull gold from character stats or items etc  
-    int luck = 15; // pulled from stats
+{
+    int gold = 100; // pull gold from character stats or items etc
+    int luck = 15;  // pulled from stats
     int goldFound = 0;
     /* first random generator is gold vs weapon vs armor */
     int randNum = ((rand() + time(0)) % 10);
-    if (randNum < 7 ) {
+    if (randNum < 7)
+    {
         int randGold = ((rand() + time(0)) % 50);
-        randGold = randGold + luck/3;
+        randGold = randGold + luck / 3;
         /* incorporates luck to determine how much gold found */
         if (randGold < 57)
             goldFound = 100;
         if (randGold < 54)
-            goldFound =50;
+            goldFound = 50;
         if (randGold < 52)
             goldFound = 40;
-        if (randGold< 48)
+        if (randGold < 48)
             goldFound = 25;
-        if (randGold <41)
+        if (randGold < 41)
             goldFound = 20;
-        if (randGold< 31)
+        if (randGold < 31)
             goldFound = 15;
-        if (randGold <20)
+        if (randGold < 20)
             goldFound = 10;
-        if (randGold <10)
+        if (randGold < 10)
             goldFound = 5;
         gold = gold + goldFound;
         dialogue("You see something glimmer in the sunlight");
         dialogue("You see " + to_string(goldFound) + " gold pieces!");
         // add gold to character's items.
     }
-    else if ((randNum == 7) || (randNum == 8)) {
+    else if ((randNum == 7) || (randNum == 8))
+    {
         int damage = 0;
         int randWeapon = ((rand() + time(0)) % 5);
         string weapon[5] = {
-            "dagger", "short sword", "long sword", "two handed sword", "mace"
-        };
-        /* randomized increased damage per hit */ 
+            "dagger", "short sword", "long sword", "two handed sword", "mace"};
+        /* randomized increased damage per hit */
         int randDamage = ((rand() + time(0)) % 50);
-        randDamage += luck/3;
+        randDamage += luck / 3;
         /* incorporates luck to determine increased damage  */
         if (randDamage < 57)
             damage = 5;
         if (randDamage < 52)
-            damage =4;
+            damage = 4;
         if (randDamage < 45)
-            damage =3;
-        if (randDamage <35 )
-            damage =2;
+            damage = 3;
+        if (randDamage < 35)
+            damage = 2;
         if (randDamage < 22)
-            damage =1;
+            damage = 1;
         dialogue("You see a " + weapon[randWeapon]);
-        dialogue("it increases your damage by " + to_string(damage)); 
-    } 
-    else {
+        dialogue("it increases your damage by " + to_string(damage));
+    }
+    else
+    {
         int armorClassIncreased = 0;
-        /* randomized increased armor class */ 
+        /* randomized increased armor class */
         int randArmorClass = ((rand() + time(0)) % 50);
-        randArmorClass += luck/3;
+        randArmorClass += luck / 3;
         /* incorporates luck to determine increased damage  */
         if (randArmorClass < 57)
             armorClassIncreased = 5;
         if (randArmorClass < 52)
-            armorClassIncreased =4;
+            armorClassIncreased = 4;
         if (randArmorClass < 45)
-            armorClassIncreased  =3;
-        if (randArmorClass <35 )
-            armorClassIncreased =2;
+            armorClassIncreased = 3;
+        if (randArmorClass < 35)
+            armorClassIncreased = 2;
         if (randArmorClass < 22)
-            armorClassIncreased =1;
+            armorClassIncreased = 1;
         dialogue("You see plate armor");
-        dialogue("it increases your armor class by " + to_string(armorClassIncreased)); 
+        dialogue("it increases your armor class by " + to_string(armorClassIncreased));
         // pass to character items
     }
 }
 /* trap encounter  function selects a random trap which may cause harm */
 void trapEncounter()
 {
-    int luck = 10; // pulled from stats
-    int agility = 9; // from stats
+    int luck = 10;     // pulled from stats
+    int agility = 9;   // from stats
     int dexterity = 8; // from stats
     int hpLost = 0;
     ifstream trapFile;
-        trapFile.open("./txtFiles/traps.txt");
-        string randomTrap;
-        int randNum = 0;
+    trapFile.open("./txtFiles/traps.txt");
+    string randomTrap;
+    int randNum = 0;
     randNum = ((rand() + time(0)) % 5);
-        randNum = 3*randNum;// calculation to move to each different trap
-    for (int i=0;i<randNum+1;i++) 
+    randNum = 3 * randNum; // calculation to move to each different trap
+    for (int i = 0; i < randNum + 1; i++)
         getline(trapFile, randomTrap);
-            dialogue((randomTrap));
+    dialogue((randomTrap));
     /* pause for result of trap */
-    dialogue("Press 'enter' to continue. " );
+    dialogue("Press 'enter' to continue. ");
     string enter;
     getline(cin, enter);
     /* move to next line in trap.txt file */
     getline(trapFile, randomTrap);
-        /* print this line if player is able to avoid trap and move 1 more line if not
+    /* print this line if player is able to avoid trap and move 1 more line if not
            in order to display the correct message */
-        int randGetHurt = ((rand() + time(0)) % 100);
+    int randGetHurt = ((rand() + time(0)) % 100);
     randGetHurt += agility + dexterity + luck;
-    if (randGetHurt >65)
+    if (randGetHurt > 65)
         dialogue((randomTrap));
-    else {
+    else
+    {
         getline(trapFile, randomTrap);
-            dialogue((randomTrap));
+        dialogue((randomTrap));
         /* damage is 2 10 sided dice */
         int randHPLost1 = ((rand() + time(0)) % 10);
         int randHPLost2 = ((rand() + time(0)) % 10);
-        hpLost = randHPLost1 + randHPLost2;	
+        hpLost = randHPLost1 + randHPLost2;
         dialogue("You lost " + to_string(hpLost) + " hit points");
     }
     trapFile.close();
-        // send hp lost to character hp
+    // send hp lost to character hp
 } // end trap function
 
 /* gambling encounter, is called by Explore function
@@ -559,19 +599,22 @@ void gamblingEncounter()
     cout << endl;
     cin.ignore();
     if ((play == "Y") || (play == "y") || (play == "Yes") ||
-            (play == "yes") || (play == "YES")) {
+        (play == "yes") || (play == "YES"))
+    {
         /* dialogue function formats the output and telss who/what is talking */
         dialogue("Great! Here is how you play. You pick the number of shells and how much money you want to bet.", 2, "Dealer");
         dialogue("The more shells you want to use, the more money you win with a correct selection", 2, "Dealer");
         dialogue("Of course, if you lose, I get your wager.", 2, "Dealer");
         /* loop to continue gambling as long as player wants */
         while ((play == "Y") || (play == "y") || (play == "Yes") ||
-                (play == "yes") || (play == "YES")) {
+               (play == "yes") || (play == "YES"))
+        {
             /* shells determin odds, thus, payback upon winning */
             dialogue("How many shells do you want to use? 2-10", 2, "Dealer");
             cin >> odds;
             /* loop taken if a letter is typed or shells not between 2 and 10 */
-            while ((cin.fail()) || (!((odds > 1) && (odds < 11)))) {
+            while ((cin.fail()) || (!((odds > 1) && (odds < 11))))
+            {
                 cin.clear();
                 //	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                 cin.ignore();
@@ -579,23 +622,25 @@ void gamblingEncounter()
                 cin >> odds;
             }
             dialogue("What is your bet?", 2, "Dealer");
-            cin.ignore();	
+            cin.ignore();
             cin >> bet;
             /* loop to catch letters or bets > than gold character hass */
-            while ((cin.fail()) || (!((bet > 0) && (bet <= goldCarried)))) {
+            while ((cin.fail()) || (!((bet > 0) && (bet <= goldCarried))))
+            {
                 cin.clear();
                 //	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                 cin.ignore();
-                dialogue("Your response is invalid. You cannot bet more than you have.", 2, "Dealer");				
+                dialogue("Your response is invalid. You cannot bet more than you have.", 2, "Dealer");
                 cin >> bet;
             }
             cin.ignore();
             shell = (rand() + time(0)) % odds;
-            /* need to convert int odds to string to print with dialogue*/ 
+            /* need to convert int odds to string to print with dialogue*/
             dialogue("Okay, which shell do you choose 1 to " + to_string(odds), 2, "Dealer");
             cin >> shellChoice;
             /* checking for validity of user's shell choice */
-            while ((cin.fail()) || (!((shellChoice > 0) && (shellChoice <=  odds)))) {
+            while ((cin.fail()) || (!((shellChoice > 0) && (shellChoice <= odds))))
+            {
                 cin.clear();
                 //	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
                 cin.ignore();
@@ -607,13 +652,15 @@ void gamblingEncounter()
             if (shellChoice == (shell + 1))
             {
                 goldPieces = goldPieces + bet * (odds - 1);
-                dialogue("Good job! you won " + to_string(bet*(odds-1))+ " gold pieces ", 2, "Dealer");
-                goldCarried = goldCarried + bet*(odds-1);
+                dialogue("Good job! you won " + to_string(bet * (odds - 1)) + " gold pieces ", 2, "Dealer");
+                goldCarried = goldCarried + bet * (odds - 1);
                 dialogue("Your current balance is " + to_string(goldPieces) + " gold pieces");
-            }			else {
+            }
+            else
+            {
                 goldPieces = goldPieces - bet;
                 dialogue("Sorry, you lost " + to_string(bet) + "gold pieces.", 2, "Dealer");
-                dialogue("Your current balance is " +to_string(goldPieces) + " gold Pieces");
+                dialogue("Your current balance is " + to_string(goldPieces) + " gold Pieces");
                 goldCarried = goldCarried - bet;
             }
             dialogue("Would you like to play again? ", 2, "Dealer");
@@ -630,7 +677,7 @@ void gamblingEncounter()
  * the difficulty level of the monster to face at the end. Ends with a letter
  * clue for the final solution to the game */
 
-void majorEncounter() 
+void majorEncounter()
 {
     /*
        int rings = 0; 
@@ -643,18 +690,18 @@ void majorEncounter()
        dialogue("jumbled word: " + puzzle1.getFinalPuzzle());
        */
     int monster = 0;
-        printgreeting();
-        monster += riddle();
-        monster += question();
-        monster += doorgame();
-        monsterEncounter(monster);
-        //after successfully killing monster find a ring with a letter engraved
-        /*
+    printgreeting();
+    monster += riddle();
+    monster += question();
+    monster += doorgame();
+    monsterEncounter(monster);
+    //after successfully killing monster find a ring with a letter engraved
+    /*
            string clue  = puzzle1->getFinalPuzzle();
            char letter = clue[rings];
            dialogue("jumbled word: " + puzzle1->getFinalPuzzle());
            */
-        dialogue("In the back of the room you see a ring.");
+    dialogue("In the back of the room you see a ring.");
     /*
        dialogue("It is engraved with the letter " + letter);
        if (rings >= ringsNeeded) {
