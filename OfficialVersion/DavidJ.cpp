@@ -23,12 +23,17 @@ void Armoury();
 void generalStore();
 void buyItem();
 void questNPC();
-void dialogueLong(string str, string startStr, int paddingLength, string padding);
-void dialogue(string str, int msgType, string speaker);
-void camp();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void reward();
+void dialogueLong(string str, string startStr, int paddingLength, string padding);
+void dialogue(string str, int msgType, string speaker);
+void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+void statsDisplay();
+string playerCombatString(int actionPlayer);
+void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
+
 #include "ScottK.cpp"
 //End of Declarations
 
@@ -57,21 +62,17 @@ void mainGameLoop()
 
 int libraryChoices()
 {
-    char choice;
-    cout << endl
-         << "Living Libary Menu" << endl
-         << endl;
-    cout << "1: Talk to book NPC" << endl;
-    cout << "2: Go to perk store" << endl;
-    cout << "3: Open char sheet" << endl;
-    cout << "4: Settings Menu" << endl;
-    cout << "5: Exit the game" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "Talk to book NPC"},
+        {"2", "Go to perk store"},
+        {"3", "Open char sheet"},
+        {"4", "Settings Menu"},
+        {"5", "Exit the game"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Living Libary Menu", menuStr, menuOptions, 0))
         {
         case '1':
             return (bookRealmNPC()); //talk to book Realm NPC
@@ -95,20 +96,16 @@ int libraryChoices()
 
 int bookRealmNPC()
 {
-    char choice;
-    cout << endl
-         << "NPC Name" << endl
-         << endl;
-    cout << "1: Go to bookRealm" << endl;
-    cout << "2: Ask about the book" << endl;
-    cout << "3: Ask about the problems" << endl;
-    cout << "4: Walk away" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Go to bookRealm"},
+        {"2", "Ask about the book"},
+        {"3", "Ask about the problems"},
+        {"4", "Walk away"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("NPC Name", menuStr, menuOptions, 0))
         {
         case '1':
             return 2; //sends player to realm through main
@@ -129,21 +126,17 @@ int bookRealmNPC()
 
 void perkStore()
 {
-    char choice;
-    cout << endl
-         << "Welcome to the Perk Store" << endl
-         << endl;
-    cout << "1: Look at Combat Perks" << endl;
-    cout << "2: Look at Explore Perks" << endl;
-    cout << "3: Look at Shop Perks" << endl;
-    cout << "4: Look at Secret Perks" << endl;
-    cout << "5: Exit the Store" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "Look at Combat Perks"},
+        {"2", "Look at Explore Perks"},
+        {"3", "Look at Shop Perks"},
+        {"4", "Look at Secret Perks"},
+        {"5", "Exit the Store"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the Perk Store", menuStr, menuOptions, 0))
         {
         case '1':
             //combat perks
@@ -167,21 +160,15 @@ void perkStore()
 
 void settingsMenu()
 {
-    char choice;
-    cout << endl
-         << "Settings Menu" << endl
-         << endl;
-    cout << "1: Swap Menu Text Format" << endl;
-    cout << "2: Change the difficulty" << endl;
-    cout << "3: " << endl; //tbd
-    cout << "4: " << endl; //tbd
-    cout << "5: Exit the Settings" << endl;
-    cin >> choice;
+    int menuOptions = 3;
+    string menuStr[][2] = {
+        {"1", "Swap Menu Text Format"},
+        {"2", "Change the difficulty"},
+        {"3", "Exit the Settings"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Settings Menu", menuStr, menuOptions, 0))
         {
         case '1':
             textFormat();
@@ -204,29 +191,25 @@ void settingsMenu()
 
 void textFormat()
 {
-    char choice;
-    cout << endl
-         << "Text Types" << endl
-         << endl;
-    cout << "1: Default Mode" << endl;
-    cout << "2: Brief Mode" << endl;
-    cout << "3: Text Reader Mode" << endl;
-    cout << "4: Return to Settings menu" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Default Mode"},
+        {"2", "Brief Mode"},
+        {"3", "Text Reader Mode"},
+        {"4", "Return to Settings menu"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Text Types", menuStr, menuOptions, 0))
         {
         case '1':
-            //normal mode
+            //bare mode
             return;
         case '2':
-            //brief mode
+            //simple mode
             return;
         case '3':
-            //text reader mode
+            //stylized mode
             return;
         case '4':
             return;
@@ -238,20 +221,16 @@ void textFormat()
 
 void difficultySetting()
 {
-    char choice;
-    cout << endl
-         << "Which Difficulty would you like?" << endl
-         << endl;
-    cout << "1: Easy" << endl;
-    cout << "2: Medium" << endl;
-    cout << "3: Hard" << endl;
-    cout << "4: Return to Settings menu" << endl;
-    cin >> choice;
+    int menuOptions = 4;
+    string menuStr[][2] = {
+        {"1", "Easy"},
+        {"2", "Medium"},
+        {"3", "Hard"},
+        {"4", "Return to Settings menu"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Which Difficulty would you like?", menuStr, menuOptions, 0))
         {
         case '1':
             //change difficulty to Easy
@@ -272,22 +251,18 @@ void difficultySetting()
 
 int bookRealm()
 {
-    char choice;
-    cout << endl
-         << "Menu" << endl
-         << endl;
-    cout << "1: Explore" << endl;
-    cout << "2: Go to the Armoury" << endl;
-    cout << "3: Go to the General Store" << endl;
-    cout << "4: Talk to Quest NPC" << endl;
-    cout << "5: Go Back to the Library" << endl;
-    cout << "6: Exit the Game" << endl;
-    cin >> choice;
+    int menuOptions = 6;
+    string menuStr[][2] = {
+        {"1", "Explore"},
+        {"2", "Go to the Armoury"},
+        {"3", "Go to the General Store"},
+        {"4", "Talk to Quest NPC"},
+        {"5", "Go Back to the Library"},
+        {"6", "Exit the Game"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Book Realm Menu", menuStr, menuOptions, 0))
         {
         case '1':
             explore();
@@ -315,21 +290,17 @@ int bookRealm()
 //added a armoury shop for users to purchess from, items still not hooked in
 void Armoury()
 {
-    char choice;
-    cout << endl
-         << "Welcome to the Armory" << endl
-         << endl;
-    cout << "1: item 1" << endl;
-    cout << "2: item 2" << endl;
-    cout << "3: item 3" << endl;
-    cout << "4: item 4" << endl;
-    cout << "5: Exit the Armory" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "item 1"},
+        {"2", "item 2"},
+        {"3", "item 3"},
+        {"4", "item 4"},
+        {"5", "item 5"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the Armory", menuStr, menuOptions, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -356,21 +327,17 @@ void Armoury()
 //added a general store for users to purchess from, items still not hooked in
 void generalStore()
 {
-    char choice;
-    cout << endl
-         << "Menu" << endl
-         << endl;
-    cout << "1: item 1" << endl;
-    cout << "2: item 2" << endl;
-    cout << "3: item 3" << endl;
-    cout << "4: item 4" << endl;
-    cout << "5: Exit General Store" << endl;
-    cin >> choice;
+    int menuOptions = 5;
+    string menuStr[][2] = {
+        {"1", "item 1"},
+        {"2", "item 2"},
+        {"3", "item 3"},
+        {"4", "item 4"},
+        {"5", "Exit General Store"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Welcome to the General Store", menuStr, menuOptions, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -402,19 +369,15 @@ void buyItem()
 
 void questNPC()
 {
-    char choice;
-    cout << endl
-         << "Intro words" << endl
-         << endl;
-    cout << "1: quest line" << endl;
-    cout << "2: Ask about background" << endl;
-    cout << "3: Stop talking to quest NPC" << endl;
-    cin >> choice;
+    int menuOptions = 3;
+    string menuStr[][2] = {
+        {"1", "quest line"},
+        {"2", "Ask about background"},
+        {"3", "Stop talking to quest NPC"}};
 
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
-        switch (choice)
+        switch (menu("Intro words", menuStr, menuOptions, 0))
         {
         case '1':
             //quest line implement
@@ -430,11 +393,9 @@ void questNPC()
     }
 }
 
-//not sure yet how it will be implemented, leaving hook for later
-void camp()
-{
-    return;
-}
+void explore();
+void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
+void reward();
 
 //explore to hook realms with encounters
 void explore()
@@ -449,6 +410,7 @@ void explore()
     cout << "4: Move East" << endl;
     cout << "5: Move South" << endl;
     cout << "6: Look at Character Sheet" << endl;
+    cout << "7: Stop exploring";
     cin >> choice;
 
     bool choiceNotMade = true;
@@ -474,15 +436,12 @@ void explore()
         case '6':
             //showStats();
             break;
+        case '7':
+            return;
         default:
             cout << "Invalid entry please try again" << endl;
         }
     }
-    return;
-}
-
-void reward()
-{
     return;
 }
 
@@ -514,7 +473,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     }
     else if (roll < nothing + trapChance + majorChance + monsterChance)
     {
-        monsterEncounter(1); // level of monster passed
+        monsterEncounter();
 
         return;
     }
@@ -532,20 +491,20 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     //parse
     string delimiter = " ";
     size_t pos = 0;
-    int i = 0;
+    int size = 0;
     string parsedStr[100];
     while ((pos = str.find(delimiter)) != string::npos)
     {
-        parsedStr[i] = str.substr(0, pos);
+        parsedStr[size] = str.substr(0, pos);
         str.erase(0, pos + delimiter.length());
-        i++;
+        size++;
     }
-    parsedStr[i] = str;
+    parsedStr[size] = str;
 
     //print
     int lineLength = startStr.length();
     cout << startStr;
-    for (size_t i = 0; i < sizeof(parsedStr) / sizeof(parsedStr[0]); i++)
+    for (int i = 0; i < size + 1; i++)
     {
         if (parsedStr[i] == "")
         {
@@ -553,7 +512,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
         }
         lineLength += parsedStr[i].length() + 1;
         cout << parsedStr[i] + " ";
-        if (lineLength + parsedStr[i + 1].length() > 80)
+        if (lineLength + parsedStr[i + 1].length() > 79)
         {
             cout << endl
                  << padding;
@@ -569,8 +528,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
     {
     //bare format
     case 0:
-    {
-        if (str.length() < 60)
+        if (str.length() < 80)
         {
             cout << str;
         }
@@ -579,10 +537,9 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             dialogueLong(str);
         }
         break;
-    }
     //simple format
     case 1:
-        if (str.length() + speaker.length() + 2 < 60)
+        if (str.length() + speaker.length() + 2 < 80)
         {
             cout << speaker << ": " << str;
         }
@@ -615,14 +572,275 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             break;
         default:
             cout << "Something is wrong with the fuction this was called from.\n";
+            break;
         }
         cout << "\t" + edge << endl
              << edge + internalSpace + internalSpace + internalSpace + edge;
-        break;
     }
     default:
         cout << "Something is wrong with the save file textType.\n";
     }
     cout << endl;
+    return;
+}
+
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
+{
+    int textType = 0; //import from save file
+    switch (textType)
+    {
+    //bare format
+    case 0:
+        cout << menuName << endl;
+        for (int i = 0; i < optionsNum; i++)
+        {
+            cout << optionsStr[i][0] << ": " + optionsStr[i][1] << endl;
+        }
+        break;
+    //simple format
+    case 1:
+        cout << "\t" << menuName << endl;
+        cout << "================================================" << endl;
+        for (int i = 0; i < optionsNum; i++)
+        {
+            cout << "\t" << optionsStr[i][0] << ": " + optionsStr[i][1] << endl;
+        }
+        cout << "================================================" << endl;
+        break;
+    //stylized format
+    case 2:
+        //not implemented yet
+        break;
+    }
+    char choice;
+    cin >> choice;
+    return choice;
+}
+
+void statsDisplay()
+{
+    int textType = 0;
+    string statsStrings[] = {"STR: ", "INT: ", "DEX: ", "AGL: ", "LCK: "};
+    character test1(); //to be removed latter
+    switch (textType)
+    {
+    case 0:
+        cout << "Name: " << character.name << endl
+             << "Level: " << character.lvl << endl
+             << "Health: " << character.hp << " / " << character.maxHp << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            cout << statsStrings[i] << character.stats[i];
+        }
+        break;
+    case 1:
+        cout << "Name: " << character.name << "\t"
+             << "Level: " << character.lvl << "\t"
+             << "Health: " << character.hp << " / " << character.maxHp << endl;
+        for (int i = 0; i < 5; i++)
+        {
+            cout << "\t" << statsStrings[i] << character.stats[i];
+            if (i + 1 % 2 == 0)
+            {
+                cout << endl;
+            }
+        }
+        break;
+    //stylized is yet to be implemented
+    case 2:
+        break;
+    default:
+        cout << "Something is wrong with the save file textType.\n";
+    }
+    return;
+}
+
+string playerCombatString(int actionPlayer)
+{
+    int weaponType = 0; //pull from charClass
+    switch (actionPlayer)
+    {
+    //Light Attack
+    case 0:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You jab out shoving";
+        //DEX
+        case 1:
+            return "You go in for a clean cut";
+        //INT
+        case 2:
+            return "You target for a precise zap";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Medium Attack
+    case 1:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You take a good swing";
+        //DEX
+        case 1:
+            return "You go in for a stab";
+        //INT
+        case 2:
+            return "You fire off a bolt";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Heavy Attack
+    case 2:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "You fully swing for a heavy blow";
+        //DEX
+        case 1:
+            return "You get close and stab in a vitals";
+        //INT
+        case 2:
+            return "You charge and let loose a large blast";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Block
+    case 3:
+        return "You try and block";
+    //Dodge
+    case 4:
+        return "You try and dodge";
+    default:
+        return "Something is wrong with the combat selection where this was called from";
+    }
+    return "Should not be reachable";
+}
+
+string mosterCombatString(int monsterAction, int weaponType)
+{
+    switch (monsterAction)
+    {
+    //Light Attack
+    case 0:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature shoves at you";
+        //DEX
+        case 1:
+            return "Creature goes in for a clean cut";
+        //INT
+        case 2:
+            return "Creature targets for a precise zap";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Medium Attack
+    case 1:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature takes a good swing";
+        //DEX
+        case 1:
+            return "Creature goes in for a stab";
+        //INT
+        case 2:
+            return "Creature fires off a bolt";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Heavy Attack
+    case 2:
+        switch (weaponType)
+        {
+        //STR
+        case 0:
+            return "Creature fully swings for a heavy blow";
+        //DEX
+        case 1:
+            return "Creature gets close and stabs at your vitals";
+        //INT
+        case 2:
+            return "Creature charges and let loose a large blast";
+        default:
+            return "Something is wrong with the weaponType in the character Class";
+        }
+    //Block
+    case 3:
+        return "Creature trys to block";
+    //Dodge
+    case 4:
+        return "Creature trys to dodge";
+    default:
+        return "Something is wrong with the combat selection where this was called from";
+    }
+    return "Should not be reachable";
+}
+
+void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
+                int hpMonster, int dmgMonster, int actionMonster, bool critMonster,
+                int monsterWeapon, bool playerGoesFirst)
+{
+    string nameChar = "Libarian"; //pull from charClass
+    int hpPlayer = 50;            //pull from charClass
+
+    string playerActionStr = playerCombatString(actionPlayer);
+    string attackStrMonster = mosterCombatString(actionMonster, monsterWeapon);
+
+    int textType = 1; //import from save file
+    switch (textType)
+    {
+    case 0:
+        cout << playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat";
+        cout << nameChar << " HP: " << hpPlayer << endl
+             << playerActionStr << endl;
+        if (critPlayer)
+        {
+            cout << "YOU HAVE CRITICLY HIT" << endl;
+        }
+        cout << "You deal " << dmgPlayer << " damgage" << endl;
+        cout << nameMonster << " HP: " << hpPlayer << endl
+             << playerActionStr << endl;
+        if (critMonster)
+        {
+            cout << "YOU HAVE BEEN CRITICLY HIT" << endl;
+        }
+        cout << "The creature deals " << dmgMonster << " damgage" << endl;
+        break;
+    //bare
+    case 1:
+    {
+        string middlePadding = "\t\t\t";
+        cout << playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat";
+        cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
+             << playerActionStr << "\t" << attackStrMonster << endl;
+        if (critPlayer)
+        {
+            cout << "\n\t\t"
+                 << "YOU HAVE CRITICLY HIT THE CREATURE\n"
+                 << endl;
+        }
+        else if (critMonster)
+        {
+            cout << "\t\t"
+                 << "YOU HAVE BEEN CRITICLY HIT BY THE CREATURE" << endl;
+        }
+        cout << "You deal " << dmgPlayer << " damgage" << middlePadding << "The creature deals " << dmgMonster << " damgage" << endl;
+        break;
+    }
+    //simple
+    case 2:
+        //stylized verion
+        break;
+    default:
+        cout << "Something is wrong with the save file textType.\n";
+    }
     return;
 }

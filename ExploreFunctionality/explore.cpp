@@ -9,7 +9,6 @@
 #include "trapEncounter.cpp"
 using namespace std;
 
-void camp();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void reward();
