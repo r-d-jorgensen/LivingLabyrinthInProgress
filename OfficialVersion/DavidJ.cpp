@@ -630,7 +630,7 @@ void statsDisplay()
              << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << statsStrings[i] << player.stats[i];
+            cout << statsStrings[i] << player.stat[i];
         }
         break;
     case 1:
@@ -639,7 +639,7 @@ void statsDisplay()
              << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << "\t" << statsStrings[i] << player.stats[i];
+            cout << "\t" << statsStrings[i] << player.stat[i];
             if (i + 1 % 2 == 0)
             {
                 cout << endl;

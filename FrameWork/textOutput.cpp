@@ -10,6 +10,7 @@ void statsDisplay();
 string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
+extern character player;
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
@@ -154,7 +155,7 @@ void statsDisplay()
              << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << statsStrings[i] << player.stats[i];
+            cout << statsStrings[i] << player.stat[i];
         }
         break;
     case 1:
@@ -163,7 +164,7 @@ void statsDisplay()
              << "Health: " << character.hp << " / " << character.maxHp << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << "\t" << statsStrings[i] << character.stats[i];
+            cout << "\t" << statsStrings[i] << character.stat[i];
             if (i + 1 % 2 == 0)
             {
                 cout << endl;
