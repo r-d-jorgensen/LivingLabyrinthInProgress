@@ -11,7 +11,7 @@ void camp();
 string strLower(string n);
 int riddle();
 int question();
-void monsterEncounter(int level);
+void monsterEncounter(int level =100);
 void luckyEncounter();
 void trapEncounter();
 void gamblingEncounter();
