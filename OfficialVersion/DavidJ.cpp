@@ -668,7 +668,7 @@ string playerCombatString(int actionPlayer)
             return "You jab out shoving";
         //DEX
         case 1:
-            a return "You go in for a clean cut";
+            return "You go in for a clean cut";
         //INT
         case 2:
             return "You target for a precise zap";
@@ -813,11 +813,11 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
         }
         cout << "The creature deals " << dmgMonster << " damgage" << endl;
         break;
-    //bare
+    //bareas
     case 1:
     {
         string middlePadding = "\t\t\t";
-        cout << playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat";
+        cout << (playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat");
         cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
