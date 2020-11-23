@@ -5,7 +5,7 @@ using namespace std;
 
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
 void dialogue(string str, int msgType, string speaker);
-void Menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
 void statsDisplay();
 string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
@@ -146,16 +146,15 @@ void statsDisplay()
 {
     int textType = 0;
     string statsStrings[] = {"STR: ", "INT: ", "DEX: ", "AGL: ", "LCK: "};
-    character test1(); //to be removed latter
     switch (textType)
     {
     case 0:
-        cout << "Name: " << character.name << endl
-             << "Level: " << character.lvl << endl
-             << "Health: " << character.hp << " / " << character.maxHp << endl;
+        cout << "Name: " << player.name << endl
+             << "Level: " << player.lvl << endl
+             << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << statsStrings[i] << character.stats[i];
+            cout << statsStrings[i] << player.stats[i];
         }
         break;
     case 1:
