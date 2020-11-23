@@ -635,7 +635,7 @@ void statsDisplay()
     case 1:
         cout << "Name: " << player.name << "\t"
              << "Level: " << player.lvl << "\t"
-             << "Health: " << player.hP << " / " << player.maxHP << endl;
+             << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
             cout << "\t" << statsStrings[i] << player.stats[i];
