@@ -5,7 +5,7 @@ using namespace std;
 
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
 void dialogue(string str, int msgType, string speaker);
-void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
 void statsDisplay();
 string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,

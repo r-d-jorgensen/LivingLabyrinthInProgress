@@ -28,7 +28,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void reward();
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
 void dialogue(string str, int msgType, string speaker);
-void menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
 void statsDisplay();
 string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
@@ -72,7 +72,7 @@ int libraryChoices()
 
     while (true)
     {
-        switch (menu("Living Libary Menu", menuStr, menuOptions, 0))
+        switch (menu("Living Libary Menu", menuStr, menuOptions, 0) a)
         {
         case '1':
             return (bookRealmNPC()); //talk to book Realm NPC
@@ -668,7 +668,7 @@ string playerCombatString(int actionPlayer)
             return "You jab out shoving";
         //DEX
         case 1:
-            return "You go in for a clean cut";
+            a return "You go in for a clean cut";
         //INT
         case 2:
             return "You target for a precise zap";
