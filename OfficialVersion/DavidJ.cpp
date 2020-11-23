@@ -35,6 +35,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
 
 #include "ScottK.cpp"
+extern character player;
 //End of Declarations
 
 void mainGameLoop()
