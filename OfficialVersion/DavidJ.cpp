@@ -797,7 +797,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     switch (textType)
     {
     case 0:
-        cout << playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat";
+        cout << (playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat");
         cout << nameChar << " HP: " << hpPlayer << endl
              << playerActionStr << endl;
         if (critPlayer)
