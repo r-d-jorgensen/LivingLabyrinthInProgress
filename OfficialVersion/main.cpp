@@ -3,7 +3,7 @@
 #include "DavidJ.cpp"
 
 using namespace std;
-
+character player;
 //Currently being used to test the funcitonality of our code so far
 void test()
 {
@@ -79,6 +79,7 @@ void test()
 			trapEncounter();
 			monsterEncounter(3);
 			majorEncounter();
+			break;
 		}
 		default:
 			cout << "That is not a valid test\n";
