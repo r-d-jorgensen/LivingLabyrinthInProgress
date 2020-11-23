@@ -72,7 +72,7 @@ int libraryChoices()
 
     while (true)
     {
-        switch (menu("Living Libary Menu", menuStr, menuOptions, 0) a)
+        switch (menu("Living Libary Menu", menuStr, menuOptions, 0))
         {
         case '1':
             return (bookRealmNPC()); //talk to book Realm NPC
