@@ -16,22 +16,21 @@ void reward();
 //explore to hook realms with encounters
 void explore()
 {
-    char choice;
-    cout << endl
-         << "Explore the area?" << endl
-         << endl;
-    cout << "1: Camp" << endl;
-    cout << "2: Move North" << endl;
-    cout << "3: Move West" << endl;
-    cout << "4: Move East" << endl;
-    cout << "5: Move South" << endl;
-    cout << "6: Look at Character Sheet" << endl;
-    cout << "7: Stop exploring";
-    cin >> choice;
-
-    bool choiceNotMade = true;
-    while (choiceNotMade)
+    while (true)
     {
+        char choice;
+        cout << endl
+             << "Explore the area?" << endl
+             << endl;
+        cout << "1: Camp" << endl;
+        cout << "2: Move North" << endl;
+        cout << "3: Move West" << endl;
+        cout << "4: Move East" << endl;
+        cout << "5: Move South" << endl;
+        cout << "6: Look at Character Sheet" << endl;
+        cout << "7: Stop exploring";
+        cin >> choice;
+
         switch (choice)
         {
         case '1':
