@@ -396,7 +396,7 @@ void questNPC()
 
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
-void reward();
+//void reward();
 
 //explore to hook realms with encounters
 void explore()
