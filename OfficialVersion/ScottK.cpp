@@ -234,7 +234,7 @@ int tutorial()
 	dialogue("Okay, please enter the name of your character.");
 	cin >> charName;
 	dialogue("Your character's name is " + charName); // player.name = charName
-	/*###    character player = new character(charName;*/
+	/*###*/
 	int graphics;
 	dialogue("Choose your graphics level. '0' for bare, '1' for sparse, full N/A");
 	cin >> graphics;
@@ -245,7 +245,7 @@ int tutorial()
 		dialogue("Please choose 0 or 1");
 		cin >> graphics;
 	}
-	dialogue("graphics level  is " + to_string(graphics)); // player.textTYpe = graphics;
+	dialogue("graphics level  is " + to_string(graphics)); // player.textType = graphics;
 	dialogue("Now, please enter the level of ");
 	dialogue("difficulty you want to play (1 to 10'?");
 	int level;
@@ -257,6 +257,7 @@ int tutorial()
 		dialogue("Please choose 1 to 10");
 		cin >> level;
 	}
+	player.difficulty = level;
 	string questKey;
 	string jumble;
 	questKey = questAnswer(level);
@@ -289,7 +290,7 @@ void camp()
 		int maxHP = 40;     // ###int maxHP = player.maxHP;
 		int currentHP = 30; // ### int currentHP = player.HP;
 		int diff = maxHP - currentHP;
-		int constitution = 7; // ###int constitution = player.con;
+		int constitution = 7; // ###int constitution = player.stat[0];
 		int randNum = ((rand() + time(0)) % (maxHP / 2));
 		int conAdjustment = constitution * (maxHP / 20); // incorporates player con to heal
 		int hpFactor = conAdjustment + randNum;
@@ -297,7 +298,8 @@ void camp()
 		dialogue("You feel rested. You gained ");
 		dialogue(to_string((diff * hpFactor) / maxHP) + "HP");
 		dialogue("You have " + to_string(currentHP) + "HP");
-		//### player.HP = currentHP + HP;
+		if (currentHP > maxHP) { currentHP = maxHP; }
+		//### player.HP = currentHP;
 	}
 	return;
 }
@@ -461,8 +463,8 @@ void monsterEncounter(int level)
 		bounty = charLevel;
 		rewardType = "clue";
 	}
-	//###	 monster theMonster = new monster(monsterLevel);
-	//monsterCombat();
+	//###	 monster theMonster(monsterLevel);
+	//###	 combat(theMonster);
 	cout << "Monster sent to combat is level " << monsterLevel << endl;//###
 	reward(rewardType, bounty); 
 	return;
@@ -498,7 +500,7 @@ void reward(string type, int amount)
 void luckyEncounter()
 {
 	int gold = 100; //###int gold = player.gold; pull gold from character stats or items etc
-	int luck = 15;  //### luck = player.luck;  pulled from stats
+	int luck = 15;  //### luck = player.stat[5];  pulled from stats
 	int goldFound = 0;
 	/* first random generator is gold vs weapon vs armor */
 	int randNum = ((rand() + time(0)) % 10);
@@ -530,28 +532,33 @@ void luckyEncounter()
 	}
 	else if ((randNum == 7) || (randNum == 8))
 	{
+		/*### Commented out old code, next set of pounds is new code
 		int randWeapon = ((rand() + time(0)) % 5);
 		string weapon[5] = {
 			"dagger", "short sword", "long sword", "two handed sword", "mace"};
-		dialogue("You see a " + weapon[randWeapon]);
-		// ### player.addItem(weapon[randWeapon]);
+		dialogue("You see a " + weapon.name); */
+		/* ### item weapon("2");
+		   dialogue("You see a " + weapon.name);
+	 	   player.addItem(weapon); */
 	}
 	else
 	{
+		/*### Commented out old code, next set of pounds is new code
 		int randArmor = ((rand() + time(0)) % 5);
 		string armor[5] = {
 			"plate mail", "chain mail", "leather mail", " helmet", "shield"};
-		dialogue("You see a " + armor[randArmor]);
-		// pass to character items 
-		//###player.addItem(armor[randArmor];
+		dialogue("You see a " + armor[randArmor]); */
+		/* ### item armor("1");
+		   dialogue("You see a " + armor.name);
+		   player.addItem(weapon); */
 	}
 }
 /* trap encounter  function selects a random trap which may cause harm */
 void trapEncounter()
 {
-	int luck = 10;     //###int luck = player.luck pulled from stats
-	int agility = 9;   //### int agility = player.ag; from stats
-	int dexterity = 8; //###int dexterity = player.dex; from stats
+	int luck = 10;     //###int luck = player.stat[5] pulled from stats
+	int agility = 9;   //### int agility = player.stat[4]; from stats
+	int dexterity = 8; //###int dexterity = player.stat[2]; from stats
 	int hitPoints = 100; // ###player.HP;
 	int HPLost = 0;
 	ifstream trapFile;
