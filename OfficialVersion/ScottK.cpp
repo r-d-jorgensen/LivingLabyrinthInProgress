@@ -10,6 +10,7 @@ string strLower(string n);
 int riddle();
 int question();
 void monsterEncounter(int level =100);
+void reward(string type, int amount);
 void luckyEncounter();
 void trapEncounter();
 void gamblingEncounter();
@@ -107,7 +108,7 @@ string questAnswer(int levelChoice)
 {
 	int randNum = (rand() + time(0)) % 5; // need to increase %5 as add words to file
 	int pick= 0;
-pick = ((levelChoice -1) * 5) + randNum; // change 5 as add more words,now 5
+	pick = ((levelChoice -1) * 5) + randNum; // change 5 as add more words,now 5
 	string word[] = {"now", "cue", "orb", "mob", "hum",
 		"when", "thus", "bash", "belt", "arab",
 		"stout", "stint", "cheif", "creek", "power",
@@ -422,9 +423,19 @@ int question()
 /* function receives an int which indicates level of the monster if received 
  * from majorEncounter. A 100  indicates that monsterEncounter was called 
  * from Explore. function adjusts monster using randomization and chaar's lvl */
+
+/* lucky encounter  function selects a random lucky find
+ * gold, weapon, armor, or artifact */
+
+
 void monsterEncounter(int level)
 {
 	int monsterLevel = 0;
+	int charLevel = 1; // ### int charLevel = player.lvl;
+	string rewardType; // sent to reward function with bounty to generate reward 
+	int bounty = 0;
+	/* receiving 100 as level means a random monster in the wilderness, less 
+	 * difficult and less reward once killed */
 	if (level == 100)
 	{
 		int randNum = ((rand() + time(0)) % 100);
@@ -438,22 +449,49 @@ void monsterEncounter(int level)
 			monsterLevel = -2;
 		if (randNum < 50)
 			monsterLevel = -3;
+		bounty = monsterLevel + 5 + charLevel;
+		rewardType = "wild";
 	}
 	else
 	{
 		int randNum = ((rand() + time(0)) % 3);
 		monsterLevel = level + randNum - 1;
+		monsterLevel += charLevel;
+		bounty = charLevel;
+		rewardType = "clue";
 	}
-	int charLevel = 1; // ### int charLevel = player.lvl;
-	monsterLevel += charLevel;
 	//###	 monster theMonster = new monster(monsterLevel);
 	//monsterCombat();
 	cout << "Monster sent to combat is level " << monsterLevel << endl;
-	//call reward(monsterLevel);
+	reward(rewardType, bounty); 
+	return;
+}
+/* reward function generates the reward depending on the type of monster
+ * killed and where the monstr was met i.e. in wild or in major encounter */
+void reward(string type, int amount)
+{
+	int gold = 0;
+	if (type == "wild") {
+		for (int i = 0;i<amount;i++) {
+			int randNum = ((rand() + time(0)) % 5);
+			gold += randNum;
+		}
+	}
+	else if (type == "clue") {
+		gold = amount * 100;
+		for (int i = 0;i < amount;i++) {
+			int randNum = ((rand() + time(0)) % 50);
+			gold += randNum;
+		}
+	}
+	else {
+		gold =2;
+	}	
+	dialogue("You found " + to_string(gold) + "gold pieces after killing the enemy");
+	// ### player.gold = gold;
+	return;
 }
 
-/* lucky encounter  function selects a random lucky find
- * gold, weapon, armor, or artifact */
 
 
 void luckyEncounter()
@@ -672,11 +710,11 @@ void majorEncounter()
 	dialogue("It is engraved with the letter " + letter);
 	rings++;
 	if (rings >= ringsNeeded) {
-		cout << "time to have the final battle, here are the clues. Can you unscramble them?" << endl;
-		dialogue("jumbled word: " + thePuzzle->getFinalPuzzle());
-		monsterEncounter(10);
+	cout << "time to have the final battle, here are the clues. Can you unscramble them?" << endl;
+	dialogue("jumbled word: " + thePuzzle->getFinalPuzzle());
+	monsterEncounter(10);
 	}
-}       
-*/
-return;
+	}       
+	*/
+	return;
 }
