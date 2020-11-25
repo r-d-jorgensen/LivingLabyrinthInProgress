@@ -2,12 +2,6 @@
  * that a monster will ambush the player, so no rest is attained. Otherwise, if
  *  allowed to rest, then player increases hit points by a constant factor 
  *  based on constitution and a random number*/
-#pragma once
-#include <iostream>
-#include "textOutput.cpp"
-using namespace std;
-
-void camp();
 void camp()
 {
 	int randEnc = ((rand() + time(0)) % 10);
@@ -15,31 +9,22 @@ void camp()
 	{
 		dialogue("You hear a noise that wakes you from your slumber");
 		dialogue("You prepare for some kind of attack.");
-		//	monsterEncounter(); call monsterEncounter function
+		monsterEncounter(); //call monsterEncounter function
 	}
 	else
 	{
-		int maxHP = 40;		// call player.maxHp;
-		int currentHP = 30; //call player.hp;
+		int maxHP = 40;     // ###int maxHP = player.maxHP;
+		int currentHP = 30; // ### int currentHP = player.HP;
 		int diff = maxHP - currentHP;
-		int constitution = 7; // call player.con
+		int constitution = 7; // ###int constitution = player.con;
 		int randNum = ((rand() + time(0)) % (maxHP / 2));
 		int conAdjustment = constitution * (maxHP / 20); // incorporates player con to heal
 		int hpFactor = conAdjustment + randNum;
 		currentHP = currentHP + ((diff * hpFactor) / maxHP);
-
 		dialogue("You feel rested. You gained ");
 		dialogue(to_string((diff * hpFactor) / maxHP) + "HP");
 		dialogue("You have " + to_string(currentHP) + "HP");
-		// player.setHP(currentHP);
+		//### player.HP = currentHP + HP;
 	}
 	return;
 }
-
-/*
-   int main() {
-   for (int i = 0; i<20;i++)
-   camp();
-   return 0;
-   }
-   */
