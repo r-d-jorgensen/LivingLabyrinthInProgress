@@ -193,23 +193,20 @@ void textFormat()
 {
     int menuOptions = 4;
     string menuStr[][2] = {
-        {"1", "Default Mode"},
+        {"1", "Text Reader Mode"},
         {"2", "Brief Mode"},
-        {"3", "Text Reader Mode"},
+        {"3", "Stylized Mode"},
         {"4", "Return to Settings menu"}};
 
     while (true)
     {
-        switch (menu("Text Types", menuStr, menuOptions, 0))
+        string choice = (int)menu("Text Types", menuStr, menuOptions, 0);
+        switch (choice)
         {
         case '1':
-            //bare mode
-            return;
         case '2':
-            //simple mode
-            return;
         case '3':
-            //stylized mode
+            player.textType = choice - 1;
             return;
         case '4':
             return;
@@ -223,25 +220,36 @@ void difficultySetting()
 {
     int menuOptions = 4;
     string menuStr[][2] = {
-        {"1", "Easy"},
-        {"2", "Medium"},
-        {"3", "Hard"},
-        {"4", "Return to Settings menu"}};
+        {"0", "Return to Settings menu"},
+        {"1", ""},
+        {"2", ""},
+        {"3", ""},
+        {"4", ""},
+        {"5", ""},
+        {"6", ""},
+        {"7", ""},
+        {"8", ""},
+        {"9", ""},
+        {"10", ""}};
 
     while (true)
     {
         switch (menu("Which Difficulty would you like?", menuStr, menuOptions, 0))
         {
+        case '0':
+            return;
         case '1':
-            //change difficulty to Easy
-            return;
         case '2':
-            //change difficulty to Medium
-            return;
         case '3':
-            //change difficulty to Hard
-            return;
         case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '10':
+            //side effects to be implemented
+            player.difficulty = (int)menuStr;
             return;
         default:
             cout << "Invalid entry please try again" << endl;
@@ -429,7 +437,7 @@ void explore()
             move(20, 20, 20, 25);
             break;
         case '6':
-            //showStats();
+            statsDisplay();
             break;
         case '7':
             return;
