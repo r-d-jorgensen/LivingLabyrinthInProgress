@@ -25,7 +25,6 @@ void buyItem();
 void questNPC();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
-void reward();
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
 void dialogue(string str, int msgType, string speaker);
 int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
@@ -394,10 +393,6 @@ void questNPC()
     }
 }
 
-void explore();
-void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
-//void reward();
-
 //explore to hook realms with encounters
 void explore()
 {
@@ -524,8 +519,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
 
 void dialogue(string str, int msgType = 0, string speaker = "Self")
 {
-    int textType = 0; //import from save file
-    switch (textType)
+    switch (player.textType)
     {
     //bare format
     case 0:
@@ -587,8 +581,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
 
 int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
 {
-    int textType = 0; //import from save file
-    switch (textType)
+    switch (player.textType)
     {
     //bare format
     case 0:
@@ -620,9 +613,8 @@ int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType =
 
 void statsDisplay()
 {
-    int textType = 0;
     string statsStrings[] = {"STR: ", "INT: ", "DEX: ", "AGL: ", "LCK: "};
-    switch (textType)
+    switch (player.textType)
     {
     case 0:
         cout << "Name: " << player.name << endl
@@ -634,12 +626,12 @@ void statsDisplay()
         }
         break;
     case 1:
-        cout << "Name: " << player.name << "\t"
-             << "Level: " << player.lvl << "\t"
-             << "Health: " << player.HP << " / " << player.maxHP << endl;
+        cout << "Name: " << character.name << "\t"
+             << "Level: " << character.lvl << "\t"
+             << "Health: " << character.hp << " / " << character.maxHp << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << "\t" << statsStrings[i] << player.stat[i];
+            cout << "\t" << statsStrings[i] << character.stat[i];
             if (i + 1 % 2 == 0)
             {
                 cout << endl;
@@ -657,12 +649,11 @@ void statsDisplay()
 
 string playerCombatString(int actionPlayer)
 {
-    int weaponType = 0; //pull from charClass
     switch (actionPlayer)
     {
     //Light Attack
     case 0:
-        switch (weaponType)
+        switch (player.eqpt[0].subType)
         {
         //STR
         case 0:
@@ -674,11 +665,11 @@ string playerCombatString(int actionPlayer)
         case 2:
             return "You target for a precise zap";
         default:
-            return "Something is wrong with the weaponType in the character Class";
+            return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
     //Medium Attack
     case 1:
-        switch (weaponType)
+        switch (player.eqpt[0].subType)
         {
         //STR
         case 0:
@@ -690,11 +681,11 @@ string playerCombatString(int actionPlayer)
         case 2:
             return "You fire off a bolt";
         default:
-            return "Something is wrong with the weaponType in the character Class";
+            return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
     //Heavy Attack
     case 2:
-        switch (weaponType)
+        switch (player.eqpt[0].subType)
         {
         //STR
         case 0:
@@ -706,7 +697,7 @@ string playerCombatString(int actionPlayer)
         case 2:
             return "You charge and let loose a large blast";
         default:
-            return "Something is wrong with the weaponType in the character Class";
+            return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
     //Block
     case 3:
@@ -788,25 +779,21 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster,
                 int monsterWeapon, bool playerGoesFirst)
 {
-    string nameChar = "Libarian"; //pull from charClass
-    int hpPlayer = 50;            //pull from charClass
-
     string playerActionStr = playerCombatString(actionPlayer);
     string attackStrMonster = mosterCombatString(actionMonster, monsterWeapon);
 
-    int textType = 1; //import from save file
-    switch (textType)
+    switch (player.textType)
     {
     case 0:
-        cout << (playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat");
-        cout << nameChar << " HP: " << hpPlayer << endl
+        cout << playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat";
+        cout << player.name << " HP: " << player.HP << endl
              << playerActionStr << endl;
         if (critPlayer)
         {
             cout << "YOU HAVE CRITICLY HIT" << endl;
         }
         cout << "You deal " << dmgPlayer << " damgage" << endl;
-        cout << nameMonster << " HP: " << hpPlayer << endl
+        cout << nameMonster << " HP: " << player.HP << endl
              << playerActionStr << endl;
         if (critMonster)
         {
@@ -814,12 +801,12 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
         }
         cout << "The creature deals " << dmgMonster << " damgage" << endl;
         break;
-    //bareas
+    //bare
     case 1:
     {
         string middlePadding = "\t\t\t";
-        cout << (playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat");
-        cout << nameChar << " HP: " << hpPlayer << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
+        cout << playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat";
+        cout << player.name << " HP: " << player.HP << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
         {
