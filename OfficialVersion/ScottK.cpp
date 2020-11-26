@@ -233,7 +233,8 @@ int tutorial()
 	string charName;
 	dialogue("Okay, please enter the name of your character.");
 	cin >> charName;
-	dialogue("Your character's name is " + charName); // player.name = charName
+	dialogue("Your character's name is " + charName);
+	player.name = charName;
 	/*###*/
 	int graphics;
 	dialogue("Choose your graphics level. '0' for bare, '1' for sparse, full N/A");
@@ -245,7 +246,8 @@ int tutorial()
 		dialogue("Please choose 0 or 1");
 		cin >> graphics;
 	}
-	dialogue("graphics level  is " + to_string(graphics)); // player.textType = graphics;
+	dialogue("graphics level  is " + to_string(graphics));
+	player.textType = graphics;
 	dialogue("Now, please enter the level of ");
 	dialogue("difficulty you want to play (1 to 10'?");
 	int level;
@@ -287,10 +289,13 @@ void camp()
 	}
 	else
 	{
-		int maxHP = 40;     // ###int maxHP = player.maxHP;
-		int currentHP = 30; // ### int currentHP = player.HP;
+		//int maxHP = 40;      ###
+		int maxHP = player.maxHP;
+		//int currentHP = 30;  ### 
+		int currentHP = player.HP;
 		int diff = maxHP - currentHP;
-		int constitution = 7; // ###int constitution = player.stat[0];
+		//int constitution = 7; ###
+		int constitution = player.stat[0];
 		int randNum = ((rand() + time(0)) % (maxHP / 2));
 		int conAdjustment = constitution * (maxHP / 20); // incorporates player con to heal
 		int hpFactor = conAdjustment + randNum;
@@ -299,7 +304,8 @@ void camp()
 		dialogue(to_string((diff * hpFactor) / maxHP) + "HP");
 		dialogue("You have " + to_string(currentHP) + "HP");
 		if (currentHP > maxHP) { currentHP = maxHP; }
-		//### player.HP = currentHP;
+		//### 
+		player.HP = currentHP;
 	}
 	return;
 }
@@ -434,7 +440,8 @@ int question()
 void monsterEncounter(int level)
 {
 	int monsterLevel = 0;
-	int charLevel = 1; // ### int charLevel = player.lvl;
+	//	int charLevel = 1;  ### 
+	int charLevel = player.lvl;
 	string rewardType; // sent to reward function with bounty to generate reward 
 	int bounty = 0;
 	/* receiving 100 as level means a random monster in the wilderness, less 
@@ -442,15 +449,15 @@ void monsterEncounter(int level)
 	if (level == 100)
 	{
 		int randNum = ((rand() + time(0)) % 100);
-		if (randNum < 100)
+		if (randNum > 93)
 			monsterLevel = 1;
-		if (randNum < 94)
+		else if (randNum >86)
 			monsterLevel = 0;
-		if (randNum < 87)
+		else if (randNum > 74)
 			monsterLevel = -1;
-		if (randNum < 75)
+		else if (randNum > 49)
 			monsterLevel = -2;
-		if (randNum < 50)
+		else
 			monsterLevel = -3;
 		bounty = monsterLevel + 5 + charLevel;
 		rewardType = "wild";
@@ -463,8 +470,10 @@ void monsterEncounter(int level)
 		bounty = charLevel;
 		rewardType = "clue";
 	}
-	//###	 monster theMonster(monsterLevel);
-	//###	 combat(theMonster);
+	//###	 
+	monster theMonster(monsterLevel);
+	//###	 
+	combat(theMonster);
 	cout << "Monster sent to combat is level " << monsterLevel << endl;//###
 	reward(rewardType, bounty); 
 	return;
@@ -491,16 +500,17 @@ void reward(string type, int amount)
 		gold =2;
 	}	
 	dialogue("You found " + to_string(gold) + "gold pieces after killing the enemy");
-	// ### player.gold = gold;
+	// ### 
+	player.gold = gold;
 	return;
 }
 
-
-
 void luckyEncounter()
 {
-	int gold = 100; //###int gold = player.gold; pull gold from character stats or items etc
-	int luck = 15;  //### luck = player.stat[5];  pulled from stats
+	//	int gold = 100; //###
+	int gold = player.gold;
+	//	int luck = 15;  ### i
+	int 	luck = player.stat[5];
 	int goldFound = 0;
 	/* first random generator is gold vs weapon vs armor */
 	int randNum = ((rand() + time(0)) % 10);
@@ -509,45 +519,46 @@ void luckyEncounter()
 		int randGold = ((rand() + time(0)) % 50);
 		randGold = randGold + luck / 3;
 		/* incorporates luck to determine how much gold found */
-		if (randGold < 57)
+		if (randGold >54)
 			goldFound = 100;
-		if (randGold < 54)
+		else if (randGold > 51)
 			goldFound = 50;
-		if (randGold < 52)
+		else if (randGold > 47)
 			goldFound = 40;
-		if (randGold < 48)
+		else if (randGold > 40)
 			goldFound = 25;
-		if (randGold < 41)
+		else if (randGold > 30)
 			goldFound = 20;
-		if (randGold < 31)
+		else if (randGold > 19)
 			goldFound = 15;
-		if (randGold < 20)
+		else if (randGold > 9)
 			goldFound = 10;
-		if (randGold < 10)
+		else
 			goldFound = 5;
 		dialogue("You see something glimmer in the sunlight");
 		dialogue("You see " + to_string(goldFound) + " gold pieces!");
 		gold += goldFound;
-		//### player.gold = gold;  add gold to character's items.
+		//### 
+		player.gold = gold; // add gold to character's items.
 	}
 	else if ((randNum == 7) || (randNum == 8))
 	{
 		/*### Commented out old code, next set of pounds is new code
-		int randWeapon = ((rand() + time(0)) % 5);
-		string weapon[5] = {
-			"dagger", "short sword", "long sword", "two handed sword", "mace"};
-		dialogue("You see a " + weapon.name); */
+		  int randWeapon = ((rand() + time(0)) % 5);
+		  string weapon[5] = {
+		  "dagger", "short sword", "long sword", "two handed sword", "mace"};
+		  dialogue("You see a " + weapon.name); */
 		/* ### item weapon("2");
 		   dialogue("You see a " + weapon.name);
-	 	   player.addItem(weapon); */
+		   player.addItem(weapon); */
 	}
 	else
 	{
 		/*### Commented out old code, next set of pounds is new code
-		int randArmor = ((rand() + time(0)) % 5);
-		string armor[5] = {
-			"plate mail", "chain mail", "leather mail", " helmet", "shield"};
-		dialogue("You see a " + armor[randArmor]); */
+		  int randArmor = ((rand() + time(0)) % 5);
+		  string armor[5] = {
+		  "plate mail", "chain mail", "leather mail", " helmet", "shield"};
+		  dialogue("You see a " + armor[randArmor]); */
 		/* ### item armor("1");
 		   dialogue("You see a " + armor.name);
 		   player.addItem(weapon); */
@@ -556,10 +567,14 @@ void luckyEncounter()
 /* trap encounter  function selects a random trap which may cause harm */
 void trapEncounter()
 {
-	int luck = 10;     //###int luck = player.stat[5] pulled from stats
-	int agility = 9;   //### int agility = player.stat[4]; from stats
-	int dexterity = 8; //###int dexterity = player.stat[2]; from stats
-	int hitPoints = 100; // ###player.HP;
+	//	int luck = 10;     //###
+	int luck = player.stat[5];
+	//	int agility = 9;   //### 
+	int agility = player.stat[4];
+	//	int dexterity = 8; //###
+	int dexterity = player.stat[2]; 
+	int hitPoints = 100; // ###
+	int hitPoints =	player.HP;
 	int HPLost = 0;
 	ifstream trapFile;
 	trapFile.open("./txtFiles/traps.txt");
@@ -590,7 +605,8 @@ void trapEncounter()
 		int randPercent = ((rand() + time(0)) % 30);
 		HPLost = hitPoints * randPercent / 100;
 		hitPoints = hitPoints - HPLost;
-		//### player.HP = hitPoints;
+		//### 
+		player.HP = hitPoints;
 		dialogue("You lost " + to_string(HPLost) + " hit points");
 	}
 	trapFile.close();
@@ -607,7 +623,8 @@ void gamblingEncounter()
 	int goldPieces = 0;
 	int shellChoice = 0;
 	int shell = 0;
-	int goldCarried = 100; //###int goldCarried = player.gold;
+	//	int goldCarried = 100; //###
+	int goldCarried = player.gold;
 	dialogue("Welcome, you have found us. Would you like to play a game of shells? y or n", 2, "Dealer");
 	cin >> play;
 	cin.ignore();
@@ -681,7 +698,8 @@ void gamblingEncounter()
 			cin.ignore();
 		}
 		dialogue("Your total gold after playing is " + to_string(goldCarried));
-		//### player.gold = goldCarried; 
+		//### 
+		player.gold = goldCarried; 
 	}
 }
 
@@ -693,13 +711,8 @@ void gamblingEncounter()
 
 void majorEncounter()
 {
-	/*
-	   int rings = thePuzzle->getCurrentRings(); 
-	   int ringsNeeded = thePuzzle->getTotalRingsNeeded();
-	// while is just for testing
-	//	while (rings < ring0sNeeded) {
-	thePuzzle->setCurrentRings(rings);
-	*/
+	int rings = thePuzzle->getCurrentRings(); 
+	int ringsNeeded = thePuzzle->getTotalRingsNeeded();
 	int monster = 0;
 	printGreeting();
 	monster += riddle();
@@ -707,8 +720,7 @@ void majorEncounter()
 	monster += doorGame();
 	monsterEncounter(monster);
 	//after successfully killing monster find a ring with a letter engraved
-	/*
-	   string clue  = thePuzzle->getFinalPuzzle();
+	string clue  = thePuzzle->getFinalPuzzle();
 	// get clue and type cast to string 
 	char engraved = clue[rings];
 	string letter; 
@@ -717,18 +729,14 @@ void majorEncounter()
 	dialogue("It is engraved with the letter " + letter);
 	rings++;
 	if (rings >= ringsNeeded) {
-	dialogue("time to have the final battle, here are the clues. Can you unscramble them?" << endl;
-	dialogue("jumbled word: " + thePuzzle->getFinalPuzzle());
-	monsterEncounter(10);
+		finalEncounter();
 	}
-	}       
-	*/
-	finalEncounter();
 	return;
 }
+
 void finalEncounter() {
-	string jumble = "ctost";// ###jumble = thePuzzle->getFinalPuzzle();
-	string answer = "scott"; // ### answer = thePuzzle->getFinalSolution();
+	string jumble = thePuzzle->getFinalPuzzle();
+	string answer = thePuzzle->getFinalSolution();
 	dialogue("You hear a voice from the shadows.");
 	dialogue("You have done very well to get this far");
 	dialogue("Here is a drink to help you before yur final battle.");
@@ -738,12 +746,12 @@ void finalEncounter() {
 	cin.ignore();
 	if ((drink == "Yes") || (drink =="yes") || (drink == "Y") || (drink == "y")) {
 		dialogue("Doesn't that feel better?");
-		/*### player.HP = maxHP; */
+		player.HP = maxHP; 
 		dialogue("The potion has regenerated your health to maxHP");
 	}
 	dialogue("The door slams shut behind you!");
 	dialogue("Ha Ha Ha Ha. You are trapped. The only way out is to put");
-	dialogue("rings in the correct order before the dragon smells you");
+	dialogue("the rings in the correct order before the dragon smells you");
 	dialogue("Here is the order you found the rings " + jumble);
 	dialogue("What word do they spell? ");
 	string guess;
@@ -752,7 +760,7 @@ void finalEncounter() {
 	if (answer == guess) {
 		dialogue("Great Job, you win!");
 		dialogue("You find 2000 gold pieces");
-		//###player.gold += 2000;
+		player.gold += 2000;
 	}
 	else {
 		monsterEncounter(13);
