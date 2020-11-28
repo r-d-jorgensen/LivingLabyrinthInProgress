@@ -14,7 +14,7 @@ extern character player;
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
-    //parse
+    //parser
     string delimiter = " ";
     size_t pos = 0;
     int size = 0;
@@ -27,7 +27,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     }
     parsedStr[size] = str;
 
-    //print
+    //print parsed str
     int lineLength = startStr.length();
     cout << startStr;
     for (int i = 0; i < size + 1; i++)
@@ -73,7 +73,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             dialogueLong(str, speaker + ": ", 8, "\t");
         }
         break;
-    //stylized format
+    //stylized format still in development
     case 2:
     {
         string edge = "***";

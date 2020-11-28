@@ -6,22 +6,21 @@ int bookRealm();
 void Armoury();
 void generalStore();
 void buyItem();
-void questNPC();
+void aliceNPC();
 
 int bookRealm()
 {
-    int menuOptions = 6;
     string menuStr[][2] = {
         {"1", "Explore"},
         {"2", "Go to the Armoury"},
         {"3", "Go to the General Store"},
-        {"4", "Talk to Quest NPC"},
+        {"4", "Talk to Alice"},
         {"5", "Go Back to the Library"},
         {"6", "Exit the Game"}};
 
     while (true)
     {
-        switch (menu("Book Realm Menu", menuStr, menuOptions, 0))
+        switch (menu("Book Realm Menu", menuStr, 6, 0))
         {
         case '1':
             explore();
@@ -30,10 +29,11 @@ int bookRealm()
             Armoury();
             break;
         case '3':
-            generalStore();
+            cout << "This building is under construction";
+            //generalStore();
             break;
         case '4':
-            questNPC();
+            aliceNPC();
             break;
         case '5':
             return 1;
@@ -49,7 +49,6 @@ int bookRealm()
 //added a armoury shop for users to purchess from, items still not hooked in
 void Armoury()
 {
-    int menuOptions = 5;
     string menuStr[][2] = {
         {"1", "item 1"},
         {"2", "item 2"},
@@ -59,7 +58,7 @@ void Armoury()
 
     while (true)
     {
-        switch (menu("Welcome to the Armory", menuStr, menuOptions, 0))
+        switch (menu("Welcome to the Armory", menuStr, 5, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -83,10 +82,11 @@ void Armoury()
     return;
 }
 
-//added a general store for users to purchess from, items still not hooked in
+//IN PROGRESS
 void generalStore()
 {
-    int menuOptions = 5;
+    cout << "This store is under construction come back another time.";
+    return;
     string menuStr[][2] = {
         {"1", "item 1"},
         {"2", "item 2"},
@@ -96,7 +96,7 @@ void generalStore()
 
     while (true)
     {
-        switch (menu("Welcome to the General Store", menuStr, menuOptions, 0))
+        switch (menu("Welcome to the General Store", menuStr, 5, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -126,23 +126,26 @@ void buyItem()
     return;
 }
 
-void questNPC()
+void aliceNPC()
 {
-    int menuOptions = 3;
     string menuStr[][2] = {
-        {"1", "quest line"},
-        {"2", "Ask about background"},
-        {"3", "Stop talking to quest NPC"}};
+        {"1", "What has been happaning in the forest?"},
+        {"2", "Anything special that I need to know about the forest?"},
+        {"3", "Stop talking to Alice"}};
 
     while (true)
     {
-        switch (menu("Intro words", menuStr, menuOptions, 0))
+        switch (menu("Intro words", menuStr, 3, 0))
         {
         case '1':
-            //quest line implement
+            dialogue("You must help me get rid of those beasties in the forest and hills", 2, "Alice");
+            //more words about what she wants player to do if statments if objectives completed
             break;
         case '2':
-            //background words
+            dialogue("Well the creatures in there are very bad, but im not sure what is causeing it. 
+            I dont think it is the RED QUEEN but it has something to do with the letters they are carryin.g
+            ", 2, "Alice");
+            //more stuff about what is going on
             break;
         case '3':
             return;
