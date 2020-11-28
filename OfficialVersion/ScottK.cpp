@@ -21,76 +21,76 @@ void finalEncounter();
 #include "DavidJ.cpp"
 string questAnswer(int levelChoice);
 string anagram(string originalWord);
+/*
+   class FinalPuzzle
+   {
+   public:
+// default constructor
+FinalPuzzle();
+// constructor
+FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+void setFinalPuzzle(string finalPuzzle); // Mutator
+string getFinalPuzzle() const;           // Accessor
+void setFinalSolution(string finalSolution); // Mutator
+string getFinalSolution() const;             // Accessor
+void setTotalRingsNeeded(int totalRings);
+int getTotalRingsNeeded() const;
+void setCurrentRings(int totalRings);
+int getCurrentRings() const;
 
-class FinalPuzzle
-{
-	public:
-		// default constructor
-		FinalPuzzle();
-		// constructor
-		FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
-		void setFinalPuzzle(string finalPuzzle); // Mutator
-		string getFinalPuzzle() const;           // Accessor
-		void setFinalSolution(string finalSolution); // Mutator
-		string getFinalSolution() const;             // Accessor
-		void setTotalRingsNeeded(int totalRings);
-		int getTotalRingsNeeded() const;
-		void setCurrentRings(int totalRings);
-		int getCurrentRings() const;
-
-	private:
-		string jumbledWord;
-		string correctWord;
-		int totalRingsNeeded;
-		int ringsFound;
+private:
+string jumbledWord;
+string correctWord;
+int totalRingsNeeded;
+int ringsFound;
 }; // end of class definition
 
 // default constructor
 FinalPuzzle::FinalPuzzle()
 {
-	this->jumbledWord = "etts";
-	this->correctWord = "test";
-	this->totalRingsNeeded = 4;
-	this->ringsFound = 0;
+this->jumbledWord = "etts";
+this->correctWord = "test";
+this->totalRingsNeeded = 4;
+this->ringsFound = 0;
 }
 // constructor
 FinalPuzzle::FinalPuzzle(string solution, string puzzle, int curRings, int ringsNeeded)
 {
-	this->correctWord = solution;
-	this->jumbledWord = puzzle;
-	this->ringsFound = curRings;
-	this->totalRingsNeeded = ringsNeeded;
+this->correctWord = solution;
+this->jumbledWord = puzzle;
+this->ringsFound = curRings;
+this->totalRingsNeeded = ringsNeeded;
 }
 void FinalPuzzle::setFinalPuzzle(string finalPuzzle)
 {
-	jumbledWord = finalPuzzle;
-	return;
+jumbledWord = finalPuzzle;
+return;
 }
 
 string FinalPuzzle::getFinalPuzzle() const
 {
-	return jumbledWord;
+return jumbledWord;
 }
 void FinalPuzzle::setFinalSolution(string finalSolution)
 {
-	correctWord = finalSolution;
-	return;
+correctWord = finalSolution;
+return;
 }
 
 string FinalPuzzle::getFinalSolution() const
 {
-	return correctWord;
+return correctWord;
 }
 
 void FinalPuzzle::setTotalRingsNeeded(int totalRings)
 {
-	totalRingsNeeded = totalRings;
-	return;
+totalRingsNeeded = totalRings;
+return;
 }
 
 int FinalPuzzle::getTotalRingsNeeded() const
 {
-	return totalRingsNeeded;
+return totalRingsNeeded;
 }
 
 void FinalPuzzle::setCurrentRings(int currentRings)
@@ -103,7 +103,7 @@ int FinalPuzzle::getCurrentRings() const
 {
 	return ringsFound;
 }; // end class definition
-
+*/
 /* function to select solution for quest */
 string questAnswer(int levelChoice)
 {
@@ -512,58 +512,59 @@ void luckyEncounter()
 	//	int luck = 15;  ### i
 	int 	luck = player.stat[5];
 	int goldFound = 0;
-	/* first random generator is gold vs weapon vs armor */
-	int randNum = ((rand() + time(0)) % 10);
-	if (randNum < 7)
-	{
-		int randGold = ((rand() + time(0)) % 50);
-		randGold = randGold + luck / 3;
-		/* incorporates luck to determine how much gold found */
-		if (randGold >54)
-			goldFound = 100;
-		else if (randGold > 51)
-			goldFound = 50;
-		else if (randGold > 47)
-			goldFound = 40;
-		else if (randGold > 40)
-			goldFound = 25;
-		else if (randGold > 30)
-			goldFound = 20;
-		else if (randGold > 19)
-			goldFound = 15;
-		else if (randGold > 9)
-			goldFound = 10;
-		else
-			goldFound = 5;
-		dialogue("You see something glimmer in the sunlight");
-		dialogue("You see " + to_string(goldFound) + " gold pieces!");
-		gold += goldFound;
-		//### 
-		player.gold = gold; // add gold to character's items.
-	}
-	else if ((randNum == 7) || (randNum == 8))
-	{
-		/*### Commented out old code, next set of pounds is new code
-		  int randWeapon = ((rand() + time(0)) % 5);
-		  string weapon[5] = {
-		  "dagger", "short sword", "long sword", "two handed sword", "mace"};
-		  dialogue("You see a " + weapon.name); */
-		/* ### item weapon("2");
-		   dialogue("You see a " + weapon.name);
-		   player.addItem(weapon); */
-	}
+	/* first random generator is gold vs weapon vs armor
+	   int randNum = ((rand() + time(0)) % 10);
+	   if (randNum < 7)
+	   {*/
+	int randGold = ((rand() + time(0)) % 50);
+	randGold = randGold + luck / 3;
+	/* incorporates luck to determine how much gold found */
+	if (randGold >54)
+		goldFound = 100;
+	else if (randGold > 51)
+		goldFound = 50;
+	else if (randGold > 47)
+		goldFound = 40;
+	else if (randGold > 40)
+		goldFound = 25;
+	else if (randGold > 30)
+		goldFound = 20;
+	else if (randGold > 19)
+		goldFound = 15;
+	else if (randGold > 9)
+		goldFound = 10;
+	else
+		goldFound = 5;
+	dialogue("You see something glimmer in the sunlight");
+	dialogue("You see " + to_string(goldFound) + " gold pieces!");
+	gold += goldFound;
+	//### 
+	player.gold = gold; // add gold to character's items.
+}
+/*
+   else if ((randNum == 7) || (randNum == 8))
+   {*/
+/*### Commented out old code, next set of pounds is new code
+  int randWeapon = ((rand() + time(0)) % 5);
+  string weapon[5] = {
+  "dagger", "short sword", "long sword", "two handed sword", "mace"};
+  dialogue("You see a " + weapon.name); */
+/* ### item weapon("2");
+   dialogue("You see a " + weapon.name);
+   player.addItem(weapon);  */
+/*	}
 	else
 	{
-		/*### Commented out old code, next set of pounds is new code
-		  int randArmor = ((rand() + time(0)) % 5);
-		  string armor[5] = {
-		  "plate mail", "chain mail", "leather mail", " helmet", "shield"};
-		  dialogue("You see a " + armor[randArmor]); */
-		/* ### item armor("1");
-		   dialogue("You see a " + armor.name);
-		   player.addItem(weapon); */
-	}
-}
+### Commented out old code, next set of pounds is new code
+int randArmor = ((rand() + time(0)) % 5);
+string armor[5] = {
+"plate mail", "chain mail", "leather mail", " helmet", "shield"};
+dialogue("You see a " + armor[randArmor]); */
+/* ### item armor("1");
+   dialogue("You see a " + armor.name);
+   player.addItem(weapon); 
+   }
+   }*/
 /* trap encounter  function selects a random trap which may cause harm */
 void trapEncounter()
 {
