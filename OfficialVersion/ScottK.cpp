@@ -574,7 +574,7 @@ void trapEncounter()
 	int agility = player.stat[4];
 	//	int dexterity = 8; //###
 	int dexterity = player.stat[2]; 
-	int hitPoints = 100; // ###
+//	int hitPoints = 100;  ###
 	int hitPoints =	player.HP;
 	int HPLost = 0;
 	ifstream trapFile;
