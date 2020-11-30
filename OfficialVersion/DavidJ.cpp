@@ -13,7 +13,7 @@ using namespace std;
 //Declarations
 void mainGameLoop();
 int libraryChoices();
-int bookRealmNPC();
+int cheshireNPC();
 void perkStore();
 void settingsMenu();
 void textFormat();
@@ -22,7 +22,7 @@ int bookRealm();
 void Armoury();
 void generalStore();
 void buyItem();
-void questNPC();
+void aliceNPC();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
 void dialogueLong(string str, string startStr, int paddingLength, string padding);
@@ -33,8 +33,8 @@ string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
 
-#include "ScottK.cpp"
 extern character player;
+#include "ScottK.cpp"
 //End of Declarations
 
 void mainGameLoop()
@@ -62,9 +62,8 @@ void mainGameLoop()
 
 int libraryChoices()
 {
-    int menuOptions = 5;
     string menuStr[][2] = {
-        {"1", "Talk to book NPC"},
+        {"1", "Talk to Cheshire"},
         {"2", "Go to perk store"},
         {"3", "Open char sheet"},
         {"4", "Settings Menu"},
@@ -72,15 +71,15 @@ int libraryChoices()
 
     while (true)
     {
-        switch (menu("Living Libary Menu", menuStr, menuOptions, 0))
+        switch (menu("You are now in the Living Libary", menuStr, 5, 0))
         {
         case '1':
-            return (bookRealmNPC()); //talk to book Realm NPC
+            return (cheshireNPC());
         case '2':
             perkStore();
             break;
         case '3':
-            //character sheet
+            statsDisplay();
             break;
         case '4':
             settingsMenu();
@@ -94,26 +93,29 @@ int libraryChoices()
     return 0;
 }
 
-int bookRealmNPC()
+int cheshireNPC()
 {
-    int menuOptions = 4;
+    dialogue("He gets up and looks at you", 1, "Cheshire");
     string menuStr[][2] = {
-        {"1", "Go to bookRealm"},
-        {"2", "Ask about the book"},
-        {"3", "Ask about the problems"},
+        {"1", "I would like to go to into the book now"},
+        {"2", "what is special about Wonderland?"},
+        {"3", "What has happened in Wonderland?"},
         {"4", "Walk away"}};
 
     while (true)
     {
-        switch (menu("NPC Name", menuStr, menuOptions, 0))
+        switch (menu("What can I do for you, old child?", menuStr, 4, 0))
         {
         case '1':
             return 2; //sends player to realm through main
         case '2':
-            //words about the book
+            dialogue("Ah it is a magical place where reality is less well ... strict", 2, "Cheshire");
+            //more words discribing the place
             break;
         case '3':
-            //words about the problems
+            dialogue("Wild creatures are abound casuing havoc ... well more than is normal. 
+                     I'd like it if you went and removed some ove them hanging out in the forest.
+                     ", 2, "Cheshire");
             break;
         case '4':
             return 1;
@@ -124,9 +126,11 @@ int bookRealmNPC()
     return 0;
 }
 
+//IN PROGRESS
 void perkStore()
 {
-    int menuOptions = 5;
+    cout << "This store is under construction come back another time.";
+    return;
     string menuStr[][2] = {
         {"1", "Look at Combat Perks"},
         {"2", "Look at Explore Perks"},
@@ -136,7 +140,7 @@ void perkStore()
 
     while (true)
     {
-        switch (menu("Welcome to the Perk Store", menuStr, menuOptions, 0))
+        switch (menu("Welcome to the Perk Store", menuStr, 5, 0))
         {
         case '1':
             //combat perks
@@ -160,7 +164,6 @@ void perkStore()
 
 void settingsMenu()
 {
-    int menuOptions = 3;
     string menuStr[][2] = {
         {"1", "Swap Menu Text Format"},
         {"2", "Change the difficulty"},
@@ -168,7 +171,7 @@ void settingsMenu()
 
     while (true)
     {
-        switch (menu("Settings Menu", menuStr, menuOptions, 0))
+        switch (menu("Settings Menu", menuStr, 3, 0))
         {
         case '1':
             textFormat();
@@ -177,12 +180,7 @@ void settingsMenu()
             difficultySetting();
             break;
         case '3':
-            break;
-        case '4':
-            break;
-        case '5':
             return;
-            break;
         default:
             cout << "Invalid entry please try again" << endl;
         }
@@ -191,23 +189,23 @@ void settingsMenu()
 
 void textFormat()
 {
-    int menuOptions = 4;
     string menuStr[][2] = {
         {"1", "Text Reader Mode"},
         {"2", "Brief Mode"},
         {"3", "Stylized Mode"},
-        {"4", "Return to Settings menu"}};
+        work in progress{"4", "Return to Settings menu"}};
 
     while (true)
     {
-        string choice = (int)menu("Text Types", menuStr, menuOptions, 0);
+        string choice = menu("What Text Type would you like?", menuStr, 3, 0);
         switch (choice)
         {
         case '1':
         case '2':
-        case '3':
-            player.textType = choice - 1;
+            player.textType = (int)choice - 1;
             return;
+        case '3':
+            cout << "Sorry this mode is still in development";
         case '4':
             return;
         default:
@@ -218,7 +216,6 @@ void textFormat()
 
 void difficultySetting()
 {
-    int menuOptions = 4;
     string menuStr[][2] = {
         {"0", "Return to Settings menu"},
         {"1", ""},
@@ -234,7 +231,8 @@ void difficultySetting()
 
     while (true)
     {
-        switch (menu("Which Difficulty would you like?", menuStr, menuOptions, 0))
+        string choice = menu("Which Difficulty would you like?", menuStr, 4, 0);
+        switch (choice)
         {
         case '0':
             return;
@@ -249,7 +247,7 @@ void difficultySetting()
         case '9':
         case '10':
             //side effects to be implemented
-            player.difficulty = (int)menuStr;
+            player.difficulty = (int)choice;
             return;
         default:
             cout << "Invalid entry please try again" << endl;
@@ -259,18 +257,17 @@ void difficultySetting()
 
 int bookRealm()
 {
-    int menuOptions = 6;
     string menuStr[][2] = {
         {"1", "Explore"},
         {"2", "Go to the Armoury"},
         {"3", "Go to the General Store"},
-        {"4", "Talk to Quest NPC"},
+        {"4", "Talk to Alice"},
         {"5", "Go Back to the Library"},
         {"6", "Exit the Game"}};
 
     while (true)
     {
-        switch (menu("Book Realm Menu", menuStr, menuOptions, 0))
+        switch (menu("Book Realm Menu", menuStr, 6, 0))
         {
         case '1':
             explore();
@@ -279,10 +276,11 @@ int bookRealm()
             Armoury();
             break;
         case '3':
-            generalStore();
+            cout << "This building is under construction";
+            //generalStore();
             break;
         case '4':
-            questNPC();
+            aliceNPC();
             break;
         case '5':
             return 1;
@@ -298,7 +296,6 @@ int bookRealm()
 //added a armoury shop for users to purchess from, items still not hooked in
 void Armoury()
 {
-    int menuOptions = 5;
     string menuStr[][2] = {
         {"1", "item 1"},
         {"2", "item 2"},
@@ -308,7 +305,7 @@ void Armoury()
 
     while (true)
     {
-        switch (menu("Welcome to the Armory", menuStr, menuOptions, 0))
+        switch (menu("Welcome to the Armory", menuStr, 5, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -332,10 +329,11 @@ void Armoury()
     return;
 }
 
-//added a general store for users to purchess from, items still not hooked in
+//IN PROGRESS
 void generalStore()
 {
-    int menuOptions = 5;
+    cout << "This store is under construction come back another time.";
+    return;
     string menuStr[][2] = {
         {"1", "item 1"},
         {"2", "item 2"},
@@ -345,7 +343,7 @@ void generalStore()
 
     while (true)
     {
-        switch (menu("Welcome to the General Store", menuStr, menuOptions, 0))
+        switch (menu("Welcome to the General Store", menuStr, 5, 0))
         {
         case '1':
             //send in item object or item number from index WIP
@@ -375,23 +373,26 @@ void buyItem()
     return;
 }
 
-void questNPC()
+void aliceNPC()
 {
-    int menuOptions = 3;
     string menuStr[][2] = {
-        {"1", "quest line"},
-        {"2", "Ask about background"},
-        {"3", "Stop talking to quest NPC"}};
+        {"1", "What has been happaning in the forest?"},
+        {"2", "Anything special that I need to know about the forest?"},
+        {"3", "Stop talking to Alice"}};
 
     while (true)
     {
-        switch (menu("Intro words", menuStr, menuOptions, 0))
+        switch (menu("Intro words", menuStr, 3, 0))
         {
         case '1':
-            //quest line implement
+            dialogue("You must help me get rid of those beasties in the forest and hills", 2, "Alice");
+            //more words about what she wants player to do if statments if objectives completed
             break;
         case '2':
-            //background words
+            dialogue("Well the creatures in there are very bad, but im not sure what is causeing it. 
+            I dont think it is the RED QUEEN but it has something to do with the letters they are carryin.g
+            ", 2, "Alice");
+            //more stuff about what is going on
             break;
         case '3':
             return;
@@ -437,7 +438,7 @@ void explore()
             move(20, 20, 20, 25);
             break;
         case '6':
-            statsDisplay();
+            //showStats();
             break;
         case '7':
             return;
@@ -491,7 +492,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
 
 void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
 {
-    //parse
+    //parser
     string delimiter = " ";
     size_t pos = 0;
     int size = 0;
@@ -504,7 +505,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     }
     parsedStr[size] = str;
 
-    //print
+    //print parsed str
     int lineLength = startStr.length();
     cout << startStr;
     for (int i = 0; i < size + 1; i++)
@@ -550,7 +551,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
             dialogueLong(str, speaker + ": ", 8, "\t");
         }
         break;
-    //stylized format
+    //stylized format still in development
     case 2:
     {
         string edge = "***";
