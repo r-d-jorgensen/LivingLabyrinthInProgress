@@ -113,9 +113,9 @@ int cheshireNPC()
             //more words discribing the place
             break;
         case '3':
-            dialogue("Wild creatures are abound casuing havoc ... well more than is normal. 
-                     I'd like it if you went and removed some ove them hanging out in the forest.
-                     ", 2, "Cheshire");
+            dialogue("Wild creatures are abound causing havoc ... well more than is normal. " +
+                         "I'd like it if you went and removed some of them hanging out in the forest.",
+                     2, "Cheshire");
             break;
         case '4':
             return 1;
@@ -193,7 +193,7 @@ void textFormat()
         {"1", "Text Reader Mode"},
         {"2", "Brief Mode"},
         {"3", "Stylized Mode"},
-        work in progress{"4", "Return to Settings menu"}};
+        {"4", "Return to Settings menu"}};
 
     while (true)
     {
@@ -245,7 +245,7 @@ void difficultySetting()
         case '7':
         case '8':
         case '9':
-        case '10':
+        case "10":
             //side effects to be implemented
             player.difficulty = (int)choice;
             return;
@@ -389,9 +389,10 @@ void aliceNPC()
             //more words about what she wants player to do if statments if objectives completed
             break;
         case '2':
-            dialogue("Well the creatures in there are very bad, but im not sure what is causeing it. 
-            I dont think it is the RED QUEEN but it has something to do with the letters they are carryin.g
-            ", 2, "Alice");
+            dialogue("Well the creatures in there are very bad, but I'm not sure what is causing it. " +
+                         "I dont think it is the RED QUEEN but it has " +
+                         "something to do with the letters they are carrying",
+                     2, "Alice");
             //more stuff about what is going on
             break;
         case '3':

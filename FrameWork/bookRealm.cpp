@@ -142,9 +142,10 @@ void aliceNPC()
             //more words about what she wants player to do if statments if objectives completed
             break;
         case '2':
-            dialogue("Well the creatures in there are very bad, but im not sure what is causeing it. 
-            I dont think it is the RED QUEEN but it has something to do with the letters they are carryin.g
-            ", 2, "Alice");
+            dialogue("Well the creatures in there are very bad, but I'm not sure what is causing it. " +
+                         "I dont think it is the RED QUEEN but it has " +
+                         "something to do with the letters they are carrying",
+                     2, "Alice");
             //more stuff about what is going on
             break;
         case '3':
