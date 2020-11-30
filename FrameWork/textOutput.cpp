@@ -156,12 +156,12 @@ void statsDisplay()
         }
         break;
     case 1:
-        cout << "Name: " << character.name << "\t"
-             << "Level: " << character.lvl << "\t"
-             << "Health: " << character.hp << " / " << character.maxHp << endl;
+        cout << "Name: " << player.name << "\t"
+             << "Level: " << player.lvl << "\t"
+             << "Health: " << player.hp << " / " << player.maxHp << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << "\t" << statsStrings[i] << character.stat[i];
+            cout << "\t" << statsStrings[i] << player.stat[i];
             if (i + 1 % 2 == 0)
             {
                 cout << endl;
@@ -315,7 +315,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     switch (player.textType)
     {
     case 0:
-        cout << playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat";
+        cout << (playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat");
         cout << player.name << " HP: " << player.HP << endl
              << playerActionStr << endl;
         if (critPlayer)
@@ -335,7 +335,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     case 1:
     {
         string middlePadding = "\t\t\t";
-        cout << playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat";
+        cout << (playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat");
         cout << player.name << " HP: " << player.HP << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
