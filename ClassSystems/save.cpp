@@ -22,28 +22,36 @@ using namespace std;
 //Character <<
 ostream &operator<<(ostream &out, const character &in)
 {
+	//Basic character values
 	out << in.name << "\n"
-		<< in.lvl << "\n"
-		<< in.maxHP << "\n"
-		<< in.HP << "\n"
-		<< in.gold << "\n";
+		<< in.lvl << " "
+		<< in.maxHP << " "
+		<< in.HP << " "
+		<< in.gold << " ";
+	
+	//Character Stats
 	for (int x = 0; x < 6; x++)
 	{
 		out << in.stat[x] << " ";
 	}
 	out << "\n";
-	/*
-	   for (int i = 0; i < 3; x++)
-	   {
-	   out << in.eqpt[x].id << " ";
-	   }
-	   out << "\n";
-	 */
+
+	//Characters equipped items
+	for (int i = 0; i < 4; i++)
+	{
+		out << in.eqpt[i].id << " ";
+	}
+	out << "\n";
+
+	//Characters inventory items
 	for (int i = 0; i < 25; i++)
 	{
 		out << in.inv[i].id << " ";
 	}
-	out << "\n" << in.textType;
+	
+	//Other values
+	out << "\n" << in.textType
+		<< " " << in.difficulty;
 	return out;
 }
 
@@ -51,29 +59,37 @@ ostream &operator<<(ostream &out, const character &in)
 istream &operator>>(istream &in, character &out)
 {
 	int temp = 0;
-
+	
+	//Basic character values
 	in >> out.name;
 	in >> out.lvl;
 	in >> out.maxHP;
 	in >> out.HP;
 	in >> out.gold;
+	
+	//Character Stats
 	for (int x = 0; x < 6; x++)
 	{
 		in >> out.stat[x];
 	}
-	/*
-	   for (int i = 0; i < 3; i==)
-	   {
-	   in >> temp;
-	   out.eqpt[i] = item(temp);
-	   }
-	 */
+
+	//Characters equipped items
+	for (int i = 0; i < 4; i++)
+	{
+		in >> temp;
+		out.eqpt[i] = item(temp);
+	}
+
+	//Characters inventory items
 	for (int i = 0; i < 25; i++)
 	{
 		in >> temp;
 		out.inv[i] = item(temp);
 	}
+
+	//Other values
 	in >> out.textType;
+	in >> out.difficulty;
 	return in;
 }
 

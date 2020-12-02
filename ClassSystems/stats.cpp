@@ -29,8 +29,8 @@ class stats
    3 INT mainly effects Dmg with int weapons
    4 AGL mainly effects player speed (who goes first in combat), and dogde % when dodging
    5 LCK has a small effect in almost everything in the game, from item 
-     generation to combat %'s
-*/
+   generation to combat %'s
+ */
 
 class character : public stats
 {
@@ -45,9 +45,12 @@ class character : public stats
 		character();
 		character(string n, int i, int d);
 		character(const character &in);
+		void addItem(item in);
 		void equip(const item &i);
-		void unequip(int eqp, const item &in);
+		void unequip(const item &in);
 		void discard(item i);
+		void inventory();
+		void balanceInv();
 		void showStats();
 		void showInv();
 		//Following Function is for testing only,
@@ -58,7 +61,7 @@ class character : public stats
 extern character player;
 /*
    inv[25] is an array of items that hold the players inventory
-   	of armor, weapons, and misc items
+   of armor, weapons, and misc items
 
    name is the name of the player, default is Librarian
 
@@ -68,16 +71,16 @@ extern character player;
    0 is bare, only showing the minimum needed, good for speech readers
    1 is sparce, has limited visuals and positions text in different spots on screen
    2 is visual, is a much more visual mode with ascii "art" and more visual output
-   	will most likely not be implemented in time, but is still documented
-	because it was originally planned to be in.
-*/
+   will most likely not be implemented in time, but is still documented
+   because it was originally planned to be in.
+ */
 
 class monster : public stats
 {
 	public:
 		string name;
 		int diff;
-		
+
 		monster();
 		monster(int lvl);
 		monster(string n);
@@ -87,7 +90,7 @@ class monster : public stats
    name is the name of the monster
    diff is the monster difficulty, used when generating monsters to ensure 
    that the player doesnt run into a super hard monster early on
-*/
+ */
 
 //******************************************************************************
 //BEGINNING OF STATS
@@ -145,41 +148,212 @@ character::character()
 	character("Librarian", 0, 10);
 }
 
-void unequip(int eqp, const item &in)
+void character::addItem(item in)
 {
+	bool full = true;
 	for (int i = 0; i < 25; i++)
 	{
-		if (player.inv[i].id == in.id)
+		if (inv[i].id == 0)
 		{
-			item temp = player.eqpt[eqp];
-			player.eqpt[eqp] = in;
-			player.inv[i] = temp;
-			break;
+			full = false;
+			inv[i] = in;
+			cout << "Item successfully added.\n";
+			return;
 		}
+	}
+	if (full == true)
+	{
+		string choice;
+		int c = 0;
+		cout << "Your inventory is full. Would you like to discard an item? (y/n)\n";
+		while (true)
+		{
+			cin >> choice;
+			if (choice == "Y" || choice == "y" || choice == "N" || choice == "n")
+			{
+				break;
+			}
+			cout << "Invalid choice, choose y or n\n";
+		}
+		if (choice == "Y" || choice == "y")
+		{
+			for (int i = 0; i < 24; i++)
+			{
+				cout << i << ". ";
+				inv[i].showItem();
+			}
+			while (true)
+			{
+				cin >> c;
+				if (c <= 25 && c > 1)
+				{
+					inv[c-1] = in;
+					break;
+				}
+				cout << "Invalid choice, choose y or n\n";
+			}
+
+		}
+		return;
 	}
 }
 
-void equip(const item &i)
+void character::unequip(const item &in)
 {
-	switch (i.type)
+	item temp;
+	for (int i = 0; i < 25; i++)
+	{
+		if (inv[i].id == 0)
+		{
+			inv[i] = in;
+			switch(in.type)
+			{
+				case 1:
+					eqpt[in.subType] = temp;
+					return;
+				case 2:
+					eqpt[0] = temp;
+					return;
+			}
+		}
+	}
+	cout << "No room to unequip, discard an item first.\n";
+}
+
+void character::equip(const item &in)
+{
+	int eqp = in.subType;
+	item temp;
+	switch (in.type)
 	{
 		case 1:
-			switch(i.subType)
+			for (int i = 0; i < 25; i++)
 			{
-				case 1: 
-					unequip(2, i);
-					break;
-				case 2:
-					unequip(3, i);
-					break;
-				case 3:
-					unequip(4, i);
-					break;
-			}
+				if (inv[i].id == in.id)
+				{
+					temp = eqpt[eqp];
+					eqpt[eqp] = in;
+					inv[i] = temp;
+				}
+			}		
 			break;
 		case 2:
-			unequip(1, i);
+			for (int i = 0; i < 25; i++)
+			{
+				if (inv[i].id == in.id)
+				{
+					temp = eqpt[0];
+					eqpt[0] = in;
+					inv[i] = temp;
+				}
+			}
 			break;
+	}
+	balanceInv();
+}
+
+void character::discard(item in)
+{
+	item temp;
+	for (int i = 0; i < 25; i++)
+	{
+		if (inv[i].id == in.id)
+		{
+			inv[i] = temp;
+			break;
+		}
+	}
+	balanceInv();
+}
+
+void character::inventory()
+{
+	balanceInv();
+	int j, c1, c2;
+	bool r1 = false, r2 = true;
+	while (true)
+	{
+		j = 1;
+		c1 = 0;
+		for (int i = 0; i < 25; i++)
+		{
+			if (inv[i].id != 0)
+			{
+			cout << j << ". " << inv[i].name << "\n";
+			j++;
+			}
+		}
+		cout << "\n" << j << ". Return\n";
+
+		do
+		{
+			r1 = false;
+			cin >> c1;
+
+			if (c1 <= j && c1 > 0)
+			{
+				if (c1 == j)
+				{
+					return;
+				}
+				r1 = true;
+				//inv[j].showItem();
+				cout << "1. Equip\n2. Discard\n3. Return\n";
+				do
+				{
+					cin.clear();
+					cin >> c2;
+					switch (c2)
+					{
+						case 1: 
+							equip(inv[c1 - 1]);
+							break;
+						case 2:
+							discard(inv[c1 - 1]);
+							break;
+						case 3:
+							break;
+						default:
+							r2 = false;
+					}
+					cin.clear();
+				} while (!r2);
+			}
+		} while (!r1);
+	}
+}
+
+void character::balanceInv()
+{
+	int pos = -1;
+	item temp[25];
+	int used[25] = {0};
+
+	for (int i = 0; i < 25; i++)
+	{
+		for (int j = 0; j < 25; j++)
+		{
+			if (pos < 0 && inv[j].id != 0 && used[j] == 0)
+			{
+				pos = j;
+			}
+			else if (pos > -1 && inv[j].id < inv[pos].id && used[j] == 0)
+			{
+				pos = j;
+			}
+		}
+		if (pos > -1)
+		{
+			temp[i] = inv[pos];
+			used[pos] = 1;
+			pos = -1;
+		} else {
+			return;
+		}
+	}
+	for (int i = 0; i < 25; i++)
+	{
+		inv[i] = temp[i];
 	}
 }
 
@@ -254,7 +428,7 @@ monster::monster(int l)
 			in >> stat[x];
 		}
 		in >> diff;
-		lvl = (player.lvl + l) - diff;
+		lvl = (lvl + l) - diff;
 		if (diff < 1) 
 		{ 
 			*this = monster(l); 

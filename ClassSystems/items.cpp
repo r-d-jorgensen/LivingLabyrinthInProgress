@@ -27,27 +27,27 @@ class item
 };
 /* 
    id is a unique number given to each item, the first digit is the item type,
-   	1 for armor, 2 for weapons, 3 for misc. The next two digits is the
-	items number, each file starts at (type)-0-1, incrementing by
-	one each item in the file
+   1 for armor, 2 for weapons, 3 for misc. The next two digits is the
+   items number, each file starts at (type)-0-1, incrementing by
+   one each item in the file
 
    type is the item type as described above
-   
+
    subType is a number given to each item to separate subclasses of items
-	within each type. i.e. for armor, 1 for helmet, 2 for chestpiece etc.
-	these numbers are just examples  and might change in the future.
-   
+   within each type. i.e. for armor, 1 for helmet, 2 for chestpiece etc.
+   these numbers are just examples  and might change in the future.
+
    value is the amount that each item modifies stats, each type changes
-   	different stats. i.e. armor = def, weapon = dmg, misc may be 
-	HP, dmg, crit chance ect depending on the item
+   different stats. i.e. armor = def, weapon = dmg, misc may be 
+   HP, dmg, crit chance ect depending on the item
 
    subvalue is a special value for items, weapons are hit chance,
-   	armor is weight, unknown if misc will use this value
+   armor is weight, unknown if misc will use this value
 
    percent is (for now) used exclusively for weapon crit%
 
    name is the name of the item, exists simply for the player
-*/
+ */
 
 item::item()
 {
@@ -62,36 +62,36 @@ item::item()
 /* Taken out as key items aren't implemented as of yet
    and it is unknown how they will actually be used/stored
 
-item::item(string n)
-{
-	n.erase(n.find_last_not_of("\n\r") + 1);
-	string line;
-	ifstream in("./Items/keyItems.txt");
-	while (!in.eof())
-	{
-		in >> line;
-		line.erase(n.find_last_not_of("\n\r") + 1);
-		if (line == n)
-		{
-			name = line;
-			in >> id;
-			type = 0;
-			in >> value;
-			break;
-		}
-	}
-}
-*/
+   item::item(string n)
+   {
+   n.erase(n.find_last_not_of("\n\r") + 1);
+   string line;
+   ifstream in("./Items/keyItems.txt");
+   while (!in.eof())
+   {
+   in >> line;
+   line.erase(n.find_last_not_of("\n\r") + 1);
+   if (line == n)
+   {
+   name = line;
+   in >> id;
+   type = 0;
+   in >> value;
+   break;
+   }
+   }
+   }
+ */
 
 item::item(string t)
 {
 	string txt = "./Items/";
-	int lines = 0;
+	int lines = 0, itype = stoi(t);
 	string temp, idtemp;
 
-	if (t == "0") { t = (rand() % 3) + 1; }
+	if (itype == 0) { itype = (rand() % 3) + 1; }
 
-	switch(stoi(t))
+	switch(itype)
 	{
 		case 1: txt += "armor.txt"; type = 1; break;
 		case 2: txt += "weapons.txt"; type = 2; break;
@@ -114,7 +114,7 @@ item::item(string t)
 	in >> name;
 	//Item names are stored int a text file using underscores so names are one "word"
 	//This block replaces the underscore with a space
-	for (size_t i = 0; i < temp.length(); i++) 
+	for (size_t i = 0; i < name.length(); i++) 
 	{ 
 		if (name[i] == '_') 
 		{ 
@@ -137,10 +137,12 @@ item::item(int i)
 	string token;
 	string temp;
 	string txt = "./Items/";
+	item empty;
+	if (i == 0) { *this = empty; }
 
 	/*Item id's contain what type of item they are, with the first digit being
-	important one. The next line rounds the number to the nearest hundredth,
-	then divides the number by 100 to find the first digit. */
+	  important one. The next line rounds the number to the nearest hundredth,
+	  then divides the number by 100 to find the first digit. */
 	switch((i - (i % 100)) / 100)
 	{
 		case 1: txt += "armor.txt"; type = 1; break;
@@ -167,6 +169,13 @@ item::item(int i)
 				in >> value;
 				in >> subValue;
 				in >> percent;
+				for (size_t i = 0; i < name.length(); i++) 
+				{ 
+					if (name[i] == '_') 
+					{ 
+						name[i] = ' '; 
+					}
+				}
 				return;
 			}
 			else
@@ -193,9 +202,9 @@ void item::showItem()
 	if (type != 0)
 	{
 		cout.setf(ios::left);
-		cout << setw(23) << "Name: " + name;
+		cout << setw(33) << "Name: " + name;
 		cout << setw(10) << "ID: " + to_string(id);
-		
+
 		switch(type)
 		{ 
 			case 1: 
@@ -207,7 +216,7 @@ void item::showItem()
 						break;
 					case 2:	
 						cout << setw(17) << "Class: Chest";
-					        break;
+						break;
 					case 3:	
 						cout << setw(17) << "Class: Head"; 
 						break;
@@ -225,7 +234,7 @@ void item::showItem()
 						break;
 					case 2:	
 						cout << setw(17) << "Class: STR";
-					        break;
+						break;
 					case 3:	
 						cout << setw(17) << "Class: DEX"; 
 						break;
@@ -243,7 +252,7 @@ void item::showItem()
 						break;
 					case 2:	
 						cout << setw(17) << "Class: Damage";
-					        break;
+						break;
 					case 3:	
 						cout << setw(17) << "Class: Speed"; 
 						break;
