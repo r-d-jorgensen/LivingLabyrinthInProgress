@@ -154,12 +154,11 @@ string anagram(string originalWord)
 int tutorial()
 {
 	dialogue("Welcome to the Living Labyrinth");
-	dialogue("You have been selected because of your superior knowledge and ");
-	dialogue("intellect in the  computer software field to take part in the");
-	dialogue("alpha testing of the Living Labyrinth. Thank you for your");
-	dialogue("willingness to participate in this endeavor.");
-	dialogue("if you would like more background or instructions, please press '1'");
-	dialogue("Otherwise,press '2' to start playing ");
+	dialogue("Thank you for willingly participating in  the alpha ");
+	dialogue("testing of our first iteration of the,'Living Labyrinth,' ");
+	dialogue("adventure game. if you would like more background or ");
+	dialogue("instructions, please press '1', otherwise, press '2' to");
+	dialogue("	start playing ");
 	int choice = 0;
 	cin >> choice;
 	while ((cin.fail()) || !(choice >= 1 && choice <= 2))
@@ -215,7 +214,9 @@ int tutorial()
 		dialogue("Thank you in advance for helping us find any bugs that we may have");
 		dialogue("overlooked, so we can fix them while implementing additional");
 		dialogue("functionality in our next iteration. ");
-		dialogue("After choosing your anagram level, you will be in the library.");
+		dialogue("After choosing your difficulty level, your ");
+		dialogue("character's name, and the text type you want.");
+		dialogue("you will be in the library. ");
 		dialogue("In the library, you can choose among:");
 		dialogue("Talk to NPC, Perk store, Character sheet, and Settings");
 		dialogue("If you want to change from graphical to text-based, go to settings");
@@ -224,6 +225,8 @@ int tutorial()
 		dialogue("In order to start your adventure, select 'Talk to NPC' ");
 		dialogue("then select 'go to book realm'");
 		dialogue("In the book realm you can go to the armory or the general store.");
+		dialogue("these are currently underdeveloped and will be ");
+		dialogue("available in the next iteration.");
 		dialogue("In order to start the encounters, choose 'Explore and then choose");
 		dialogue("to move in any direction and the encounters will begin. You can");
 		dialogue("also choose to camp to restore some health. Of course,");
@@ -574,7 +577,7 @@ void trapEncounter()
 	int agility = player.stat[4];
 	//	int dexterity = 8; //###
 	int dexterity = player.stat[2]; 
-//	int hitPoints = 100;  ###
+	//	int hitPoints = 100;  ###
 	int hitPoints =	player.HP;
 	int HPLost = 0;
 	ifstream trapFile;
