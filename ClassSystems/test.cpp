@@ -27,6 +27,10 @@ int main()
 	test2.showInv();
 	cout << "\nIf the two results appear the same then the process was successful\n";
 
+	//Beginning combat testing
+	monster m(0); //monster m((rand() % 5) - 2); 
+	combat(m);
+
 	//cout << "Random item by type test\n";
 	//item titem("1");
 	//titem.showItem();

@@ -25,6 +25,8 @@ ostream &operator<<(ostream &out, const character &in)
 	//Basic character values
 	out << in.name << "\n"
 		<< in.lvl << " "
+		<< in.xp << " "
+		<< in.points << " "
 		<< in.maxHP << " "
 		<< in.HP << " "
 		<< in.gold << " ";
@@ -63,6 +65,8 @@ istream &operator>>(istream &in, character &out)
 	//Basic character values
 	in >> out.name;
 	in >> out.lvl;
+	in >> out.xp;
+	in >> out.points;
 	in >> out.maxHP;
 	in >> out.HP;
 	in >> out.gold;

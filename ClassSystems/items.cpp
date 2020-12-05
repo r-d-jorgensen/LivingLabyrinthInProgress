@@ -156,9 +156,9 @@ item::item(int i)
 	{
 		while (!in.eof())
 		{
-			/*Items are stored with a / at the beginning of them in order to 
+			/*Id's are stored with a / at the beginning of them in order to 
 			  easily differenciate them from other item values. It is simple
-			  deal with this / by comparing the token to the wanted id with
+			  to deal with this / by comparing the token to the wanted id with
 			  a / added to the beginning of it */
 			in >> token;
 			if (token == "/" + to_string(i))
@@ -195,6 +195,7 @@ item::item(const item &in)
 	subType = in.subType;
 	value = in.value;
 	subValue = in.subValue;
+	percent = in.percent;
 }
 
 void item::showItem()

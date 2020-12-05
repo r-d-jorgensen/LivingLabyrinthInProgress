@@ -30,13 +30,13 @@ Demon
 5 3 7 5 2 3 6
 Lion
 3 5 3 0 3 0 3
-Evil Tree
+Evil_Tree
 7 2 3 0 0 0 3
 Carnivorous_Flower
 4 2 5 0 0 0 3
 Mad_Man
 1 10 10 0 10 10 10
 Flying_Book
-2 0 5 5 0 4
+2 0 5 5 0 4 3
 Slime
 10 2 2 0 0 0 4

@@ -18,7 +18,7 @@ con, str, dex, int, agl, luck, MonsterDifficulty, name
 7,2,3,0,0,0,3,evil tree
 4,2,5,0,0,0,3,carnivous flower
 1,10,10,0,10,10,10,mad man
-2,0,5,5,0,4,flying book
+2,0,5,5,0,4,3,flying book
 10,2,2,0,0,0,4,slime monster
 
 monsters.txt template
