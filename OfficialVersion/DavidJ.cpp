@@ -24,9 +24,9 @@ void buyItem();
 void aliceNPC();
 void explore();
 void move(int trapChance, int majorChance, int monsterChance, int gambleChance);
-void dialogueLong(string str, string startStr, int paddingLength, string padding);
-void dialogue(string str, int msgType, string speaker);
-int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType);
+void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "");
+void dialogue(string str, int msgType = 0, string speaker = "Self");
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0);
 void statsDisplay();
 string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
@@ -488,7 +488,7 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     return;
 }
 
-void dialogueLong(string str, string startStr = "", int paddingLength = 0, string padding = "")
+void dialogueLong(string str, string startStr, int paddingLength, string padding)
 {
     //parser
     string delimiter = " ";
@@ -523,7 +523,7 @@ void dialogueLong(string str, string startStr = "", int paddingLength = 0, strin
     }
 }
 
-void dialogue(string str, int msgType = 0, string speaker = "Self")
+void dialogue(string str, int msgType, string speaker)
 {
     switch (player.textType)
     {
@@ -585,7 +585,7 @@ void dialogue(string str, int msgType = 0, string speaker = "Self")
     return;
 }
 
-int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType = 0)
+int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType)
 {
     switch (player.textType)
     {
