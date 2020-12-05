@@ -436,7 +436,7 @@ void explore()
             move(20, 20, 20, 25);
             break;
         case '6':
-            //showStats();
+            showStats();
             break;
         case '7':
             return;
