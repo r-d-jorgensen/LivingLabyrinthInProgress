@@ -28,6 +28,28 @@ public:
 	void showItem();
 };
 
+class FinalPuzzle
+{
+	public:
+		// default constructor
+		FinalPuzzle();
+		// constructor
+		FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+		void setFinalPuzzle(string finalPuzzle); // Mutator
+		string getFinalPuzzle() const;           // Accessor
+		void setFinalSolution(string finalSolution); // Mutator
+		string getFinalSolution() const;             // Accessor
+		void setTotalRingsNeeded(int totalRings);
+		int getTotalRingsNeeded() const;
+		void setCurrentRings(int totalRings);
+		int getCurrentRings() const;
+	private:
+		string jumbledWord;
+		string correctWord;
+		int totalRingsNeeded;
+		int ringsFound;
+}; // end of class definition
+
 class stats
 {
 public:
@@ -63,6 +85,7 @@ public:
 	int difficulty;
 	int xp;
 	int points;
+	FinalPuzzle thePuzzle;
 
 	character();
 	character(string n, int i, int d);
@@ -157,6 +180,9 @@ public:
 	void heal(int val);
 };
 
+void combat(monster m);
+
+#include "ScottK.cpp"
 #include "DavidJ.cpp"
 //******************************************************************************
 //BEGINNING OF STATS
@@ -1684,3 +1710,55 @@ monster loadMonster()
 		cout << "Unable to open file";
 	return temp;
 }
+// default constructor
+FinalPuzzle::FinalPuzzle()
+{
+	this->jumbledWord = "etts";
+	this->correctWord = "test";
+	this->totalRingsNeeded = 4;
+	this->ringsFound = 0;
+}
+// constructor
+FinalPuzzle::FinalPuzzle(string solution, string puzzle, int curRings, int ringsNeeded)
+{
+	this->correctWord = solution;
+	this->jumbledWord = puzzle;
+	this->ringsFound = curRings;
+	this->totalRingsNeeded = ringsNeeded;
+}
+void FinalPuzzle::setFinalPuzzle(string finalPuzzle)
+{
+	jumbledWord = finalPuzzle;
+	return;
+}
+string FinalPuzzle::getFinalPuzzle() const
+{
+	return jumbledWord;
+}
+void FinalPuzzle::setFinalSolution(string finalSolution)
+{
+	correctWord = finalSolution;
+	return;
+}
+string FinalPuzzle::getFinalSolution() const
+{
+	return correctWord;
+}
+void FinalPuzzle::setTotalRingsNeeded(int totalRings)
+{
+	totalRingsNeeded = totalRings;
+	return;
+}
+int FinalPuzzle::getTotalRingsNeeded() const
+{
+	return totalRingsNeeded;
+}
+void FinalPuzzle::setCurrentRings(int currentRings)
+{
+	ringsFound = currentRings;
+	return;
+}
+int FinalPuzzle::getCurrentRings() const
+{
+	return ringsFound;
+}; // end class definition

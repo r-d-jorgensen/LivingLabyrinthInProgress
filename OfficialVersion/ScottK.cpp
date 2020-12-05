@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 using namespace std;
-#include "DavidJ.cpp"
 int tutorial();
 void camp();
 string strLower(string n);
@@ -21,77 +20,80 @@ void majorEncounter();
 void finalEncounter();
 string questAnswer(int levelChoice);
 string anagram(string originalWord);
+#include "JasonJ.cpp"
+#include "DavidJ.cpp"
 extern character player;
-/*
-   class FinalPuzzle
-   {
-   public:
-// default constructor
-FinalPuzzle();
-// constructor
-FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
-void setFinalPuzzle(string finalPuzzle); // Mutator
-string getFinalPuzzle() const;           // Accessor
-void setFinalSolution(string finalSolution); // Mutator
-string getFinalSolution() const;             // Accessor
-void setTotalRingsNeeded(int totalRings);
-int getTotalRingsNeeded() const;
-void setCurrentRings(int totalRings);
-int getCurrentRings() const;
 
-private:
-string jumbledWord;
-string correctWord;
-int totalRingsNeeded;
-int ringsFound;
+/*
+class FinalPuzzle
+{
+	public:
+		// default constructor
+		FinalPuzzle();
+		// constructor
+		FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+		void setFinalPuzzle(string finalPuzzle); // Mutator
+		string getFinalPuzzle() const;           // Accessor
+		void setFinalSolution(string finalSolution); // Mutator
+		string getFinalSolution() const;             // Accessor
+		void setTotalRingsNeeded(int totalRings);
+		int getTotalRingsNeeded() const;
+		void setCurrentRings(int totalRings);
+		int getCurrentRings() const;
+
+	private:
+		string jumbledWord;
+		string correctWord;
+		int totalRingsNeeded;
+		int ringsFound;
 }; // end of class definition
 
 // default constructor
 FinalPuzzle::FinalPuzzle()
 {
-this->jumbledWord = "etts";
-this->correctWord = "test";
-this->totalRingsNeeded = 4;
-this->ringsFound = 0;
+	this->jumbledWord = "etts";
+	this->correctWord = "test";
+	this->totalRingsNeeded = 4;
+	this->ringsFound = 0;
 }
 // constructor
 FinalPuzzle::FinalPuzzle(string solution, string puzzle, int curRings, int ringsNeeded)
 {
-this->correctWord = solution;
-this->jumbledWord = puzzle;
-this->ringsFound = curRings;
-this->totalRingsNeeded = ringsNeeded;
+	this->correctWord = solution;
+	this->jumbledWord = puzzle;
+	this->ringsFound = curRings;
+	this->totalRingsNeeded = ringsNeeded;
 }
 void FinalPuzzle::setFinalPuzzle(string finalPuzzle)
 {
-jumbledWord = finalPuzzle;
-return;
+	jumbledWord = finalPuzzle;
+	return;
 }
 
 string FinalPuzzle::getFinalPuzzle() const
 {
-return jumbledWord;
+	return jumbledWord;
 }
 void FinalPuzzle::setFinalSolution(string finalSolution)
 {
-correctWord = finalSolution;
-return;
+	correctWord = finalSolution;
+	return;
 }
 
 string FinalPuzzle::getFinalSolution() const
 {
-return correctWord;
+	return correctWord;
 }
 
 void FinalPuzzle::setTotalRingsNeeded(int totalRings)
 {
-totalRingsNeeded = totalRings;
-return;
+	totalRingsNeeded = totalRings;
+	return;
 }
 
 int FinalPuzzle::getTotalRingsNeeded() const
 {
-return totalRingsNeeded;
+	return totalRingsNeeded;
 }
 
 void FinalPuzzle::setCurrentRings(int currentRings)
@@ -112,15 +114,15 @@ string questAnswer(int levelChoice)
 	int pick = 0;
 	pick = ((levelChoice - 1) * 5) + randNum; // change 5 as add more words,now 5
 	string word[] = {"now", "cue", "orb", "mob", "hum",
-					 "when", "thus", "bash", "belt", "arab",
-					 "stout", "stint", "cheif", "creek", "power",
-					 "summer", "spring", "burden", "employ", "gambit",
-					 "prosper", "finding", "capsize", "epitaph", "finally",
-					 "kindness", "handsome", "deathbed", "evacuate", "gasoline",
-					 "beautiful", "difficult", "blacklist", "elaborate", "equipment",
-					 "astounding", "challenges", "farfetched", "hemisphere", "neutrality",
-					 "commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
-					 "bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
+		"when", "thus", "bash", "belt", "arab",
+		"stout", "stint", "cheif", "creek", "power",
+		"summer", "spring", "burden", "employ", "gambit",
+		"prosper", "finding", "capsize", "epitaph", "finally",
+		"kindness", "handsome", "deathbed", "evacuate", "gasoline",
+		"beautiful", "difficult", "blacklist", "elaborate", "equipment",
+		"astounding", "challenges", "farfetched", "hemisphere", "neutrality",
+		"commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
+		"bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
 	string randomword;
 	randomword = word[pick];
 	return randomword;
@@ -640,7 +642,7 @@ void gamblingEncounter()
 	cin >> play;
 	cin.ignore();
 	if ((play == "Y") || (play == "y") || (play == "Yes") ||
-		(play == "yes") || (play == "YES"))
+			(play == "yes") || (play == "YES"))
 	{
 		/* dialogue function formats the output and telss who/what is talking */
 		dialogue("Great! Here is how you play. You pick the number of shells and how much money you want to bet.", 2, "Dealer");
@@ -648,7 +650,7 @@ void gamblingEncounter()
 		dialogue("Of course, if you lose, I get your wager.", 2, "Dealer");
 		/* loop to continue gambling as long as player wants */
 		while ((play == "Y") || (play == "y") || (play == "Yes") ||
-			   (play == "yes") || (play == "YES"))
+				(play == "yes") || (play == "YES"))
 		{
 			/* shells determin odds, thus, payback upon winning */
 			dialogue("How many shells do you want to use? 2-10", 2, "Dealer");
@@ -722,8 +724,8 @@ void gamblingEncounter()
 
 void majorEncounter()
 {
-	int rings = thePuzzle->getCurrentRings();
-	int ringsNeeded = thePuzzle->getTotalRingsNeeded();
+	int rings = player.thePuzzle.getCurrentRings();
+	int ringsNeeded = player.thePuzzle.getTotalRingsNeeded();
 	int monster = 0;
 	printGreeting();
 	monster += riddle();
@@ -731,7 +733,7 @@ void majorEncounter()
 	monster += doorGame();
 	monsterEncounter(monster);
 	//after successfully killing monster find a ring with a letter engraved
-	string clue = thePuzzle->getFinalPuzzle();
+	string clue = player.thePuzzle.getFinalPuzzle();
 	// get clue and type cast to string
 	char engraved = clue[rings];
 	string letter;
@@ -748,8 +750,8 @@ void majorEncounter()
 
 void finalEncounter()
 {
-	string jumble = thePuzzle->getFinalPuzzle();
-	string answer = thePuzzle->getFinalSolution();
+	string jumble = player.thePuzzle.getFinalPuzzle();
+	string answer = player.thePuzzle.getFinalSolution();
 	dialogue("You hear a voice from the shadows.");
 	dialogue("You have done very well to get this far");
 	dialogue("Here is a drink to help you before yur final battle.");
