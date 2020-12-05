@@ -1022,12 +1022,10 @@ void combat(monster m)
 				choice = 0;
 				right = true;
 				cout << "\033[2J\033[1;1H";
-				cout << c.m.name << " Level: " << c.m.lvl;
-				cout << " Health: " << c.m.HP << "/" << c.m.maxHP;
-				cout << "\n"
-					 << player.name << " Level: " << player.lvl;
-				cout << " Health: " << player.HP << "/" << player.maxHP;
-				cout << "\n\n";
+				dialogue(c.m.name + " Level: " + c.m.lvl);
+				dialogue(" Health: " + c.m.HP + "/" + c.m.maxHP
+				dialogue(player.name + " Level: " + player.lvl);
+				dialogue("Health: " + player.HP + "/" + player.maxHP);
 				cout << "1: Attack\n";
 				cout << "2: Block\n";
 				cout << "3: Dodge\n";
@@ -1042,7 +1040,6 @@ void combat(monster m)
 				}
 				else
 				{
-
 					switch (choice)
 					{
 					case 1:
