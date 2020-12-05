@@ -23,13 +23,17 @@ class battle
 		//actual stat values, player weight, player weapon type stat
 		int mdmg, macc;
 		int pdmg, pacc;
-		int pblk, pdge;
-		int mblk, mdge;	
+		int mdge, pdge;
+		bool mblk, pblk;	
 		int potdmg, potspd;
 		bool mcrit, pcrit;
+		bool matk, patk;
 		monster m;
 		int mact[6], act[6];
 		int weight, wts;
+
+		//Used to see if the fight is over.
+		bool done;
 
 		//constructor
 		battle(monster m);
@@ -76,11 +80,13 @@ void combat(monster m)
 	bool right = true;
 	battle c(m);
 
-	while (m.HP > 0 && player.HP > 0)
+	while (!c.done)
 	{
 		do
 		{
 			try {
+				cin.clear();
+				choice = 0;
 				right = true;
 				cout << "\033[2J\033[1;1H";
 				cout << c.m.name << " Level: " << c.m.lvl;
@@ -92,29 +98,35 @@ void combat(monster m)
 				cout << "2: Block\n";
 				cout << "3: Dodge\n";
 				cout << "4: Use Item\n";
-				cout << ((right) ? "" : "Invalid choice, please select one of the options above\n");
 
 				cin >> choice;
+				if (!cin.good()) 
+				{ 
+					cin.clear(); 
+					cin.ignore(); 
+					right = false; 
+				} else {
 
-				switch (choice)
-				{
-					case 1: 
-						c.attack();
-						break;
-					case 2: 
-						c.block();
-						break;
-					case 3: 
-						c.dodge();
-						break;
-					case 4: 
-						c.use();
-						break;
-					default:
-						right = false;
+					switch (choice)
+					{
+						case 1: 
+							c.attack();
+							break;
+						case 2: 
+							c.block();
+							break;
+						case 3: 
+							c.dodge();
+							break;
+						case 4: 
+							c.use();
+							break;
+						default:
+							right = false;
+					}
 				}
 			}
-			catch (string e)
+			catch (char const* e)
 			{
 				right = false;
 			}
@@ -128,9 +140,12 @@ battle::battle(monster in)
 	m = in;
 	mdmg = 0, macc = 0;
 	pdmg = 0, pacc = 0;
-	pblk = 0, pdge = 0;
-	mblk = 0, mdge = 0;	
+	pblk = false, pdge = 0;
+	mblk = false, mdge = 0;	
 	potdmg = 0, potspd = 0;
+	matk = false, patk = false;
+
+	done = false;
 
 	for (int i = 1; i < 4; i++)
 	{
@@ -142,7 +157,6 @@ battle::battle(monster in)
 		act[i] = (player.stat[i] * (.5 + (.25 * (player.stat[i] / 5))) * player.lvl);
 	}
 
-	player.maxHP = act[0] * player.difficulty;
 	if (player.maxHP < 5)
 	{
 		player.maxHP = 5;
@@ -160,6 +174,8 @@ battle::battle(monster in)
 		case 3:
 			wts = 2;
 			break;
+		default:
+			wts = 1;
 	}
 
 	//Get monsters leveled stats and then convert to actual.
@@ -199,7 +215,7 @@ void battle::takeTurn()
 	monsterTurn();
 	//Check to see who goes first, will be true if player goes first
 	//In order to counter-act weight, mosnters agility is less valueable
-	bool FA = (((act[4] * .25) + (act[5] * .1) - weight) * (((float)potspd) / 100)) > ((mact[4] * .15) + (mact[5] * .1));
+	bool FA = (((act[4] * .25) + (act[5] * .1) - weight) * (((float)potspd) / 100)) >= ((mact[4] * .15) + (mact[5] * .1));
 	bool mhit, phit, mcrit, pcrit;
 	//Player and monster damage taken
 	int ptaken = 0, mtaken = 0;
@@ -233,28 +249,103 @@ void battle::takeTurn()
 		pcrit = false;
 	}
 
-	if (phit)
+	if (phit && patk)
 	{
-		mtaken = ((pdmg * (((float)(100 - mblk)) / 100)) * (((float)potdmg)));
+		//mtaken = 1 + ((pdmg * (((float)(100 - mblk)) / 100.0)) * (((float)potdmg)));
+		mtaken = pdmg;
+		mtaken -= mtaken * ((mblk) ? .5 : 1);
+		if (mtaken < 1)
+		{
+			mtaken = 1;
+		}
+		mtaken += mtaken * (((float) potdmg) / 100.0);
+		potdmg = 0;
+		potspd = 0;
 	}
-	if (mhit)
+	if (mhit && matk)
 	{
-		ptaken = mdmg * ((float)(100 - pblk) / 100);
+		//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
+		ptaken = mdmg;
+		ptaken -= ptaken * ((pblk) ? .5 : 1);
+		if (ptaken < 1)
+		{
+			ptaken = 1;
+		}
 	}
-	potdmg = 0;
-	potspd = 0;
+
+	if (FA)
+	{
+		m.HP -= mtaken;
+		cout << "You deal " << mtaken << " damage\n";
+		if (m.HP < 1)
+		{
+			cout << "The monster dies\n";
+			endCombat(true);
+			return;
+		}
+		player.HP -= ptaken;
+		cout << "The monster deals " << ptaken << " damage\n";
+		if(player.HP < 1)
+		{
+			cout << "You died\n";
+			endCombat(false);
+			return;
+		}
+	} else {
+		player.HP -= ptaken;
+		cout << "The monster deals " << ptaken << " damage\n";
+		if(player.HP < 1)
+		{
+			cout << "You died\n";
+			endCombat(false);
+			return;
+		}
+		m.HP -= mtaken;
+		cout << "You deal " << mtaken << " damage\n";
+		if (m.HP < 1)
+		{
+			cout << "The monster dies\n";
+			endCombat(true);
+			return;
+		}
+	}
+
+
+	/*
 	((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
-	cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ") << ((FA) ? mtaken : ptaken) << " damage\n"; 
+	cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
+        cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
 	if (player.HP <= 0 || m.HP <= 0)
 	{
+		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
 		endCombat((m.HP <= 0));
+		return;
 	}
 	((!FA) ? (m.HP -= ptaken) : (player.HP -= ptaken));
-	cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ") << ((!FA) ? mtaken : ptaken) << " damage\n"; 
+	cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ");
+        cout << ((!FA) ? mtaken : ptaken) << " damage\n"; 
 	if (player.HP <= 0 || m.HP <= 0)
 	{
+		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
 		endCombat((m.HP <= 0));
+		return;
 	}
+	*/
+
+	//resetting variable for next turn
+	mdmg = 0, macc = 0;
+	pdmg = 0, pacc = 0;
+	pblk = false, pdge = 0;
+	mblk = false, mdge = 0;	
+	matk = false, patk = false;
+
+
+
+	string wait;
+	cout << "Press Enter to continue\n";
+	cin.clear();
+	cin.ignore();
+	getline(cin, wait);
 }
 
 void battle::monsterTurn()
@@ -265,7 +356,7 @@ void battle::monsterTurn()
 	if (move <= 70)
 	{
 		//attack
-
+		matk = true;
 		/*
 		   1-23 Light, 24-47 Medium, 48-70 Heavy
 		   Gives very slight preference to medium attacks
@@ -302,7 +393,9 @@ void battle::monsterTurn()
 		//Slightly better formulas to account for no armor,
 		//the amounts wont cause much of an affect at low level,
 		//making the earlier game easier
-		mblk = ((mact[1] * .55) + (mact[4] * .15) + (mact[5] * .15));
+		//mblk = ((mact[1] * .55) + (mact[4] * .15) + (mact[5] * .15));
+		mblk = true;
+		matk = true;
 
 		//Monsters "shield bash" is more of a retaliation, it is 
 		//based on strength due to no armor ergo no weight like
@@ -321,6 +414,7 @@ void battle::monsterTurn()
 
 void battle::endCombat(bool win)
 {
+	done = true;
 	if (win) 
 	{
 		player.giveXP((player.lvl * m.diff) + 1);
@@ -334,38 +428,43 @@ void battle::attack()
 {
 	int choice;
 	bool right = true;
-	string returning = "returning";
 
+	cout << "\n1: Light Attack\n";
+	cout << "2. Medium Attack\n";
+	cout << "3. Heavy Attack\n";
+	cout << "4. Return\n";
 	do
 	{
-		if (right)
-		{
-			cout << "\n1: Light Attack\n";
-			cout << "2. Medium Attack\n";
-			cout << "3. Heavy Attack\n";
-			cout << "4. Return\n";
-		} else {
-			cout << "Invalid choice, please select one of the options above\n";
-		}
+		right = true;
 
 		cin >> choice;
 
-		switch (choice)
-		{
-			case 1:
-				pacc = (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				break;
-			case 2:
-				pacc = (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				break;
-			case 3:
-				pacc = (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				break;
-			case 4:
-				throw returning;
+		if (!cin.good()) 
+		{ 
+			cin.clear(); 
+			cin.ignore(); 
+			right = false;
+		} else {	
+			switch (choice)
+			{
+				case 1:
+					pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 2:
+					pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 3:
+					pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 4:
+					throw "returning";
 
-			default:
-				right = false;
+				default:
+					right = false;
+			}
 		}
 	} while (!right);
 	pdmg = (player.eqpt[0].value + act[wts] * .5) * ((choice == 3) ? 1.25 : ((choice == 2) ? 1.0 : .75));
@@ -373,20 +472,23 @@ void battle::attack()
 
 void battle::block()
 {
-	pblk = ((act[1] * .5) + weight + (act[4] * .1) + (act[5] * .1));
+	//pblk = ((act[1] * .5) + weight + (act[4] * .1) + (act[5] * .1));
+	pblk = true;
+	patk = true;
 	pdmg = (weight * .5) + (act[1] * .25) + (act[5] * .05);
 }
 
 void battle::dodge()
 {
-	pdge = (act[4] * .5) + (act[2] * .1) + (act[5] * .25) - weight;
+	pdge = 0;
+	pdge = (int)((act[4] * .35) + (act[2] * 2) + (act[5] * 1));
 	// ((rand() % 100) + 1 <= dmgChance) true
 }
 
 void battle::heal(int val)
 {
-	val *= ((float)val)/100;
-	player.HP += val;
+	float healVal = (((float)val)/100);
+	player.HP += player.maxHP * healVal;
 	if (player.HP > player.maxHP)
 	{
 		player.HP = player.maxHP;
@@ -420,40 +522,53 @@ void battle::use()
 			if (items[player.inv[i].id - 301] == 0)
 			{
 				items[player.inv[i].id - 301] = 1;
-				//cout << j << ". " << player.inv[i].name << "\n";
-				pos[j] = i;
+				cout << j << ". " << player.inv[i].name << "\n";
+				pos[j-1] = i;
 				j++;
-			} else {
-				items[player.inv[i].id - 301]++;
-			}
+				//} else {
+				//items[player.inv[i].id - 301]++;
+		}
 		}
 	}
-	for (int i = 0; i < j; i++)
-	{
-		cout << i + 1 << ". " << player.inv[pos[i]].name << " x " << items[i] << "\n";
-	}
+	/*
+	   for (int i = 0; i < j; i++)
+	   {
+	   cout << i + 1 << ". " << player.inv[pos[i]].name << " x " << items[i] << "\n";
+	   }
+	 */
 	cout << "\n" << j << ". Return\n";
 
 	while (!right)
 	{
+		right = true;
 		cin >> choice;
+		if (!cin.good()) 
+		{ 
+			cin.clear(); 
+			cin.ignore(); 
+			right = false;
+		} else {	
 
-		if (choice <= j && choice > 0)
-		{
-			if (choice == j)
+			if (choice <= j && choice > 0)
 			{
-				throw "returning";
+				if (choice == j)
+				{
+					throw "returning";
+				}
+				switch (player.inv[pos[choice - 1]].subType)
+				{
+					case 1: heal(player.inv[pos[choice - 1]].value);
+						cout << "You heal " << ((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value))/100))) << " health\n";
+						break;
+					case 2: potdmg = player.inv[pos[choice -1]].value;
+						break;
+					case 3: potspd = player.inv[pos[choice -1]].value;
+						break;
+				}
+				player.discard(player.inv[pos[choice - 1]]);
+			} else {
+				choice = false;
 			}
-			switch (player.inv[j].subType)
-			{
-				case 1: heal(player.inv[pos[choice - 1]].value);
-					break;
-				case 2: potdmg = player.inv[pos[choice -1]].value;
-					break;
-				case 3: potspd = player.inv[pos[choice -1]].value;
-					break;
-			}
-			player.discard(player.inv[pos[choice - 1]]);
 		}
 	}
 }

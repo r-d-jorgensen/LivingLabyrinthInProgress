@@ -51,7 +51,7 @@ class character : public stats
 		void equip(const item &i);
 		void unequip(const item &in);
 		void discard(item i);
-		void inventory();
+		bool inventory();
 		void balanceInv();
 		void showStats();
 		void showInv();
@@ -119,11 +119,12 @@ character::character(string n, int i, int d) : stats::stats()
 	textType = i;
 	gold = 0;
 	difficulty = d;
+	points = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		eqpt[i] = item();
 	}
-	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl) * difficulty;
+	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	HP = maxHP;
 }
 
@@ -136,6 +137,7 @@ character::character(const character &in)
 	lvl = in.lvl;
 	maxHP = in.maxHP;
 	HP = in.HP;
+	points = in.points;
 	difficulty = in.difficulty;
 	for (int i = 0; i < 5; i++)
 	{
@@ -254,7 +256,6 @@ void character::equip(const item &in)
 			}
 			break;
 	}
-	balanceInv();
 }
 
 void character::discard(item in)
@@ -271,41 +272,46 @@ void character::discard(item in)
 	balanceInv();
 }
 
-void character::inventory()
+bool character::inventory()
 {
 	int j, c1, c2;
 	bool r1 = false, r2 = true;
-	while (true)
+	//while (true)
+	//{
+	balanceInv();
+	cout << "\033[2J\033[1;1H";
+	j = 1;
+	c1 = 0;
+	cout << "Equipped Items\nWeapon: " << player.eqpt[0].name;
+	cout << "\nHead: " << player.eqpt[1].name << "\nChest: ";
+	cout << player.eqpt[2].name << "\nLegs: " << player.eqpt[3].name << "\n\n";
+	for (int i = 0; i < 25; i++)
 	{
-		balanceInv();
-		cout << "\033[2J\033[1;1H";
-		j = 1;
-		c1 = 0;
-		cout << "Equipped Items\nWeapon: " << player.eqpt[0].name;
-		cout << "\nHead: " << player.eqpt[1].name << "\nChest: ";
-		cout << player.eqpt[2].name << "\nLegs: " << player.eqpt[3].name << "\n\n";
-		for (int i = 0; i < 25; i++)
+		if (inv[i].id != 0)
 		{
-			if (inv[i].id != 0)
-			{
-				cout << j << ". " << player.inv[i].name << "\n";
-				j++;
-			}
+			cout << j << ". " << player.inv[i].name << "\n";
+			j++;
 		}
-		cout << "\n" << j << ". Return\n";
-		cout << "\n";
+	}
+	cout << "\n" << j << ". Return\n";
+	cout << "\n";
 
-		do
+	do
+	{
+		r1 = false;
+		cin.clear();
+		cin >> c1;
+		if (!cin.good())
 		{
-			r1 = false;
 			cin.clear();
-			cin >> c1;
-
+			cin.ignore();
+			r1 = false;
+		} else {
 			if (c1 <= j && c1 > 0)
 			{
 				if (c1 == j)
 				{
-					return;
+					return true;
 				}
 				r1 = true;
 				cout << player.inv[c1-1].name << "\n";
@@ -314,24 +320,33 @@ void character::inventory()
 				{
 					cin.clear();
 					cin >> c2;
-					switch (c2)
+					if (!cin.good())
 					{
-						case 1: 
-							equip(player.inv[c1 - 1]);
-							break;
-						case 2:
-							discard(player.inv[c1 - 1]);
-							break;
-						case 3:
-							break;
-						default:
-							r2 = false;
+						cin.clear();
+						cin.ignore();
+						r1 = false;
+					} else {
+						switch (c2)
+						{
+							case 1: 
+								equip(player.inv[c1 - 1]);
+								break;
+							case 2:
+								discard(player.inv[c1 - 1]);
+								break;
+							case 3:
+								break;
+							default:
+								r2 = false;
+						}
+						cin.clear();
 					}
-					cin.clear();
 				} while (!r2);
 			}
-		} while (!r1);
-	}
+		}
+	} while (!r1);
+	//}
+	return false;
 }
 
 void character::balanceInv()
@@ -370,42 +385,42 @@ void character::balanceInv()
 		}
 	}
 
-			
+
 	/*
 	   Old version left in for reference. This version appeared
 	   to work but caused odd behavior when equipping items.
 
-	int pos = -1;
-	item temp[25];
-	int used[25] = {0};
+	   int pos = -1;
+	   item temp[25];
+	   int used[25] = {0};
 
-	for (int i = 0; i < 25; i++)
-	{
-		for (int j = 0; j < 25; j++)
-		{
-			if (pos < 0 && inv[j].id != 0 && used[j] == 0)
-			{
-				pos = j;
-			}
-			else if (pos > -1 && inv[j].id < inv[pos].id && used[j] == 0)
-			{
-				pos = j;
-			}
-		}
-		if (pos > -1)
-		{
-			temp[i] = inv[pos];
-			used[pos] = 1;
-			pos = -1;
-		} else {
-			return;
-		}
-	}
-	for (int i = 0; i < 25; i++)
-	{
-		inv[i] = temp[i];
-	}
-	*/
+	   for (int i = 0; i < 25; i++)
+	   {
+	   for (int j = 0; j < 25; j++)
+	   {
+	   if (pos < 0 && inv[j].id != 0 && used[j] == 0)
+	   {
+	   pos = j;
+	   }
+	   else if (pos > -1 && inv[j].id < inv[pos].id && used[j] == 0)
+	   {
+	   pos = j;
+	   }
+	   }
+	   if (pos > -1)
+	   {
+	   temp[i] = inv[pos];
+	   used[pos] = 1;
+	   pos = -1;
+	   } else {
+	   return;
+	   }
+	   }
+	   for (int i = 0; i < 25; i++)
+	   {
+	   inv[i] = temp[i];
+	   }
+	 */
 }
 
 void character::showStats()
@@ -434,10 +449,10 @@ void character::giveXP(int x)
 {
 	int xpToNext = (((player.lvl) * (player.lvl)) * (player.lvl + 5));
 	player.xp += x;
-	if (player.xp > xpToNext)
+	while (player.xp > xpToNext)
 	{
 		int points = (difficulty / 3);
-		player.xp = xp - xpToNext;
+		player.xp -= xpToNext;
 		player.lvl++;
 		player.points += ((points < 1) ? 1 : points);
 		player.HP = player.maxHP;
@@ -450,48 +465,50 @@ void character::levelUp()
 	bool r1 = true, r2 = true;
 	int c1, c2;
 
-	cout << "Choose Stat to increase.\n";
-
-	for (int i = 0; i < 6; i++)
+	while (true)
 	{
-		printf("%d. %s: %i", i+1, s[i], stat[i]);
-	}
-	cout << "7. Return\n";
+		cout << "\033[2J\033[1;1H";
+		cout << "Choose a stat to increase.\n";
+		cout << "Available points: " << player.points << "\n";
 
-	do
-	{
-
-		r1 = true;
-
-		cin >> c1;
-		c1 -= 1;
-
-		if (c1 > 6 || c1 < 0)
+		for (int i = 0; i < 6; i++)
 		{
-			r1 = false;
-		} else if (c1 == 6) {
-			return;
-		} else {
-			cout << "Available points: " << player.points << "\n";
-			cout << "Choose amount to increase: ";
-			do 
-			{
-				r2 = true;
-				cin >> c2;
-				if (c2 > player.points || c2 < 0)
-				{
-					r2 = false;
-				} else {
-					player.stat[c1] += c2;
-					player.points -= c2;
-					if (c2 == 0)
-					{	
-					maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl) * difficulty;
-					}
-				}
-			} while (!r2);
+			printf("%d. %s: %i", i+1, s[i], stat[i]);
+			cout << "\n";
 		}
-	} while (!r1);
+		cout << "7. Return\n";
+
+		do
+		{
+
+			r1 = true;
+
+			cin >> c1;
+			c1 -= 1;
+
+			if (c1 > 6 || c1 < 0)
+			{
+				r1 = false;
+			} else if (c1 == 6) {
+				return;
+			} else {
+				cout << "Choose amount to increase: ";
+				do 
+				{
+					r2 = true;
+					cin >> c2;
+					if (c2 > player.points || c2 < 0)
+					{
+						r2 = false;
+					} else {
+						player.stat[c1] += c2;
+						player.points -= c2;
+					}
+				} while (!r2);
+			}
+		} while (!r1);
+		maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
+	}
 }
 
 
@@ -525,29 +542,47 @@ monster::monster()
 
 monster::monster(int l)
 {
-	if ((player.lvl + l) < 1)
+	/*New Idea to help generate monsters
+	  monsters are now ordered by difficulty within the
+	  monsters.txt file, the result of rand can now be 
+	  modified to ensure that it never generates a monster
+	  that it cant use, which causes way too many calls and breaks
+	  the function. Hopefully this works cause this is kinda a last
+	  ditch effort before I just restart monsters.
+	 */
+	//Difficulties are 1-6
+	//Difficulty 10 enemies have been temporarily removed, they still
+	//exist within the file but will never be generated.
+	//array containing the number of monsters at each difficulty
+	int arr[6] = {1,5,5,3,3,2};
+	int maxDiff = player.lvl + l;
+	int lines = 0;
+
+	if (maxDiff > 6) 
 	{
-		l = 0;
+		maxDiff = 6;
 	}
+	if (maxDiff < 1)
+	{
+		maxDiff = 1;
+	}
+
+	for (int i = 0; i < maxDiff; i++)
+	{
+		lines += arr[i];
+	}
+	int i = (rand() % lines) * 2;
+
 	string token;
-	int lines;
 	srand(time(0));
 
 	ifstream in("./Monsters/monsters.txt");
 	if (in.is_open())
 	{
-		while (!in.eof())
-		{
-			getline(in, token);
-			lines++;
-		}
-		in.clear();
-		in.seekg(0);
-
-		int i = (rand() % (lines/2)) * 2;
-		while (i > 0) { getline(in, token); i--; }
+		while (i > 0) { getline(in, token); i--; cout << token << "\n"; }
 		//
 		in >> name;
+		cout << name << "\n";
 		for (size_t i = 0; i < name.length(); i++)
 		{
 			if (name[i] == '_')
@@ -558,9 +593,11 @@ monster::monster(int l)
 		for (int x = 0; x < 6; x++)
 		{
 			in >> stat[x];
+			cout << stat[x] << " ";
 		}
+		cout << "\n";
 		in >> diff;
-		lvl = player.lvl + l;
+		lvl = maxDiff;
 		maxHP = (stat[0] * (.5 + (.25 * (((float)stat[0]) / 5))) * lvl);
 		HP = maxHP;
 		//if (lvl < 1) 

@@ -1,7 +1,10 @@
+/*
 #include "items.cpp"
 #include "stats.cpp"
 #include "save.cpp"
 #include "combat.cpp"
+*/
+#include "JasonJ.cpp"
 
 using namespace std;
 
@@ -14,18 +17,21 @@ int main()
 	string test;
 	//Currently being used to test the funcitonality of our code so far
 	cout << "Testing the save and load functions\n";
-	character test1("TEST", 0, 10);
-	player = test1;
+	//character test1("TEST", 0, 10);
+	player = loadIn("save1.txt");
+
 	player.fillInv();
-	player.inventory();
-	player.showStats();
-	player.showInv();
+	while (!player.inventory()) {}
+	//player.giveXP(50);
+	//player.levelUp();
+	//player.showStats();
+	//player.showInv();
 	cout << "\n";
-	saveOut(player, "save1.txt");
-	character test2 = loadIn("save1.txt");
-	test2.showStats();
-	test2.showInv();
-	cout << "\nIf the two results appear the same then the process was successful\n";
+	//saveOut(player, "save1.txt");
+	//character test2 = loadIn("save1.txt");
+	//test2.showStats();
+	//test2.showInv();
+	//cout << "\nIf the two results appear the same then the process was successful\n";
 
 	//Beginning combat testing
 	monster m(0); //monster m((rand() % 5) - 2); 

@@ -56,7 +56,7 @@ item::item()
 	type = 0;
 	subType = 0;
 	value = 0;
-	subValue = 0;
+	subValue = 1;
 	percent = 0;
 }
 /* Taken out as key items aren't implemented as of yet

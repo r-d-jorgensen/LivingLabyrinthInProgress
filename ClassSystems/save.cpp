@@ -27,8 +27,6 @@ ostream &operator<<(ostream &out, const character &in)
 		<< in.lvl << " "
 		<< in.xp << " "
 		<< in.points << " "
-		<< in.maxHP << " "
-		<< in.HP << " "
 		<< in.gold << " ";
 	
 	//Character Stats
@@ -67,8 +65,6 @@ istream &operator>>(istream &in, character &out)
 	in >> out.lvl;
 	in >> out.xp;
 	in >> out.points;
-	in >> out.maxHP;
-	in >> out.HP;
 	in >> out.gold;
 	
 	//Character Stats
@@ -94,6 +90,8 @@ istream &operator>>(istream &in, character &out)
 	//Other values
 	in >> out.textType;
 	in >> out.difficulty;
+	out.maxHP = (out.stat[0] * (.5 + (.25 * (out.stat[0] / 5))) * out.lvl);
+	out.HP = out.maxHP;
 	return in;
 }
 
