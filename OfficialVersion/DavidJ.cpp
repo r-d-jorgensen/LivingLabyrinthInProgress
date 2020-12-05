@@ -7,7 +7,6 @@
 */
 #pragma once
 #include <iostream>
-#include "JasonJ.cpp"
 using namespace std;
 
 //Declarations
@@ -33,8 +32,9 @@ string playerCombatString(int actionPlayer);
 void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMonster,
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster);
 
-extern character player;
+#include "JasonJ.cpp"
 #include "ScottK.cpp"
+extern character player;
 //End of Declarations
 
 void mainGameLoop()

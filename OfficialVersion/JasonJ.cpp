@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iomanip>
 //rand is needed for fillInv()
-#include "DavidJ.cpp"
 #include <cstdlib>
 
 using namespace std;
@@ -158,6 +157,7 @@ public:
 	void heal(int val);
 };
 
+#include "DavidJ.cpp"
 //******************************************************************************
 //BEGINNING OF STATS
 
@@ -1022,10 +1022,10 @@ void combat(monster m)
 				choice = 0;
 				right = true;
 				cout << "\033[2J\033[1;1H";
-				dialogue(c.m.name + " Level: " + c.m.lvl);
-				dialogue(" Health: " + c.m.HP + "/" + c.m.maxHP);
-				dialogue(player.name + " Level: " + player.lvl);
-				dialogue("Health: " + player.HP + "/" + player.maxHP);
+				dialogue(c.m.name + " Level: " + to_string(c.m.lvl));
+				dialogue(" Health: " + to_string(c.m.HP) + "/" + to_string(c.m.maxHP));
+				dialogue(player.name + " Level: " + to_string(player.lvl));
+				dialogue("Health: " + to_string(player.HP) + "/" + to_string(player.maxHP));
 				cout << "1: Attack\n";
 				cout << "2: Block\n";
 				cout << "3: Dodge\n";
@@ -1046,11 +1046,11 @@ void combat(monster m)
 						c.attack();
 						break;
 					case 2:
-						paction = 3;
+						c.paction = 3;
 						c.block();
 						break;
 					case 3:
-						paction = 4;
+						c.paction = 4;
 						c.dodge();
 						break;
 					case 4:
@@ -1513,7 +1513,7 @@ void battle::use()
 				case 1:
 					paction = 5;
 					heal(player.inv[pos[choice - 1]].value);
-					dialogue("You heal " + ((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100))) + " health");
+					dialogue("You heal " + to_string(((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100)))) + " health");
 					break;
 				case 2:
 					paction = 5;

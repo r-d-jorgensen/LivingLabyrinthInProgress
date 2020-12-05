@@ -1,6 +1,6 @@
 #include "JasonJ.cpp"
-#include "ScottK.cpp"
 #include "DavidJ.cpp"
+#include "ScottK.cpp"
 
 using namespace std;
 character player;
@@ -25,7 +25,7 @@ void test()
 		{
 			string test;
 			cout << "Testing the save and load functions\n";
-			character test1("TEST");
+			character test1("TEST", 0, 10);
 			test1.fillInv();
 			test1.showStats();
 			cout << "\n";

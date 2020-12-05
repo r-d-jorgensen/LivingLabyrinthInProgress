@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 using namespace std;
+#include "DavidJ.cpp"
 int tutorial();
 void camp();
 string strLower(string n);
@@ -18,9 +19,9 @@ void printGreeting();
 int doorGame();
 void majorEncounter();
 void finalEncounter();
-#include "DavidJ.cpp"
 string questAnswer(int levelChoice);
 string anagram(string originalWord);
+extern character player;
 /*
    class FinalPuzzle
    {
