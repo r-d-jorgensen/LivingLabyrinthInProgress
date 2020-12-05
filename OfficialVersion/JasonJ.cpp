@@ -4,38 +4,37 @@
 #include <fstream>
 #include <iomanip>
 //rand is needed for fillInv()
+#include "DavidJ.cpp"
 #include <cstdlib>
 
 using namespace std;
 
-
-
 class item
 {
-	public:
-		int id;
-		int type;
-		int subType;
-		int value;
-		int subValue;
-		int percent;
-		string name;
+public:
+	int id;
+	int type;
+	int subType;
+	int value;
+	int subValue;
+	int percent;
+	string name;
 
-		item();
-		//item(string n);
-		item(string t);
-		item(int id);
-		item(const item &in);
+	item();
+	//item(string n);
+	item(string t);
+	item(int id);
+	item(const item &in);
 
-		void showItem();
+	void showItem();
 };
 
 class stats
 {
-	public:
-		int lvl, maxHP, HP, stat[6];
+public:
+	int lvl, maxHP, HP, stat[6];
 
-		stats();
+	stats();
 };
 /*
    lvl is the characters lvl, used to determine skill points and monster lvl
@@ -56,33 +55,33 @@ class stats
 
 class character : public stats
 {
-	public:
-		item inv[25];
-		item eqpt[4];
-		string name;
-		int gold;
-		int textType;
-		int difficulty;
-		int xp;
-		int points;
+public:
+	item inv[25];
+	item eqpt[4];
+	string name;
+	int gold;
+	int textType;
+	int difficulty;
+	int xp;
+	int points;
 
-		character();
-		character(string n, int i, int d);
-		character(const character &in);
-		void addItem(item in);
-		void equip(const item &i);
-		void unequip(const item &in);
-		void discard(item i);
-		bool inventory();
-		void balanceInv();
-		void showStats();
-		void showInv();
-		void giveXP(int xp);
-		void levelUp();
-		void die();
-		//Following Function is for testing only,
-		//Fills the characters inventory with items
-		void fillInv();
+	character();
+	character(string n, int i, int d);
+	character(const character &in);
+	void addItem(item in);
+	void equip(const item &i);
+	void unequip(const item &in);
+	void discard(item i);
+	bool inventory();
+	void balanceInv();
+	void showStats();
+	void showInv();
+	void giveXP(int xp);
+	void levelUp();
+	void die();
+	//Following Function is for testing only,
+	//Fills the characters inventory with items
+	void fillInv();
 };
 
 extern character player;
@@ -104,14 +103,14 @@ extern character player;
 
 class monster : public stats
 {
-	public:
-		string name;
-		int diff;
+public:
+	string name;
+	int diff;
 
-		monster();
-		monster(int lvl);
-		monster(string n);
-		monster(const monster &in);
+	monster();
+	monster(int lvl);
+	monster(string n);
+	monster(const monster &in);
 };
 /*
    name is the name of the monster
@@ -123,38 +122,38 @@ class monster : public stats
 //but still have a similar enough name.
 class battle
 {
-	public:
-		//vars are damage, accuracy, block%, dodge%
-		//for both the player and the monster then 
-		//for just the player potion damage and speed
-		//also monter crit, player crit, the monster object
-		//actual stat values, player weight, player weapon type stat
-		int mdmg, macc;
-		int pdmg, pacc;
-		int mdge, pdge;
-		bool mblk, pblk;	
-		int potdmg, potspd;
-		bool mcrit, pcrit;
-		bool matk, patk;
-		monster m;
-		int mact[6], act[6];
-		int weight, wts;
+public:
+	//vars are damage, accuracy, block%, dodge%
+	//for both the player and the monster then
+	//for just the player potion damage and speed
+	//also monter crit, player crit, the monster object
+	//actual stat values, player weight, player weapon type stat
+	int mdmg, macc;
+	int pdmg, pacc;
+	int mdge, pdge;
+	bool mblk, pblk;
+	int potdmg, potspd;
+	bool mcrit, pcrit;
+	bool matk, patk;
+	monster m;
+	int mact[6], act[6];
+	int weight, wts;
 
-		//Used to see if the fight is over.
-		bool done;
+	//Used to see if the fight is over.
+	bool done;
 
-		//constructor
-		battle(monster m);
+	//constructor
+	battle(monster m);
 
-		//functions
-		void takeTurn();
-		void monsterTurn();
-		void endCombat(bool win);
-		void attack();
-		void block();
-		void dodge();
-		void use();		
-		void heal(int val);
+	//functions
+	void takeTurn();
+	void monsterTurn();
+	void endCombat(bool win);
+	void attack();
+	void block();
+	void dodge();
+	void use();
+	void heal(int val);
 };
 
 //******************************************************************************
@@ -224,7 +223,7 @@ void character::addItem(item in)
 		{
 			full = false;
 			inv[i] = in;
-			cout << "Item successfully added.\n";
+			dialogue("Item successfully added.");
 			return;
 		}
 	}
@@ -232,7 +231,7 @@ void character::addItem(item in)
 	{
 		string choice;
 		int c = 0;
-		cout << "Your inventory is full. Would you like to discard an item? (y/n)\n";
+		dialogue("Your inventory is full. Would you like to discard an item? (y/n)");
 		while (true)
 		{
 			cin >> choice;
@@ -240,13 +239,13 @@ void character::addItem(item in)
 			{
 				break;
 			}
-			cout << "Invalid choice, choose y or n\n";
+			dialogue("Invalid choice, choose y or n");
 		}
 		if (choice == "Y" || choice == "y")
 		{
 			for (int i = 0; i < 24; i++)
 			{
-				cout << i << ". ";
+				dialogue(i + ". ");
 				inv[i].showItem();
 			}
 			while (true)
@@ -254,12 +253,11 @@ void character::addItem(item in)
 				cin >> c;
 				if (c <= 25 && c > 1)
 				{
-					inv[c-1] = in;
+					inv[c - 1] = in;
 					break;
 				}
-				cout << "Invalid choice, choose y or n\n";
+				dialogue("Invalid choice, choose y or n");
 			}
-
 		}
 		return;
 	}
@@ -273,18 +271,18 @@ void character::unequip(const item &in)
 		if (inv[i].id == 0)
 		{
 			inv[i] = in;
-			switch(in.type)
+			switch (in.type)
 			{
-				case 1:
-					eqpt[in.subType] = temp;
-					return;
-				case 2:
-					eqpt[0] = temp;
-					return;
+			case 1:
+				eqpt[in.subType] = temp;
+				return;
+			case 2:
+				eqpt[0] = temp;
+				return;
 			}
 		}
 	}
-	cout << "No room to unequip, discard an item first.\n";
+	dialogue("No room to unequip, discard an item first.");
 }
 
 void character::equip(const item &in)
@@ -293,28 +291,28 @@ void character::equip(const item &in)
 	item temp;
 	switch (in.type)
 	{
-		case 1:
-			for (int i = 0; i < 25; i++)
+	case 1:
+		for (int i = 0; i < 25; i++)
+		{
+			if (inv[i].id == in.id)
 			{
-				if (inv[i].id == in.id)
-				{
-					temp = eqpt[eqp];
-					eqpt[eqp] = in;
-					inv[i] = temp;
-				}
-			}		
-			break;
-		case 2:
-			for (int i = 0; i < 25; i++)
-			{
-				if (inv[i].id == in.id)
-				{
-					temp = eqpt[0];
-					eqpt[0] = in;
-					inv[i] = temp;
-				}
+				temp = eqpt[eqp];
+				eqpt[eqp] = in;
+				inv[i] = temp;
 			}
-			break;
+		}
+		break;
+	case 2:
+		for (int i = 0; i < 25; i++)
+		{
+			if (inv[i].id == in.id)
+			{
+				temp = eqpt[0];
+				eqpt[0] = in;
+				inv[i] = temp;
+			}
+		}
+		break;
 	}
 }
 
@@ -339,22 +337,22 @@ bool character::inventory()
 	//while (true)
 	//{
 	balanceInv();
-	cout << "\033[2J\033[1;1H";
+	dialogue("\033[2J\033[1;1H");
 	j = 1;
 	c1 = 0;
-	cout << "Equipped Items\nWeapon: " << player.eqpt[0].name;
-	cout << "\nHead: " << player.eqpt[1].name << "\nChest: ";
-	cout << player.eqpt[2].name << "\nLegs: " << player.eqpt[3].name << "\n\n";
+	dialogue("Equipped Items\nWeapon: " + player.eqpt[0].name);
+	dialogue("Head: " + player.eqpt[1].name);
+	dialogue("Chest: " + player.eqpt[2].name);
+	dialogue("Legs: " + player.eqpt[3].name);
 	for (int i = 0; i < 25; i++)
 	{
 		if (inv[i].id != 0)
 		{
-			cout << j << ". " << player.inv[i].name << "\n";
+			dialogue(j + ". " + player.inv[i].name);
 			j++;
 		}
 	}
-	cout << "\n" << j << ". Return\n";
-	cout << "\n";
+	dialogue(j + ". Return");
 
 	do
 	{
@@ -366,7 +364,9 @@ bool character::inventory()
 			cin.clear();
 			cin.ignore();
 			r1 = false;
-		} else {
+		}
+		else
+		{
 			if (c1 <= j && c1 > 0)
 			{
 				if (c1 == j)
@@ -374,8 +374,10 @@ bool character::inventory()
 					return true;
 				}
 				r1 = true;
-				cout << player.inv[c1-1].name << "\n";
-				cout << "1. Equip\n2. Discard\n3. Return\n";
+				dialogue(player.inv[c1 - 1].name);
+				dialogue("1. Equip");
+				dialogue("2. Discard");
+				dialogue("3. Return");
 				do
 				{
 					cin.clear();
@@ -385,19 +387,21 @@ bool character::inventory()
 						cin.clear();
 						cin.ignore();
 						r1 = false;
-					} else {
+					}
+					else
+					{
 						switch (c2)
 						{
-							case 1: 
-								equip(player.inv[c1 - 1]);
-								break;
-							case 2:
-								discard(player.inv[c1 - 1]);
-								break;
-							case 3:
-								break;
-							default:
-								r2 = false;
+						case 1:
+							equip(player.inv[c1 - 1]);
+							break;
+						case 2:
+							discard(player.inv[c1 - 1]);
+							break;
+						case 3:
+							break;
+						default:
+							r2 = false;
 						}
 						cin.clear();
 					}
@@ -405,7 +409,6 @@ bool character::inventory()
 			}
 		}
 	} while (!r1);
-	//}
 	return false;
 }
 
@@ -444,7 +447,6 @@ void character::balanceInv()
 			inv[pos] = temp;
 		}
 	}
-
 
 	/*
 	   Old version left in for reference. This version appeared
@@ -485,8 +487,8 @@ void character::balanceInv()
 
 void character::showStats()
 {
-	const char *s[6] = {"CON","STR", "DEX", "INT", "AGL", "LCK"};
-	cout << "Name: " << name << "\n";
+	const char *s[6] = {"CON", "STR", "DEX", "INT", "AGL", "LCK"};
+	dialogue("Name: " + name);
 	printf("LVL: %i\nMax HP: %i\nHP: %i\nDifficulty: %i\n", lvl, maxHP, HP, difficulty);
 	for (int x = 0; x < 6; x++)
 	{
@@ -527,14 +529,13 @@ void character::levelUp()
 
 	while (true)
 	{
-		cout << "\033[2J\033[1;1H";
-		cout << "Choose a stat to increase.\n";
-		cout << "Available points: " << player.points << "\n";
+		dialogue("\033[2J\033[1;1H");
+		dialogue("Choose a stat to increase.");
+		dialogue("Available points: " + player.points);
 
 		for (int i = 0; i < 6; i++)
 		{
-			printf("%d. %s: %i", i+1, s[i], stat[i]);
-			cout << "\n";
+			printf("%d. %s: %i\n", i + 1, s[i], stat[i]);
 		}
 		cout << "7. Return\n";
 
@@ -549,18 +550,24 @@ void character::levelUp()
 			if (c1 > 6 || c1 < 0)
 			{
 				r1 = false;
-			} else if (c1 == 6) {
+			}
+			else if (c1 == 6)
+			{
 				return;
-			} else {
+			}
+			else
+			{
 				cout << "Choose amount to increase: ";
-				do 
+				do
 				{
 					r2 = true;
 					cin >> c2;
 					if (c2 > player.points || c2 < 0)
 					{
 						r2 = false;
-					} else {
+					}
+					else
+					{
 						player.stat[c1] += c2;
 						player.points -= c2;
 					}
@@ -570,7 +577,6 @@ void character::levelUp()
 		maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	}
 }
-
 
 void character::die()
 {
@@ -614,11 +620,11 @@ monster::monster(int l)
 	//Difficulty 10 enemies have been temporarily removed, they still
 	//exist within the file but will never be generated.
 	//array containing the number of monsters at each difficulty
-	int arr[6] = {1,5,5,3,3,2};
+	int arr[6] = {1, 5, 5, 3, 3, 2};
 	int maxDiff = player.lvl + l;
 	int lines = 0;
 
-	if (maxDiff > 6) 
+	if (maxDiff > 6)
 	{
 		maxDiff = 6;
 	}
@@ -639,7 +645,12 @@ monster::monster(int l)
 	ifstream in("./Monsters/monsters.txt");
 	if (in.is_open())
 	{
-		while (i > 0) { getline(in, token); i--; cout << token << "\n"; }
+		while (i > 0)
+		{
+			getline(in, token);
+			i--;
+			cout << token << "\n";
+		}
 		//
 		in >> name;
 		cout << name << "\n";
@@ -660,9 +671,9 @@ monster::monster(int l)
 		lvl = maxDiff;
 		maxHP = (stat[0] * (.5 + (.25 * (((float)stat[0]) / 5))) * lvl);
 		HP = maxHP;
-		//if (lvl < 1) 
-		//{ 
-		//	*this = monster(l); 
+		//if (lvl < 1)
+		//{
+		//	*this = monster(l);
 		//}
 	}
 }
@@ -684,7 +695,6 @@ monster::monster(const monster &in)
 //******************************************************************************
 //******************************************************************************
 //BEGINNING OF ITEMS
-
 
 /* 
    id is a unique number given to each item, the first digit is the item type,
@@ -750,19 +760,33 @@ item::item(string t)
 	int lines = 0, itype = stoi(t);
 	string temp, idtemp;
 
-	if (itype == 0) { itype = (rand() % 3) + 1; }
-
-	switch(itype)
+	if (itype == 0)
 	{
-		case 1: txt += "armor.txt"; type = 1; break;
-		case 2: txt += "weapons.txt"; type = 2; break;
-		case 3: txt += "misc.txt"; type = 3; break;
-		default: txt += "failed.txt"; break;
+		itype = (rand() % 3) + 1;
+	}
+
+	switch (itype)
+	{
+	case 1:
+		txt += "armor.txt";
+		type = 1;
+		break;
+	case 2:
+		txt += "weapons.txt";
+		type = 2;
+		break;
+	case 3:
+		txt += "misc.txt";
+		type = 3;
+		break;
+	default:
+		txt += "failed.txt";
+		break;
 	}
 
 	ifstream in;
 	in.open(txt);
-	while(!in.eof())
+	while (!in.eof())
 	{
 		getline(in, temp);
 		lines++;
@@ -770,16 +794,20 @@ item::item(string t)
 	in.clear();
 	in.seekg(0);
 
-	int i = (rand() % (lines/2)) * 2;
-	while (i > 0) { getline(in, temp); i--; }
+	int i = (rand() % (lines / 2)) * 2;
+	while (i > 0)
+	{
+		getline(in, temp);
+		i--;
+	}
 	in >> name;
 	//Item names are stored int a text file using underscores so names are one "word"
 	//This block replaces the underscore with a space
-	for (size_t i = 0; i < name.length(); i++) 
-	{ 
-		if (name[i] == '_') 
-		{ 
-			name[i] = ' '; 
+	for (size_t i = 0; i < name.length(); i++)
+	{
+		if (name[i] == '_')
+		{
+			name[i] = ' ';
 		}
 	}
 	//Items id's are stored with a / at the beginning, this is explained in item(int i)
@@ -799,17 +827,31 @@ item::item(int i)
 	string temp;
 	string txt = "./Items/";
 	item empty;
-	if (i == 0) { *this = empty; }
+	if (i == 0)
+	{
+		*this = empty;
+	}
 
 	/*Item id's contain what type of item they are, with the first digit being
 	  important one. The next line rounds the number to the nearest hundredth,
 	  then divides the number by 100 to find the first digit. */
-	switch((i - (i % 100)) / 100)
+	switch ((i - (i % 100)) / 100)
 	{
-		case 1: txt += "armor.txt"; type = 1; break;
-		case 2: txt += "weapons.txt"; type = 2; break;
-		case 3: txt += "misc.txt"; type = 3; break;
-		default: txt += "failed.txt"; break;
+	case 1:
+		txt += "armor.txt";
+		type = 1;
+		break;
+	case 2:
+		txt += "weapons.txt";
+		type = 2;
+		break;
+	case 3:
+		txt += "misc.txt";
+		type = 3;
+		break;
+	default:
+		txt += "failed.txt";
+		break;
 	}
 
 	ifstream in(txt);
@@ -830,11 +872,11 @@ item::item(int i)
 				in >> value;
 				in >> subValue;
 				in >> percent;
-				for (size_t i = 0; i < name.length(); i++) 
-				{ 
-					if (name[i] == '_') 
-					{ 
-						name[i] = ' '; 
+				for (size_t i = 0; i < name.length(); i++)
+				{
+					if (name[i] == '_')
+					{
+						name[i] = ' ';
 					}
 				}
 				return;
@@ -867,62 +909,62 @@ void item::showItem()
 		cout << setw(33) << "Name: " + name;
 		cout << setw(10) << "ID: " + to_string(id);
 
-		switch(type)
-		{ 
-			case 1: 
-				cout << setw(15) << "Type: Armor"; 
-				switch(subType)
-				{
-					case 1: 
-						cout << setw(17) << "Class: Head";
-						break;
-					case 2:	
-						cout << setw(17) << "Class: Chest";
-						break;
-					case 3:	
-						cout << setw(17) << "Class: Head"; 
-						break;
-				}
-				cout << setw(9) << "Defense: " << setw(4) << to_string(value);
-				cout << setw(8) << "Weight: " << setw(4) << to_string(subValue);
-				//cout << setw(10) << "Percent: " + to_string(percent);
+		switch (type)
+		{
+		case 1:
+			cout << setw(15) << "Type: Armor";
+			switch (subType)
+			{
+			case 1:
+				cout << setw(17) << "Class: Head";
 				break;
-			case 2: 
-				cout << setw(15) << "Type: Weapon"; 
-				switch(subType)
-				{
-					case 1: 
-						cout << setw(17) << "Class: INT";
-						break;
-					case 2:	
-						cout << setw(17) << "Class: STR";
-						break;
-					case 3:	
-						cout << setw(17) << "Class: DEX"; 
-						break;
-				}
-				cout << setw(9) << "Damage: " << setw(4) << to_string(value);
-				cout << setw(8) << "Hit%: " << setw(4) << to_string(subValue);
-				cout << setw(10) << "Crit%: " + to_string(percent);
+			case 2:
+				cout << setw(17) << "Class: Chest";
 				break;
-			case 3: 
-				cout << setw(15) << "Type: Misc"; 
-				switch(subType)
-				{
-					case 1: 
-						cout << setw(17) << "Class: Healing";
-						break;
-					case 2:	
-						cout << setw(17) << "Class: Damage";
-						break;
-					case 3:	
-						cout << setw(17) << "Class: Speed"; 
-						break;
-				}
-				cout << setw(9) << "Value: " << setw(4) << to_string(value);
-				//cout << setw(14) << "Weight: " + to_string(subValue);
-				//cout << setw(10) << "Percent: " + to_string(percent);
+			case 3:
+				cout << setw(17) << "Class: Head";
 				break;
+			}
+			cout << setw(9) << "Defense: " << setw(4) << to_string(value);
+			cout << setw(8) << "Weight: " << setw(4) << to_string(subValue);
+			//cout << setw(10) << "Percent: " + to_string(percent);
+			break;
+		case 2:
+			cout << setw(15) << "Type: Weapon";
+			switch (subType)
+			{
+			case 1:
+				cout << setw(17) << "Class: INT";
+				break;
+			case 2:
+				cout << setw(17) << "Class: STR";
+				break;
+			case 3:
+				cout << setw(17) << "Class: DEX";
+				break;
+			}
+			cout << setw(9) << "Damage: " << setw(4) << to_string(value);
+			cout << setw(8) << "Hit%: " << setw(4) << to_string(subValue);
+			cout << setw(10) << "Crit%: " + to_string(percent);
+			break;
+		case 3:
+			cout << setw(15) << "Type: Misc";
+			switch (subType)
+			{
+			case 1:
+				cout << setw(17) << "Class: Healing";
+				break;
+			case 2:
+				cout << setw(17) << "Class: Damage";
+				break;
+			case 3:
+				cout << setw(17) << "Class: Speed";
+				break;
+			}
+			cout << setw(9) << "Value: " << setw(4) << to_string(value);
+			//cout << setw(14) << "Weight: " + to_string(subValue);
+			//cout << setw(10) << "Percent: " + to_string(percent);
+			break;
 		}
 		cout << "\n";
 	}
@@ -936,8 +978,6 @@ void item::showItem()
    Create an object and store neccessary vars of both teams
    and also use the functions already created 
  */
-
-
 
 /*
    A lot of this code was written late at night/with little sleep
@@ -974,14 +1014,16 @@ void combat(monster m)
 	{
 		do
 		{
-			try {
+			try
+			{
 				cin.clear();
 				choice = 0;
 				right = true;
 				cout << "\033[2J\033[1;1H";
 				cout << c.m.name << " Level: " << c.m.lvl;
 				cout << " Health: " << c.m.HP << "/" << c.m.maxHP;
-				cout << "\n" << player.name << " Level: " << player.lvl;
+				cout << "\n"
+					 << player.name << " Level: " << player.lvl;
 				cout << " Health: " << player.HP << "/" << player.maxHP;
 				cout << "\n\n";
 				cout << "1: Attack\n";
@@ -990,33 +1032,35 @@ void combat(monster m)
 				cout << "4: Use Item\n";
 
 				cin >> choice;
-				if (!cin.good()) 
-				{ 
-					cin.clear(); 
-					cin.ignore(); 
-					right = false; 
-				} else {
+				if (!cin.good())
+				{
+					cin.clear();
+					cin.ignore();
+					right = false;
+				}
+				else
+				{
 
 					switch (choice)
 					{
-						case 1: 
-							c.attack();
-							break;
-						case 2: 
-							c.block();
-							break;
-						case 3: 
-							c.dodge();
-							break;
-						case 4: 
-							c.use();
-							break;
-						default:
-							right = false;
+					case 1:
+						c.attack();
+						break;
+					case 2:
+						c.block();
+						break;
+					case 3:
+						c.dodge();
+						break;
+					case 4:
+						c.use();
+						break;
+					default:
+						right = false;
 					}
 				}
 			}
-			catch (char const* e)
+			catch (char const *e)
 			{
 				right = false;
 			}
@@ -1031,7 +1075,7 @@ battle::battle(monster in)
 	mdmg = 0, macc = 0;
 	pdmg = 0, pacc = 0;
 	pblk = false, pdge = 0;
-	mblk = false, mdge = 0;	
+	mblk = false, mdge = 0;
 	potdmg = 0, potspd = 0;
 	matk = false, patk = false;
 
@@ -1055,17 +1099,17 @@ battle::battle(monster in)
 
 	switch (player.eqpt[0].subType)
 	{
-		case 1:
-			wts = 3;
-			break;
-		case 2:
-			wts = 1;
-			break;
-		case 3:
-			wts = 2;
-			break;
-		default:
-			wts = 1;
+	case 1:
+		wts = 3;
+		break;
+	case 2:
+		wts = 1;
+		break;
+	case 3:
+		wts = 2;
+		break;
+	default:
+		wts = 1;
 	}
 
 	//Get monsters leveled stats and then convert to actual.
@@ -1075,7 +1119,7 @@ battle::battle(monster in)
 	int points = 0;
 	for (int i = 0; i < m.lvl; i++)
 	{
-		points += (4 - (player.difficulty/3));
+		points += (4 - (player.difficulty / 3));
 	}
 	for (int i = 0; i < m.lvl; i++)
 	{
@@ -1084,7 +1128,8 @@ battle::battle(monster in)
 		{
 			i--;
 		}
-		else {
+		else
+		{
 			m.stat[x]++;
 		}
 	}
@@ -1148,7 +1193,7 @@ void battle::takeTurn()
 		{
 			mtaken = 1;
 		}
-		mtaken += mtaken * (((float) potdmg) / 100.0);
+		mtaken += mtaken * (((float)potdmg) / 100.0);
 		potdmg = 0;
 		potspd = 0;
 	}
@@ -1166,32 +1211,34 @@ void battle::takeTurn()
 	if (FA)
 	{
 		m.HP -= mtaken;
-		cout << "You deal " << mtaken << " damage\n";
 		if (m.HP < 1)
 		{
+			combatText(, mtaken, pcrit, m.name, m.HP, 0, , mcrit, , true);
 			cout << "The monster dies\n";
 			endCombat(true);
 			return;
 		}
 		player.HP -= ptaken;
-		cout << "The monster deals " << ptaken << " damage\n";
-		if(player.HP < 1)
+		combatText(, mtaken, pcrit, m.name, m.HP, ptaken, , mcrit, , true);
+		if (player.HP < 1)
 		{
 			cout << "You died\n";
 			endCombat(false);
 			return;
 		}
-	} else {
+	}
+	else
+	{
 		player.HP -= ptaken;
-		cout << "The monster deals " << ptaken << " damage\n";
-		if(player.HP < 1)
+		if (player.HP < 1)
 		{
+			combatText(, 0, pcrit, m.name, m.HP, ptaken, , mcrit, , false);
 			cout << "You died\n";
 			endCombat(false);
 			return;
 		}
 		m.HP -= mtaken;
-		cout << "You deal " << mtaken << " damage\n";
+		combatText(, mtaken, pcrit, m.name, m.HP, ptaken, , mcrit, , false);
 		if (m.HP < 1)
 		{
 			cout << "The monster dies\n";
@@ -1199,7 +1246,6 @@ void battle::takeTurn()
 			return;
 		}
 	}
-
 
 	/*
 	((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
@@ -1226,13 +1272,11 @@ void battle::takeTurn()
 	mdmg = 0, macc = 0;
 	pdmg = 0, pacc = 0;
 	pblk = false, pdge = 0;
-	mblk = false, mdge = 0;	
+	mblk = false, mdge = 0;
 	matk = false, patk = false;
 
-
-
 	string wait;
-	cout << "Press Enter to continue\n";
+	dialogue("Press Enter to continue");
 	cin.clear();
 	cin.ignore();
 	getline(cin, wait);
@@ -1287,7 +1331,7 @@ void battle::monsterTurn()
 		mblk = true;
 		matk = true;
 
-		//Monsters "shield bash" is more of a retaliation, it is 
+		//Monsters "shield bash" is more of a retaliation, it is
 		//based on strength due to no armor ergo no weight like
 		//what the players shield bash is based on. Also slightly
 		//higher luck addition
@@ -1305,7 +1349,7 @@ void battle::monsterTurn()
 void battle::endCombat(bool win)
 {
 	done = true;
-	if (win) 
+	if (win)
 	{
 		player.giveXP((player.lvl * m.diff) + 1);
 		//give gold??
@@ -1329,31 +1373,33 @@ void battle::attack()
 
 		cin >> choice;
 
-		if (!cin.good()) 
-		{ 
-			cin.clear(); 
-			cin.ignore(); 
+		if (!cin.good())
+		{
+			cin.clear();
+			cin.ignore();
 			right = false;
-		} else {	
+		}
+		else
+		{
 			switch (choice)
 			{
-				case 1:
-					pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-					patk = true;
-					break;
-				case 2:
-					pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-					patk = true;
-					break;
-				case 3:
-					pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-					patk = true;
-					break;
-				case 4:
-					throw "returning";
+			case 1:
+				pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+				patk = true;
+				break;
+			case 2:
+				pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+				patk = true;
+				break;
+			case 3:
+				pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+				patk = true;
+				break;
+			case 4:
+				throw "returning";
 
-				default:
-					right = false;
+			default:
+				right = false;
 			}
 		}
 	} while (!right);
@@ -1377,14 +1423,13 @@ void battle::dodge()
 
 void battle::heal(int val)
 {
-	float healVal = (((float)val)/100);
+	float healVal = (((float)val) / 100);
 	player.HP += player.maxHP * healVal;
 	if (player.HP > player.maxHP)
 	{
 		player.HP = player.maxHP;
 	}
 }
-
 
 /*
    The logic used in this function is complicated.
@@ -1413,11 +1458,11 @@ void battle::use()
 			{
 				items[player.inv[i].id - 301] = 1;
 				cout << j << ". " << player.inv[i].name << "\n";
-				pos[j-1] = i;
+				pos[j - 1] = i;
 				j++;
 				//} else {
 				//items[player.inv[i].id - 301]++;
-		}
+			}
 		}
 	}
 	/*
@@ -1426,18 +1471,21 @@ void battle::use()
 	   cout << i + 1 << ". " << player.inv[pos[i]].name << " x " << items[i] << "\n";
 	   }
 	 */
-	cout << "\n" << j << ". Return\n";
+	cout << "\n"
+		 << j << ". Return\n";
 
 	while (!right)
 	{
 		right = true;
 		cin >> choice;
-		if (!cin.good()) 
-		{ 
-			cin.clear(); 
-			cin.ignore(); 
+		if (!cin.good())
+		{
+			cin.clear();
+			cin.ignore();
 			right = false;
-		} else {	
+		}
+		else
+		{
 
 			if (choice <= j && choice > 0)
 			{
@@ -1447,16 +1495,21 @@ void battle::use()
 				}
 				switch (player.inv[pos[choice - 1]].subType)
 				{
-					case 1: heal(player.inv[pos[choice - 1]].value);
-						cout << "You heal " << ((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value))/100))) << " health\n";
-						break;
-					case 2: potdmg = player.inv[pos[choice -1]].value;
-						break;
-					case 3: potspd = player.inv[pos[choice -1]].value;
-						break;
+				case 1:
+					heal(player.inv[pos[choice - 1]].value);
+					dialogue("You heal " + ((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100))) + " health");
+					break;
+				case 2:
+					potdmg = player.inv[pos[choice - 1]].value;
+					break;
+				case 3:
+					potspd = player.inv[pos[choice - 1]].value;
+					break;
 				}
 				player.discard(player.inv[pos[choice - 1]]);
-			} else {
+			}
+			else
+			{
 				choice = false;
 			}
 		}
@@ -1489,7 +1542,7 @@ ostream &operator<<(ostream &out, const character &in)
 		<< in.xp << " "
 		<< in.points << " "
 		<< in.gold << " ";
-	
+
 	//Character Stats
 	for (int x = 0; x < 6; x++)
 	{
@@ -1509,9 +1562,10 @@ ostream &operator<<(ostream &out, const character &in)
 	{
 		out << in.inv[i].id << " ";
 	}
-	
+
 	//Other values
-	out << "\n" << in.textType
+	out << "\n"
+		<< in.textType
 		<< " " << in.difficulty;
 	return out;
 }
@@ -1520,14 +1574,14 @@ ostream &operator<<(ostream &out, const character &in)
 istream &operator>>(istream &in, character &out)
 {
 	int temp = 0;
-	
+
 	//Basic character values
 	in >> out.name;
 	in >> out.lvl;
 	in >> out.xp;
 	in >> out.points;
 	in >> out.gold;
-	
+
 	//Character Stats
 	for (int x = 0; x < 6; x++)
 	{
@@ -1592,7 +1646,9 @@ character loadIn(string txt)
 	{
 		in >> temp;
 		in.close();
-	} else cout << "Unable to open file";
+	}
+	else
+		cout << "Unable to open file";
 	return temp;
 }
 
@@ -1605,6 +1661,8 @@ monster loadMonster()
 	{
 		in >> temp;
 		in.close();
-	} else cout << "Unable to open file";
+	}
+	else
+		cout << "Unable to open file";
 	return temp;
 }
