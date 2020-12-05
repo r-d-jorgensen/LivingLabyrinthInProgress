@@ -661,15 +661,15 @@ string playerCombatString(int actionPlayer)
     case 0:
         switch (player.eqpt[0].subType)
         {
+        //INT
+        case 1:
+            return "You target for a precise zap";
         //STR
-        case 0:
+        case 2:
             return "You jab out shoving";
         //DEX
-        case 1:
+        case 3:
             return "You go in for a clean cut";
-        //INT
-        case 2:
-            return "You target for a precise zap";
         default:
             return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
@@ -677,15 +677,15 @@ string playerCombatString(int actionPlayer)
     case 1:
         switch (player.eqpt[0].subType)
         {
+        //INT
+        case 1:
+            return "You fire off a bolt";
         //STR
-        case 0:
+        case 2:
             return "You take a good swing";
         //DEX
-        case 1:
+        case 3:
             return "You go in for a stab";
-        //INT
-        case 2:
-            return "You fire off a bolt";
         default:
             return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
@@ -693,15 +693,15 @@ string playerCombatString(int actionPlayer)
     case 2:
         switch (player.eqpt[0].subType)
         {
+        //INT
+        case 1:
+            return "You charge and let loose a large blast";
         //STR
-        case 0:
+        case 2:
             return "You fully swing for a heavy blow";
         //DEX
-        case 1:
+        case 3:
             return "You get close and stab in a vitals";
-        //INT
-        case 2:
-            return "You charge and let loose a large blast";
         default:
             return "Something is wrong with the player.eqpt[0].subType in the character Class";
         }
@@ -711,6 +711,8 @@ string playerCombatString(int actionPlayer)
     //Dodge
     case 4:
         return "You try and dodge";
+    case 5:
+        return "Your drink a potion";
     default:
         return "Something is wrong with the combat selection where this was called from";
     }
@@ -725,15 +727,15 @@ string mosterCombatString(int monsterAction, int weaponType)
     case 0:
         switch (weaponType)
         {
+        //INT
+        case 1:
+            return "Creature targets for a precise zap";
         //STR
-        case 0:
+        case 2:
             return "Creature shoves at you";
         //DEX
-        case 1:
+        case 3:
             return "Creature goes in for a clean cut";
-        //INT
-        case 2:
-            return "Creature targets for a precise zap";
         default:
             return "Something is wrong with the weaponType in the character Class";
         }
@@ -741,15 +743,15 @@ string mosterCombatString(int monsterAction, int weaponType)
     case 1:
         switch (weaponType)
         {
+        //INT
+        case 1:
+            return "Creature fires off a bolt";
         //STR
-        case 0:
+        case 2:
             return "Creature takes a good swing";
         //DEX
-        case 1:
+        case 3:
             return "Creature goes in for a stab";
-        //INT
-        case 2:
-            return "Creature fires off a bolt";
         default:
             return "Something is wrong with the weaponType in the character Class";
         }
@@ -757,15 +759,15 @@ string mosterCombatString(int monsterAction, int weaponType)
     case 2:
         switch (weaponType)
         {
+        //INT
+        case 1:
+            return "Creature charges and let loose a large blast";
         //STR
-        case 0:
+        case 2:
             return "Creature fully swings for a heavy blow";
         //DEX
-        case 1:
+        case 3:
             return "Creature gets close and stabs at your vitals";
-        //INT
-        case 2:
-            return "Creature charges and let loose a large blast";
         default:
             return "Something is wrong with the weaponType in the character Class";
         }
