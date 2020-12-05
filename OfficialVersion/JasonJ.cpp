@@ -138,6 +138,8 @@ public:
 	monster m;
 	int mact[6], act[6];
 	int weight, wts;
+	int maction, paction;
+	int mtype;
 
 	//Used to see if the fight is over.
 	bool done;
@@ -1047,12 +1049,15 @@ void combat(monster m)
 						c.attack();
 						break;
 					case 2:
+						paction = 3;
 						c.block();
 						break;
 					case 3:
+						paction = 4;
 						c.dodge();
 						break;
 					case 4:
+
 						c.use();
 						break;
 					default:
@@ -1078,6 +1083,8 @@ battle::battle(monster in)
 	mblk = false, mdge = 0;
 	potdmg = 0, potspd = 0;
 	matk = false, patk = false;
+	maction = 0, paction = 0;
+	mtype = 0;
 
 	done = false;
 
@@ -1213,13 +1220,13 @@ void battle::takeTurn()
 		m.HP -= mtaken;
 		if (m.HP < 1)
 		{
-			combatText(, mtaken, pcrit, m.name, m.HP, 0, , mcrit, , true);
+			combatText(paction, mtaken, pcrit, m.name, m.HP, 0, maction, mcrit, mtype, true);
 			cout << "The monster dies\n";
 			endCombat(true);
 			return;
 		}
 		player.HP -= ptaken;
-		combatText(, mtaken, pcrit, m.name, m.HP, ptaken, , mcrit, , true);
+		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, true);
 		if (player.HP < 1)
 		{
 			cout << "You died\n";
@@ -1232,13 +1239,13 @@ void battle::takeTurn()
 		player.HP -= ptaken;
 		if (player.HP < 1)
 		{
-			combatText(, 0, pcrit, m.name, m.HP, ptaken, , mcrit, , false);
+			combatText(paction, 0, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
 			cout << "You died\n";
 			endCombat(false);
 			return;
 		}
 		m.HP -= mtaken;
-		combatText(, mtaken, pcrit, m.name, m.HP, ptaken, , mcrit, , false);
+		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
 		if (m.HP < 1)
 		{
 			cout << "The monster dies\n";
@@ -1274,6 +1281,8 @@ void battle::takeTurn()
 	pblk = false, pdge = 0;
 	mblk = false, mdge = 0;
 	matk = false, patk = false;
+	maction = 0, paction = 0;
+	mtype = 0;
 
 	string wait;
 	dialogue("Press Enter to continue");
@@ -1305,19 +1314,25 @@ void battle::monsterTurn()
 		{
 			//light
 			macc = 90;
-			mdmg = ((((float)mact[1]) * .1) + (((float)mact[2]) * .15) + (((float)mact[4]) * .1));
+			maction = 0;
+			mtype = 3;
+			mdmg = ((((float)mact[1]) * .1) + (((float)mact[2]) * .15) + (((float)mact[3]) * .1));
 		}
 		else if (move <= 47)
 		{
 			//medium
 			macc = 75;
-			mdmg = ((((float)mact[2]) * .1) + (((float)mact[4]) * .15) + (((float)mact[1]) * .1));
+			maction = 1;
+			mtype = 1;
+			mdmg = ((((float)mact[2]) * .1) + (((float)mact[3]) * .15) + (((float)mact[1]) * .1));
 		}
 		else
 		{
 			//heavy
 			macc = 50;
-			mdmg = ((((float)mact[4]) * .1) + (((float)mact[1]) * .15) + (((float)mact[2]) * .1));
+			maction = 2;
+			mtype = 2;
+			mdmg = ((((float)mact[3]) * .1) + (((float)mact[1]) * .15) + (((float)mact[2]) * .1));
 		}
 	}
 	else if (move <= 85)
@@ -1384,14 +1399,17 @@ void battle::attack()
 			switch (choice)
 			{
 			case 1:
+				paction = 0;
 				pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
 				patk = true;
 				break;
 			case 2:
+				paction = 1;
 				pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
 				patk = true;
 				break;
 			case 3:
+				paction = 2;
 				pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
 				patk = true;
 				break;
@@ -1496,13 +1514,16 @@ void battle::use()
 				switch (player.inv[pos[choice - 1]].subType)
 				{
 				case 1:
+					paction = 5;
 					heal(player.inv[pos[choice - 1]].value);
 					dialogue("You heal " + ((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100))) + " health");
 					break;
 				case 2:
+					paction = 5;
 					potdmg = player.inv[pos[choice - 1]].value;
 					break;
 				case 3:
+					paction = 5;
 					potspd = player.inv[pos[choice - 1]].value;
 					break;
 				}
