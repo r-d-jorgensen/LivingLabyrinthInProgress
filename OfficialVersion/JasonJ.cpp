@@ -1023,7 +1023,7 @@ void combat(monster m)
 				right = true;
 				cout << "\033[2J\033[1;1H";
 				dialogue(c.m.name + " Level: " + c.m.lvl);
-				dialogue(" Health: " + c.m.HP + "/" + c.m.maxHP
+				dialogue(" Health: " + c.m.HP + "/" + c.m.maxHP);
 				dialogue(player.name + " Level: " + player.lvl);
 				dialogue("Health: " + player.HP + "/" + player.maxHP);
 				cout << "1: Attack\n";
