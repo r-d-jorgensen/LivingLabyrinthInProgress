@@ -277,7 +277,8 @@ void difficultySetting()
         {"6", ""},
         {"7", ""},
         {"8", ""},
-        {"9", ""}};
+        {"9", ""},
+        {"10", ""}};
 
     while (true)
     {
@@ -287,31 +288,34 @@ void difficultySetting()
         case '0':
             return;
         case '1':
-            player.difficulty = 1;
+            player.difficulty = 10;
             return;
         case '2':
-            player.difficulty = 2;
+            player.difficulty = 9;
             return;
         case '3':
-            player.difficulty = 3;
-            return;
-        case '4':
-            player.difficulty = 4;
-            return;
-        case '5':
-            player.difficulty = 5;
-            return;
-        case '6':
-            player.difficulty = 6;
-            return;
-        case '7':
-            player.difficulty = 7;
-            return;
-        case '8':
             player.difficulty = 8;
             return;
+        case '4':
+            player.difficulty = 7;
+            return;
+        case '5':
+            player.difficulty = 6;
+            return;
+        case '6':
+            player.difficulty = 5;
+            return;
+        case '7':
+            player.difficulty = 4;
+            return;
+        case '8':
+            player.difficulty = 3;
+            return;
         case '9':
-            player.difficulty = 9;
+            player.difficulty = 2;
+            return;
+        case '10':
+            player.difficulty = 1;
             return;
         default:
             cout << "Invalid entry please try again" << endl;
