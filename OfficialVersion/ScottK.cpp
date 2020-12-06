@@ -113,16 +113,16 @@ string questAnswer(int levelChoice)
 	int randNum = (rand() + time(0)) % 5; // need to increase %5 as add words to file
 	int pick = 0;
 	pick = ((levelChoice - 1) * 5) + randNum; // change 5 as add more words,now 5
-	string word[] = {"now", "cue", "orb", "mob", "hum",
-					 "when", "thus", "bash", "belt", "arab",
-					 "stout", "stint", "cheif", "creek", "power",
-					 "summer", "spring", "burden", "employ", "gambit",
-					 "prosper", "finding", "capsize", "epitaph", "finally",
-					 "kindness", "handsome", "deathbed", "evacuate", "gasoline",
-					 "beautiful", "difficult", "blacklist", "elaborate", "equipment",
-					 "astounding", "challenges", "farfetched", "hemisphere", "neutrality",
-					 "commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
-					 "bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
+	string word[] = {"one", "cue", "tee", "mob", "hum",
+		"when", "thus", "bash", "belt", "arab",
+		"stout", "stint", "cheif", "creek", "power",
+		"summer", "spring", "burden", "employ", "gambit",
+		"prosper", "finding", "capsize", "epitaph", "finally",
+		"kindness", "handsome", "deathbed", "evacuate", "gasoline",
+		"beautiful", "difficult", "blacklist", "elaborate", "equipment",
+		"astounding", "challenges", "farfetched", "hemisphere", "neutrality",
+		"commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
+		"bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
 	string randomword;
 	randomword = word[pick];
 	return randomword;
@@ -273,6 +273,10 @@ int tutorial()
 	string jumble;
 	questKey = questAnswer(level);
 	jumble = anagram(questKey);
+while (jumble == questKey)
+{
+	jumble = anagram(questKey);
+}
 	/* constructor filled with parameters */
 	player.thePuzzle = FinalPuzzle(questKey, jumble, 0, level + 2);
 	/* get functions will be removed, just for testing */
