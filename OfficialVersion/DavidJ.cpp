@@ -251,6 +251,7 @@ void textFormat()
         {
         case '1':
             player.textType = 0;
+            return;
         case '2':
             player.textType = 1;
             return;
