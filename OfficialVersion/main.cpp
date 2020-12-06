@@ -4,6 +4,7 @@
 
 using namespace std;
 character player;
+int location = 1;
 //Currently being used to test the funcitonality of our code so far
 void test()
 {
@@ -74,7 +75,7 @@ void test()
 		{
 			cout << "Testing the encounter function,\n";
 			//Following code taken from the main of Scott's encounter function
-tutorial();
+			tutorial();
 			luckyEncounter();
 			gamblingEncounter();
 			trapEncounter();
@@ -92,7 +93,7 @@ tutorial();
 int main()
 {
 #ifdef TEST
-		test();
+	test();
 #else
 	mainGameLoop();
 #endif

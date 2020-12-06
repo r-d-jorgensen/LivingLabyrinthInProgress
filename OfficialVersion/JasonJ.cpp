@@ -32,24 +32,25 @@ public:
 //See comment at end of file for reasoning why its in my file.
 class FinalPuzzle
 {
-	public:
-		// default constructor
-		FinalPuzzle();
-		// constructor
-		FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
-		void setFinalPuzzle(string finalPuzzle); // Mutator
-		string getFinalPuzzle() const;           // Accessor
-		void setFinalSolution(string finalSolution); // Mutator
-		string getFinalSolution() const;             // Accessor
-		void setTotalRingsNeeded(int totalRings);
-		int getTotalRingsNeeded() const;
-		void setCurrentRings(int totalRings);
-		int getCurrentRings() const;
-	private:
-		string jumbledWord;
-		string correctWord;
-		int totalRingsNeeded;
-		int ringsFound;
+public:
+	// default constructor
+	FinalPuzzle();
+	// constructor
+	FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+	void setFinalPuzzle(string finalPuzzle);	 // Mutator
+	string getFinalPuzzle() const;				 // Accessor
+	void setFinalSolution(string finalSolution); // Mutator
+	string getFinalSolution() const;			 // Accessor
+	void setTotalRingsNeeded(int totalRings);
+	int getTotalRingsNeeded() const;
+	void setCurrentRings(int totalRings);
+	int getCurrentRings() const;
+
+private:
+	string jumbledWord;
+	string correctWord;
+	int totalRingsNeeded;
+	int ringsFound;
 }; // end of class definition
 //END OF SCOTT'S CODE
 
@@ -224,9 +225,9 @@ character::character(string n, int i, int d) : stats::stats()
 	}
 	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	HP = maxHP;
-	string questKey = questAnswer(11-difficulty);
+	string questKey = questAnswer(11 - difficulty);
 	string jumble = anagram(questKey);
-	thePuzzle = FinalPuzzle(questKey, jumble, 0, (11-difficulty) + 2);
+	thePuzzle = FinalPuzzle(questKey, jumble, 0, (11 - difficulty) + 2);
 }
 
 //Copy Constructor
@@ -1635,7 +1636,7 @@ ostream &operator<<(ostream &out, const character &in)
 	out << "\n"
 		<< in.textType
 		<< " " << in.difficulty;
-	out << "\n" 
+	out << "\n"
 		<< in.thePuzzle.getFinalSolution() << " "
 		<< in.thePuzzle.getFinalPuzzle() << " "
 		<< in.thePuzzle.getCurrentRings() << " "
@@ -1681,7 +1682,7 @@ istream &operator>>(istream &in, character &out)
 	out.maxHP = (out.stat[0] * (.5 + (.25 * (out.stat[0] / 5))) * out.lvl);
 	out.HP = out.maxHP;
 	//Following code is used to store Scott's FinalPuzzle object
-	string cword = out.thePuzzle.getFinalSolution(); 
+	string cword = out.thePuzzle.getFinalSolution();
 	string jword = out.thePuzzle.getFinalPuzzle();
 	int rfound = out.thePuzzle.getCurrentRings();
 	int rneeded = out.thePuzzle.getTotalRingsNeeded();
@@ -1748,7 +1749,6 @@ monster loadMonster()
 		cout << "Unable to open file";
 	return temp;
 }
-
 
 //START OF SCOTT'S CODE
 // default constructor

@@ -114,15 +114,15 @@ string questAnswer(int levelChoice)
 	int pick = 0;
 	pick = ((levelChoice - 1) * 5) + randNum; // change 5 as add more words,now 5
 	string word[] = {"now", "cue", "orb", "mob", "hum",
-		"when", "thus", "bash", "belt", "arab",
-		"stout", "stint", "cheif", "creek", "power",
-		"summer", "spring", "burden", "employ", "gambit",
-		"prosper", "finding", "capsize", "epitaph", "finally",
-		"kindness", "handsome", "deathbed", "evacuate", "gasoline",
-		"beautiful", "difficult", "blacklist", "elaborate", "equipment",
-		"astounding", "challenges", "farfetched", "hemisphere", "neutrality",
-		"commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
-		"bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
+					 "when", "thus", "bash", "belt", "arab",
+					 "stout", "stint", "cheif", "creek", "power",
+					 "summer", "spring", "burden", "employ", "gambit",
+					 "prosper", "finding", "capsize", "epitaph", "finally",
+					 "kindness", "handsome", "deathbed", "evacuate", "gasoline",
+					 "beautiful", "difficult", "blacklist", "elaborate", "equipment",
+					 "astounding", "challenges", "farfetched", "hemisphere", "neutrality",
+					 "commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
+					 "bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
 	string randomword;
 	randomword = word[pick];
 	return randomword;
@@ -275,7 +275,7 @@ int tutorial()
 	jumble = anagram(questKey);
 	/* constructor filled with parameters */
 	player.thePuzzle = FinalPuzzle(questKey, jumble, 0, level + 2);
-	/* get functions will be removed, just for testing */ 
+	/* get functions will be removed, just for testing */
 	dialogue("current rings: " + to_string(player.thePuzzle.getCurrentRings()));
 	dialogue("Rings Needed: " + to_string(player.thePuzzle.getTotalRingsNeeded()));
 	dialogue("Solution: " + player.thePuzzle.getFinalSolution());
@@ -343,9 +343,9 @@ void printGreeting()
 		"There you are! Answer this."};
 	int randNum = (rand() + time(0)) % 5;
 	dialogue(greeting[randNum], 2, "Greeter");
-//dialogue("Press 'enter' to continue", 2, "Greeter");;
-string enter;
-getline(cin, enter);
+	//dialogue("Press 'enter' to continue", 2, "Greeter");;
+	string enter;
+	getline(cin, enter);
 }
 
 /* random chance to help determine the level of the monster to battle 
@@ -638,12 +638,12 @@ void trapEncounter()
  * gold amount back to character's item*/
 void gamblingEncounter()
 {
-if (player.gold <1)
+	if (player.gold < 1)
 	{
-dialogue("this is a casino, You have no money. You must leave!");
-	return;
+		dialogue("this is a casino, You have no money. You must leave!");
+		return;
 	}
-string play;
+	string play;
 	int odds = 0;
 	int bet = 0;
 	int goldPieces = 0;
@@ -655,7 +655,7 @@ string play;
 	cin >> play;
 	cin.ignore();
 	if ((play == "Y") || (play == "y") || (play == "Yes") ||
-			(play == "yes") || (play == "YES"))
+		(play == "yes") || (play == "YES"))
 	{
 		/* dialogue function formats the output and telss who/what is talking */
 		dialogue("Great! Here is how you play. You pick the number of shells and how much money you want to bet.", 2, "Dealer");
@@ -663,7 +663,7 @@ string play;
 		dialogue("Of course, if you lose, I get your wager.", 2, "Dealer");
 		/* loop to continue gambling as long as player wants */
 		while ((play == "Y") || (play == "y") || (play == "Yes") ||
-				(play == "yes") || (play == "YES"))
+			   (play == "yes") || (play == "YES"))
 		{
 			/* shells determin odds, thus, payback upon winning */
 			dialogue("How many shells do you want to use? 2-10", 2, "Dealer");

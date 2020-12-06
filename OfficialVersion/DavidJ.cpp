@@ -10,6 +10,7 @@
 using namespace std;
 
 //Declarations
+void gameEntrySaveCheck();
 void mainGameLoop();
 int libraryChoices();
 int cheshireNPC();
@@ -35,9 +36,11 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
 #include "JasonJ.cpp"
 #include "ScottK.cpp"
 extern character player;
+extern location;
+
 //End of Declarations
 
-void mainGameLoop()
+void gameEntrySaveCheck()
 {
     ifstream file("./saves/save1.txt");
     if (!file.is_open())
@@ -62,31 +65,34 @@ void mainGameLoop()
             }
             else
             {
-                cout << "That is not a valid option."
+                cout << "That is not a valid option.\n";
             }
         }
     }
+    mainGameLoop();
+    return;
 }
 
-//run game
-int location = 1;
-while (true)
+void mainGameLoop()
 {
-    if (location == 0)
+    //run game
+    while (true)
     {
-        cout << "Thank You For Playing" << endl;
-        cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
-        return;
+        if (location == 0)
+        {
+            cout << "Thank You For Playing" << endl;
+            cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
+            return;
+        }
+        else if (location == 1)
+        {
+            location = libraryChoices();
+        }
+        else if (location == 2)
+        {
+            bookRealm();
+        }
     }
-    else if (location == 1)
-    {
-        location = libraryChoices();
-    }
-    else if (location == 2)
-    {
-        bookRealm();
-    }
-}
 }
 
 int libraryChoices()
@@ -509,13 +515,11 @@ void move(int trapChance, int majorChance, int monsterChance, int gambleChance)
     else if (roll < nothing + trapChance + majorChance + monsterChance)
     {
         monsterEncounter();
-
         return;
     }
     else
     {
         gamblingEncounter();
-
         return;
     }
     return;
