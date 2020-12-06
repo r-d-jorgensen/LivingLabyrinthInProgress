@@ -352,7 +352,7 @@ int bookRealm()
         case '5':
             return 1;
         case '6':
-            void creditsExit();
+            creditsExit();
         default:
             cout << "Invalid entry please try again" << endl;
         }
