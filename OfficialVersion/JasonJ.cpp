@@ -196,6 +196,7 @@ monster loadMonster();
 
 #include "ScottK.cpp"
 #include "DavidJ.cpp"
+extern int location;
 //******************************************************************************
 //BEGINNING OF STATS
 
@@ -636,6 +637,8 @@ void character::die()
 	int penalty = (((player.gold * .25) > 30) ? (player.gold * 25) : 30);
 	player.gold -= penalty;
 	//send them back to the entrance of book
+	location = 1;
+	mainGameLoop();
 }
 
 void character::fillInv()
