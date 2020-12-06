@@ -36,7 +36,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
 #include "JasonJ.cpp"
 #include "ScottK.cpp"
 extern character player;
-extern location;
+extern int location;
 
 //End of Declarations
 
