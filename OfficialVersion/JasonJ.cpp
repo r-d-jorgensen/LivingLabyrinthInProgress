@@ -220,10 +220,13 @@ character::character(string n, int i, int d) : stats::stats()
 	gold = 0;
 	difficulty = d;
 	points = 0;
-	for (int i = 0; i < 4; i++)
-	{
-		eqpt[i] = item();
-	}
+	//Giving default equipment in order to stop
+	//combat bugs with having nothing equipped
+	eqpt[0] = item(213);
+	eqpt[1] = item(101);
+	eqpt[2] = item(104);
+	eqpt[3] = item(107);
+
 	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	HP = maxHP;
 	string questKey = questAnswer(11 - difficulty);

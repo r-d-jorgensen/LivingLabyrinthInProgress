@@ -508,8 +508,8 @@ void reward(string type, int amount)
 	{
 		gold = 2;
 	}
-	dialogue("You found " + to_string(gold) + "gold pieces after killing the enemy");
-	player.gold = gold;
+	dialogue("You found " + to_string(gold) + " gold pieces after killing the enemy");
+	player.gold += gold;
 	return;
 }
 /* function returns a lucky find, gold if called by move function, weapons and
