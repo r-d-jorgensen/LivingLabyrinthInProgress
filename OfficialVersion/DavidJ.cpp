@@ -277,7 +277,7 @@ void difficultySetting()
 
     while (true)
     {
-        int choice = menu("Which Difficulty would you like?", menuStr, 4, 0);
+        int choice = menu("Which Difficulty would you like?", menuStr, 10, 0);
         switch (choice)
         {
         case 0:
