@@ -269,7 +269,7 @@ void difficultySetting()
 {
     string menuStr[][2] = {
         {"0", "Return to Settings menu"},
-        {"1", ""},
+        {"E", "For Eaziest Dificulty"},
         {"2", ""},
         {"3", ""},
         {"4", ""},
@@ -278,7 +278,7 @@ void difficultySetting()
         {"7", ""},
         {"8", ""},
         {"9", ""},
-        {"10", ""}};
+        {"M", "For Maximum Dificulty"}};
 
     while (true)
     {
@@ -287,7 +287,7 @@ void difficultySetting()
             //side effects to be implemented
         case '0':
             return;
-        case '1':
+        case 'E':
             player.difficulty = 10;
             return;
         case '2':
@@ -314,7 +314,7 @@ void difficultySetting()
         case '9':
             player.difficulty = 2;
             return;
-        case "10":
+        case 'M':
             player.difficulty = 1;
             return;
         default:
