@@ -94,7 +94,7 @@ void mainGameLoop()
         }
         else if (location == 2)
         {
-            bookRealm();
+            location = bookRealm();
         }
     }
 }
@@ -344,8 +344,7 @@ int bookRealm()
             Armoury();
             break;
         case '3':
-            cout << "This building is under construction";
-            //generalStore();
+            generalStore();
             break;
         case '4':
             aliceNPC();
@@ -353,7 +352,7 @@ int bookRealm()
         case '5':
             return 1;
         case '6':
-            return 0;
+            void creditsExit();
         default:
             cout << "Invalid entry please try again" << endl;
         }
@@ -364,6 +363,8 @@ int bookRealm()
 //added a armoury shop for users to purchess from, items still not hooked in
 void Armoury()
 {
+    cout << "This store is under construction come back another time.\n";
+    return;
     string menuStr[][2] = {
         {"1", "item 1"},
         {"2", "item 2"},
@@ -400,7 +401,7 @@ void Armoury()
 //IN PROGRESS
 void generalStore()
 {
-    cout << "This store is under construction come back another time.";
+    cout << "This store is under construction come back another time.\n";
     return;
     string menuStr[][2] = {
         {"1", "item 1"},
@@ -654,6 +655,7 @@ void dialogue(string str, int msgType, string speaker)
 
 int menu(string menuName, string optionsStr[][2], int optionsNum, int menuType)
 {
+    cout << "\033[2J\033[1;1H";
     switch (player.textType)
     {
     //bare format
