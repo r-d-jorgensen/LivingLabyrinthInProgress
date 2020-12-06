@@ -415,7 +415,7 @@ void explore()
         cout << "4: Move East" << endl;
         cout << "5: Move South" << endl;
         cout << "6: Look at Character Sheet" << endl;
-        cout << "7: Stop exploring";
+        cout << "7: Stop exploring" << endl;
         cin >> choice;
 
         switch (choice)
@@ -628,7 +628,7 @@ void statsDisplay()
              << "Health: " << player.HP << " / " << player.maxHP << endl;
         for (int i = 0; i < 5; i++)
         {
-            cout << statsStrings[i] << player.stat[i];
+            cout << statsStrings[i] << player.stat[i] << endl;
         }
         break;
     case 1:
@@ -798,16 +798,16 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
              << playerActionStr << endl;
         if (critPlayer)
         {
-            cout << "YOU HAVE CRITICLY HIT" << endl;
+            cout << "YOU HAVE CRITICALLY HIT" << endl;
         }
-        cout << "You deal " << dmgPlayer << " damgage" << endl;
+        cout << "You deal " << dmgPlayer << " damage" << endl;
         cout << nameMonster << " HP: " << player.HP << endl
              << playerActionStr << endl;
         if (critMonster)
         {
-            cout << "YOU HAVE BEEN CRITICLY HIT" << endl;
+            cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
         }
-        cout << "The creature deals " << dmgMonster << " damgage" << endl;
+        cout << "The creature deals " << dmgMonster << " damage" << endl;
         break;
     //bare
     case 1:
@@ -819,15 +819,15 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
         if (critPlayer)
         {
             cout << "\n\t\t"
-                 << "YOU HAVE CRITICLY HIT THE CREATURE\n"
+                 << "YOU HAVE CRITICALLY HIT THE CREATURE\n"
                  << endl;
         }
         else if (critMonster)
         {
             cout << "\t\t"
-                 << "YOU HAVE BEEN CRITICLY HIT BY THE CREATURE" << endl;
+                 << "YOU HAVE BEEN CRITICALLY HIT BY THE CREATURE" << endl;
         }
-        cout << "You deal " << dmgPlayer << " damgage" << middlePadding << "The creature deals " << dmgMonster << " damgage" << endl;
+        cout << "You deal " << dmgPlayer << " damage" << middlePadding << "The creature deals " << dmgMonster << " damage" << endl;
         break;
     }
     //simple
