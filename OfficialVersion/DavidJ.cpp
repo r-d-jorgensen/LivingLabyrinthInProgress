@@ -257,7 +257,7 @@ void textFormat()
             return;
         case '3':
             cout << "Sorry this mode is still in development";
-        case 4:
+        case '4':
             return;
         default:
             cout << "Invalid entry please try again" << endl;
