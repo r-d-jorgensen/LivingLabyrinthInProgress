@@ -43,6 +43,7 @@ extern int location;
 
 void gameEntrySaveCheck()
 {
+    cout << "\033[2J\033[1;1H";
     ifstream file("./saves/save1.txt");
     if (!file.is_open())
     {
@@ -171,7 +172,7 @@ int cheshireNPC()
 //IN PROGRESS
 void perkStore()
 {
-    cout << "This store is under construction come back another time.";
+    cout << "This store is under construction come back another time.\n";
     return;
     string menuStr[][2] = {
         {"1", "Look at Combat Perks"},
@@ -243,14 +244,14 @@ void textFormat()
 
     while (true)
     {
-        int choice = menu("What Text Type would you like?", menuStr, 4, 0);
+        char choice = menu("What Text Type would you like?", menuStr, 4, 0);
         switch (choice)
         {
-        case 1:
-        case 2:
-            player.textType = choice - 1;
+        case '1':
+        case '2':
+            player.textType = (int)choice - 1;
             return;
-        case 3:
+        case '3':
             cout << "Sorry this mode is still in development";
         case 4:
             return;
@@ -272,28 +273,26 @@ void difficultySetting()
         {"6", ""},
         {"7", ""},
         {"8", ""},
-        {"9", ""},
-        {"10", ""}};
+        {"9", ""}};
 
     while (true)
     {
-        int choice = menu("Which Difficulty would you like?", menuStr, 10, 0);
+        char choice = menu("Which Difficulty would you like?", menuStr, 10, 0);
         switch (choice)
         {
-        case 0:
+        case '0':
             return;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
             //side effects to be implemented
-            player.difficulty = choice;
+            player.difficulty = (int)choice;
             return;
         default:
             cout << "Invalid entry please try again" << endl;
