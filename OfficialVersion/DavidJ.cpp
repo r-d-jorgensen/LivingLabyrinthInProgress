@@ -200,7 +200,7 @@ void settingsMenu()
 
     while (true)
     {
-        switch (menu("Settings Menu", menuStr, 3, 0))
+        switch (menu("Settings Menu", menuStr, 4, 0))
         {
         case '1':
             textFormat();
