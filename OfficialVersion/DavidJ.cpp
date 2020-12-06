@@ -281,7 +281,7 @@ void difficultySetting()
 
     while (true)
     {
-        switch (menu("Which Difficulty would you like?", menuStr, 9, 0))
+        switch (menu("Which Difficulty would you like?", menuStr, 10, 0))
         {
             //side effects to be implemented
         case '0':
