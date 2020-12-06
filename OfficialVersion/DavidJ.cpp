@@ -12,6 +12,7 @@ using namespace std;
 //Declarations
 void gameEntrySaveCheck();
 void mainGameLoop();
+void creditsExit();
 int libraryChoices();
 int cheshireNPC();
 void perkStore();
@@ -82,6 +83,7 @@ void mainGameLoop()
         {
             cout << "Thank You For Playing" << endl;
             cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
+            creditsExit();
             return;
         }
         else if (location == 1)
@@ -93,6 +95,14 @@ void mainGameLoop()
             bookRealm();
         }
     }
+}
+
+void creditsExit()
+{
+    cout << "Thank You For Playing" << endl;
+    cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
+    exit(0);
+    return;
 }
 
 int libraryChoices()
