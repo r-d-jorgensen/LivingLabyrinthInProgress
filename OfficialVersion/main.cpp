@@ -29,8 +29,8 @@ void test()
 			test1.fillInv();
 			test1.showStats();
 			cout << "\n";
-			saveOut(test1, "save1.txt");
-			character test2 = loadIn("save1.txt");
+			saveOut(test1);
+			character test2 = loadIn();
 			test2.showStats();
 			cout << "If the two results appear the same then the process was successful\n";
 			cout << "Test weapon creation & copying? (y/n)\n";
@@ -91,20 +91,10 @@ tutorial();
 
 int main()
 {
-	char choice;
-	cout << "Would you like to run the test or main game loop?\n";
-	cout << "T for test and R for main game loop\n";
-	cout << "Enter anything else to exit\n";
-	cin >> choice;
-
-	if (choice == 't' || choice == 'T')
-	{
+#ifdef TEST
 		test();
-	}
-	if (choice == 'r' || choice == 'R')
-	{
-		mainGameLoop();
-	}
-
+#else
+	mainGameLoop();
+#endif
 	return 0;
 }

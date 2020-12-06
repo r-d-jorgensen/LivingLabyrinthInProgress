@@ -189,8 +189,8 @@ void combat(monster m);
 ostream &operator<<(ostream &out, const character &in);
 istream &operator>>(istream &in, character &out);
 istream &operator>>(istream &in, monster &out);
-void saveOut(character &in, string txt);
-character loadIn(string txt);
+void saveOut(character &in);
+character loadIn();
 monster loadMonster();
 
 #include "ScottK.cpp"
@@ -226,7 +226,7 @@ character::character(string n, int i, int d) : stats::stats()
 	HP = maxHP;
 	string questKey = questAnswer(11-difficulty);
 	string jumble = anagram(questKey);
-	thePuzzle = FinalPuzzle(questKey, jumble, 0, (11-difficulty));
+	thePuzzle = FinalPuzzle(questKey, jumble, 0, (11-difficulty) + 2);
 }
 
 //Copy Constructor
@@ -240,13 +240,17 @@ character::character(const character &in)
 	HP = in.HP;
 	points = in.points;
 	difficulty = in.difficulty;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		stat[i] = in.stat[i];
 	}
 	for (int i = 0; i < 25; i++)
 	{
 		inv[i] = in.inv[i];
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		eqpt[i] = in.eqpt[i];
 	}
 	thePuzzle.setFinalSolution(in.thePuzzle.getFinalSolution());
 	thePuzzle.setFinalPuzzle(in.thePuzzle.getFinalPuzzle());
@@ -690,7 +694,7 @@ monster::monster(int l)
 	string token;
 	srand(time(0));
 
-	ifstream in("./Monsters/monsters.txt");
+	ifstream in("./txtFiles/monsters.txt");
 	if (in.is_open())
 	{
 		while (i > 0)
@@ -804,7 +808,7 @@ item::item()
 
 item::item(string t)
 {
-	string txt = "./Items/";
+	string txt = "./txtFiles/";
 	int lines = 0, itype = stoi(t);
 	string temp, idtemp;
 
@@ -873,7 +877,7 @@ item::item(int i)
 {
 	string token;
 	string temp;
-	string txt = "./Items/";
+	string txt = "./txtFiles/";
 	item empty;
 	if (i == 0)
 	{
@@ -1702,10 +1706,10 @@ istream &operator>>(istream &in, monster &out)
 	return in;
 }
 
-void saveOut(character &in, string txt)
+void saveOut(character &in)
 {
 	ofstream out;
-	out.open(txt);
+	out.open("./saves/save1.txt");
 	if (out.is_open())
 	{
 		out << in;
@@ -1715,10 +1719,10 @@ void saveOut(character &in, string txt)
 		cout << "Unable to open file";
 }
 
-character loadIn(string txt)
+character loadIn()
 {
 	ifstream in;
-	in.open(txt);
+	in.open("./saves/save1.txt");
 	character temp = character();
 	if (in.is_open())
 	{
@@ -1733,7 +1737,7 @@ character loadIn(string txt)
 monster loadMonster()
 {
 	ifstream in;
-	in.open("./Monsters/monsters.txt");
+	in.open("./txtFiles/monsters.txt");
 	monster temp = monster();
 	if (in.is_open())
 	{

@@ -2,11 +2,14 @@
 #
 COMP=g++ -Wall
 
-all: runme
+all: LLL LLLTEST
 
 clean:
-	rm -f runme*
+	rm -f LLL*
 	rm -f *.o
 
-runme: main.cpp JasonJ.cpp ScottK.cpp DavidJ.cpp
-	$(COMP) -o runme main.cpp
+LLL: main.cpp JasonJ.cpp ScottK.cpp DavidJ.cpp
+	$(COMP) -o LLL main.cpp
+
+LLLTEST: main.cpp JasonJ.cpp ScottK.cpp DavidJ.cpp
+	$(COMP) -o LLLTEST main.cpp -DTEST
