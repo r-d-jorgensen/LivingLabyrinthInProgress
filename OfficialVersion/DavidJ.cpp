@@ -243,7 +243,7 @@ void textFormat()
 
     while (true)
     {
-        int choice = menu("What Text Type would you like?", menuStr, 3, 0);
+        int choice = menu("What Text Type would you like?", menuStr, 4, 0);
         switch (choice)
         {
         case 1:
