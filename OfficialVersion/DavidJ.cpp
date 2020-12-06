@@ -883,7 +883,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
     case 1:
     {
         string middlePadding = "\t\t\t";
-        cout << (playerGoesFirst ? "\t\tYou Go First In Combat" : "\t\tThe Creature Goes First In Combat");
+        cout << (playerGoesFirst ? "\t\tYou Go First In Combat\n" : "\t\tThe Creature Goes First In Combat\n");
         cout << player.name << " HP: " << player.HP << middlePadding + "\t" << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << "\t" << attackStrMonster << endl;
         if (critPlayer)
