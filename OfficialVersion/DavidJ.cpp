@@ -201,7 +201,7 @@ void settingsMenu()
     string menuStr[][2] = {
         {"1", "Swap Menu Text Format"},
         {"2", "Change the difficulty"},
-        ("3", "Save Your Game"),
+        {"3", "Save Your Game"},
         {"4", "Exit the Settings"}};
 
     while (true)
