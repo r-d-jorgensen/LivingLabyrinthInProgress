@@ -314,7 +314,7 @@ void difficultySetting()
         case '9':
             player.difficulty = 2;
             return;
-        case '10':
+        case "10":
             player.difficulty = 1;
             return;
         default:
