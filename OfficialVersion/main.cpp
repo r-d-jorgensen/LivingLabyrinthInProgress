@@ -75,11 +75,12 @@ void test()
 			cout << "Testing the encounter function,\n";
 			//Following code taken from the main of Scott's encounter function
 tutorial();
-			gamblingEncounter();
 			luckyEncounter();
+			gamblingEncounter();
 			trapEncounter();
 			monsterEncounter();
 			majorEncounter();
+			finalEncounter();
 			break;
 		}
 		default:

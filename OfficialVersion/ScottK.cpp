@@ -343,7 +343,11 @@ void printGreeting()
 		"There you are! Answer this."};
 	int randNum = (rand() + time(0)) % 5;
 	dialogue(greeting[randNum], 2, "Greeter");
+//dialogue("Press 'enter' to continue", 2, "Greeter");;
+string enter;
+getline(cin, enter);
 }
+
 /* random chance to help determine the level of the monster to battle 
  * a wrong selection increases the difficulty by 2 levels  */
 int doorGame()
@@ -634,7 +638,12 @@ void trapEncounter()
  * gold amount back to character's item*/
 void gamblingEncounter()
 {
-	string play;
+if (player.gold <1)
+	{
+dialogue("this is a casino, You have no money. You must leave!");
+	return;
+	}
+string play;
 	int odds = 0;
 	int bet = 0;
 	int goldPieces = 0;
