@@ -47,7 +47,7 @@ void gameEntrySaveCheck()
     ifstream file("./saves/save1.txt");
     if (!file.is_open())
     {
-        cout << "Your have no save file\nWelcom, we will start you at the tutorial\nEnjoy!\n";
+        cout << "Your have no save file.\nWelcom, we will start you at the tutorial.\nEnjoy!\n";
         tutorial();
     }
     else
@@ -277,7 +277,7 @@ void difficultySetting()
 
     while (true)
     {
-        char choice = menu("Which Difficulty would you like?", menuStr, 10, 0);
+        char choice = menu("Which Difficulty would you like?", menuStr, 9, 0);
         switch (choice)
         {
         case '0':
