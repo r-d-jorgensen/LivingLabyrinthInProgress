@@ -81,8 +81,6 @@ void mainGameLoop()
     {
         if (location == 0)
         {
-            cout << "Thank You For Playing" << endl;
-            cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
             creditsExit();
             return;
         }
