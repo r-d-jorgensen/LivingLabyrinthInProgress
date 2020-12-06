@@ -60,10 +60,12 @@ void gameEntrySaveCheck()
             if (choice == 'y' || choice == 'Y')
             {
                 player = loadIn();
+                break;
             }
             else if (choice == 'n' || choice == 'N')
             {
                 tutorial();
+                break;
             }
             else
             {
