@@ -150,6 +150,7 @@ string anagram(string originalWord)
 /* describesLiving Labyrinth, gives instructions if requested by player */
 int tutorial()
 {
+string enter;
 	dialogue("Welcome to the Living Labyrinth");
 	dialogue("Thank you for willingly participating in  the alpha ");
 	dialogue("testing of our first iteration of the,'Living Labyrinth,' ");
@@ -176,6 +177,8 @@ int tutorial()
 		dialogue("This iteration will only have bare, which is text only, and sparse,");
 		dialogue("which has a few visuals and places text in various spots on screen");
 		dialogue("You will be asked your preference after this explanation");
+	dialogue("Press 'enter' to continue. ");
+	getline(cin, enter);
 		dialogue("Another exciting aspect of the game is that you do not have to");
 		dialogue("finish it in one sitting. You can stop the game and your character");
 		dialogue("will be saved.");
@@ -183,8 +186,11 @@ int tutorial()
 		dialogue("point you passed. You will find yourself  in the library after");
 		dialogue("the last letter clue that you procured. You will keep your items,");
 		dialogue("gold, and experience.");
+		dialogue("Press 'enter' to continue. ");
+	string enter;
+	getline(cin, enter);
 		dialogue("At the end of reading this explanation, you will be asked to enter");
-		dialogue("the level you would like to play. This level represents the");
+	dialogue("the level you would like to play. This level represents the");
 		dialogue("length of the anagram that you will have to solve to finish");
 		dialogue("the quest. Level 1 is a 3 letter anagram while level 7 is a 9 ");
 		dialogue("letter anagram. As you travel throughout the land you will run ");
@@ -201,6 +207,8 @@ int tutorial()
 		dialogue("ring. When you find all of the rings with letters engraved in them");
 		dialogue("then you will have to fight a Boss and solve the anagram to win");
 		dialogue("that round. ");
+		dialogue("Press 'enter' to continue. ");
+	getline(cin, enter);
 		dialogue("This is the first iteration of our, 'Living Labyrinth,' game. You");
 		dialogue(" will notice that we only have one Book Realm at this time and that");
 		dialogue("some of the menu choices currently lead to dead ends. As the");
@@ -211,6 +219,8 @@ int tutorial()
 		dialogue("Thank you in advance for helping us find any bugs that we may have");
 		dialogue("overlooked, so we can fix them while implementing additional");
 		dialogue("functionality in our next iteration. ");
+		dialogue("Press 'enter' to continue. ");
+	getline(cin, enter);
 		dialogue("After choosing your difficulty level, your ");
 		dialogue("character's name, and the text type you want.");
 		dialogue("you will be in the library. ");
@@ -219,6 +229,8 @@ int tutorial()
 		dialogue("If you want to change from graphical to text-based, go to settings");
 		dialogue("and make the change. After that, you may want to look at your ");
 		dialogue("character sheet or check out the perk store.");
+		dialogue("Press 'enter' to continue. ");
+	getline(cin, enter);
 		dialogue("In order to start your adventure, select 'Talk to NPC' ");
 		dialogue("then select 'go to book realm'");
 		dialogue("In the book realm you can go to the armory or the general store.");
@@ -229,6 +241,8 @@ int tutorial()
 		dialogue("also choose to camp to restore some health. Of course,");
 		dialogue("you could get ambushed!");
 		dialogue("Good Luck!");
+		dialogue("Press 'enter' to continue. ");
+	getline(cin, enter);
 	}
 	string charName;
 	dialogue("Okay, please enter the name of your character.");
