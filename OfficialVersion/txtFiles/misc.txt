@@ -1,0 +1,18 @@
+Lesser_Healing_Potion
+/301 1 25 0 0
+Healing_Potion
+/302 1 50 0 0
+Greater_Healing_Potion
+/303 1 75 0 0
+Lesser_Strength_Potion
+/304 2 25 0 0
+Strength_Potion
+/305 2 50 0 0
+Greater_Strength_Potion
+/306 2 75 0 0
+Lesser_Swiftness_Potion
+/307 3 25 0 0
+Swiftness_Potion
+/308 3 50 0 0
+Greater_Swiftness_Potion
+/309 3 75 0 0
