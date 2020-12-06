@@ -95,7 +95,7 @@ int main()
 #ifdef TEST
 	test();
 #else
-	mainGameLoop();
+	gameEntrySaveCheck();
 #endif
 	return 0;
 }
