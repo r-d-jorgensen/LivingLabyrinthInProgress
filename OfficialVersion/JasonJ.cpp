@@ -28,6 +28,8 @@ public:
 	void showItem();
 };
 
+//SCOTT'S CODE
+//See comment at end of file for reasoning why its in my file.
 class FinalPuzzle
 {
 	public:
@@ -49,6 +51,7 @@ class FinalPuzzle
 		int totalRingsNeeded;
 		int ringsFound;
 }; // end of class definition
+//END OF SCOTT'S CODE
 
 class stats
 {
@@ -180,7 +183,15 @@ public:
 	void heal(int val);
 };
 
+//Function Prototypes
 void combat(monster m);
+
+ostream &operator<<(ostream &out, const character &in);
+istream &operator>>(istream &in, character &out);
+istream &operator>>(istream &in, monster &out);
+void saveOut(character &in, string txt);
+character loadIn(string txt);
+monster loadMonster();
 
 #include "ScottK.cpp"
 #include "DavidJ.cpp"
@@ -213,6 +224,9 @@ character::character(string n, int i, int d) : stats::stats()
 	}
 	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	HP = maxHP;
+	string questKey = questAnswer(11-difficulty);
+	string jumble = anagram(questKey);
+	thePuzzle = FinalPuzzle(questKey, jumble, 0, (11-difficulty));
 }
 
 //Copy Constructor
@@ -234,9 +248,15 @@ character::character(const character &in)
 	{
 		inv[i] = in.inv[i];
 	}
+	thePuzzle.setFinalSolution(in.thePuzzle.getFinalSolution());
+	thePuzzle.setFinalPuzzle(in.thePuzzle.getFinalPuzzle());
+	thePuzzle.setCurrentRings(in.thePuzzle.getCurrentRings());
+	thePuzzle.setTotalRingsNeeded(in.thePuzzle.getTotalRingsNeeded());
 }
 
-//Default incase player doesn't input name.
+//Default
+//As far as I know, there is no situation in which
+//this would be called, but it is here just in case.
 character::character()
 {
 	character("Librarian", 0, 10);
@@ -1611,6 +1631,11 @@ ostream &operator<<(ostream &out, const character &in)
 	out << "\n"
 		<< in.textType
 		<< " " << in.difficulty;
+	out << "\n" 
+		<< in.thePuzzle.getFinalSolution() << " "
+		<< in.thePuzzle.getFinalPuzzle() << " "
+		<< in.thePuzzle.getCurrentRings() << " "
+		<< in.thePuzzle.getTotalRingsNeeded();
 	return out;
 }
 
@@ -1651,6 +1676,15 @@ istream &operator>>(istream &in, character &out)
 	in >> out.difficulty;
 	out.maxHP = (out.stat[0] * (.5 + (.25 * (out.stat[0] / 5))) * out.lvl);
 	out.HP = out.maxHP;
+	//Following code is used to store Scott's FinalPuzzle object
+	string cword = out.thePuzzle.getFinalSolution(); 
+	string jword = out.thePuzzle.getFinalPuzzle();
+	int rfound = out.thePuzzle.getCurrentRings();
+	int rneeded = out.thePuzzle.getTotalRingsNeeded();
+	in >> cword;
+	in >> jword;
+	in >> rfound;
+	in >> rneeded;
 	return in;
 }
 
@@ -1710,6 +1744,9 @@ monster loadMonster()
 		cout << "Unable to open file";
 	return temp;
 }
+
+
+//START OF SCOTT'S CODE
 // default constructor
 FinalPuzzle::FinalPuzzle()
 {
@@ -1762,3 +1799,10 @@ int FinalPuzzle::getCurrentRings() const
 {
 	return ringsFound;
 }; // end class definition
+//END OF SCOTT'S CODE
+
+// THIS CODE IS SCOTT'S
+// It is placed here in my file because it has to be for
+// scope/#include reasons. Due to the nature of only 3 files that
+// all need to be included in different orders for different functions,
+// this object is *required* to be in my file.

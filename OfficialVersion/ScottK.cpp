@@ -264,18 +264,22 @@ int tutorial()
 		dialogue("Please choose 1 to 10");
 		cin >> level;
 	}
-	player.difficulty = level;
+	/* Comment from Jason to Scott
+	Difficulty is presented to player as 1 (easy) to 10 (hard)
+	so not to be confusing, but is used in calculations as the
+	reverse to multiply player values */
+	player.difficulty = (11 - level);
 	string questKey;
 	string jumble;
 	questKey = questAnswer(level);
 	jumble = anagram(questKey);
 	/* constructor filled with parameters */
-	static FinalPuzzle *thePuzzle = new FinalPuzzle(questKey, jumble, 0, level + 2);
-	/* get functions will be removed, just for testing */
-	dialogue("current rings: " + to_string(thePuzzle->getCurrentRings()));
-	dialogue("Rings Needed: " + to_string(thePuzzle->getTotalRingsNeeded()));
-	dialogue("Solution: " + thePuzzle->getFinalSolution());
-	dialogue("jumbled word: " + thePuzzle->getFinalPuzzle());
+	player.thePuzzle = FinalPuzzle(questKey, jumble, 0, level + 2);
+	/* get functions will be removed, just for testing */ 
+	dialogue("current rings: " + to_string(player.thePuzzle.getCurrentRings()));
+	dialogue("Rings Needed: " + to_string(player.thePuzzle.getTotalRingsNeeded()));
+	dialogue("Solution: " + player.thePuzzle.getFinalSolution());
+	dialogue("jumbled word: " + player.thePuzzle.getFinalPuzzle());
 	return 0;
 }
 
