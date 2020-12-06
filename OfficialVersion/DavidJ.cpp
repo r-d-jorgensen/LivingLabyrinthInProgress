@@ -39,25 +39,54 @@ extern character player;
 
 void mainGameLoop()
 {
-    //run game
-    int location = 1;
-    while (true)
+    ifstream file("./saves/save1.txt");
+    if (!file.is_open())
     {
-        if (location == 0)
+        cout << "Your have no save file\nWelcom, we will start you at the tutorial\nEnjoy!\n";
+        tutorial();
+    }
+    else
+    {
+        while (true)
         {
-            cout << "Thank You For Playing" << endl;
-            cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
-            return;
-        }
-        else if (location == 1)
-        {
-            location = libraryChoices();
-        }
-        else if (location == 2)
-        {
-            bookRealm();
+            cout << "Would you like to load your save? (y or n)\n";
+            char choice;
+            cin >> choice;
+            if (choice == 'y' || choice == 'Y')
+            {
+                player = loadIn();
+            }
+            else if (choice == 'n' || choice == 'N')
+            {
+                tutorial();
+            }
+            else
+            {
+                cout << "That is not a valid option."
+            }
         }
     }
+}
+
+//run game
+int location = 1;
+while (true)
+{
+    if (location == 0)
+    {
+        cout << "Thank You For Playing" << endl;
+        cout << "This was made by David Jorgensen, Jason Jellie, and Scott Kurtz " << endl;
+        return;
+    }
+    else if (location == 1)
+    {
+        location = libraryChoices();
+    }
+    else if (location == 2)
+    {
+        bookRealm();
+    }
+}
 }
 
 int libraryChoices()
@@ -166,7 +195,8 @@ void settingsMenu()
     string menuStr[][2] = {
         {"1", "Swap Menu Text Format"},
         {"2", "Change the difficulty"},
-        {"3", "Exit the Settings"}};
+        ("3", "Save Your Game"),
+        {"4", "Exit the Settings"}};
 
     while (true)
     {
@@ -179,6 +209,9 @@ void settingsMenu()
             difficultySetting();
             break;
         case '3':
+            saveOut(player);
+            break;
+        case '4':
             return;
         default:
             cout << "Invalid entry please try again" << endl;
