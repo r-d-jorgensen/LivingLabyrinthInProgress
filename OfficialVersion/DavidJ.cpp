@@ -65,6 +65,7 @@ void gameEntrySaveCheck()
             else if (choice == 'n' || choice == 'N')
             {
                 tutorial();
+                location = 1;
                 break;
             }
             else
@@ -246,12 +247,12 @@ void textFormat()
 
     while (true)
     {
-        char choice = menu("What Text Type would you like?", menuStr, 4, 0);
-        switch (choice)
+        switch (menu("What Text Type would you like?", menuStr, 4, 0))
         {
         case '1':
+            player.textType = 0;
         case '2':
-            player.textType = (int)choice - 1;
+            player.textType = 1;
             return;
         case '3':
             cout << "Sorry this mode is still in development";
@@ -279,22 +280,37 @@ void difficultySetting()
 
     while (true)
     {
-        char choice = menu("Which Difficulty would you like?", menuStr, 9, 0);
-        switch (choice)
+        switch (menu("Which Difficulty would you like?", menuStr, 9, 0))
         {
+            //side effects to be implemented
         case '0':
             return;
         case '1':
+            player.difficulty = 1;
+            return;
         case '2':
+            player.difficulty = 2;
+            return;
         case '3':
+            player.difficulty = 3;
+            return;
         case '4':
+            player.difficulty = 4;
+            return;
         case '5':
+            player.difficulty = 5;
+            return;
         case '6':
+            player.difficulty = 6;
+            return;
         case '7':
+            player.difficulty = 7;
+            return;
         case '8':
+            player.difficulty = 8;
+            return;
         case '9':
-            //side effects to be implemented
-            player.difficulty = (int)choice;
+            player.difficulty = 9;
             return;
         default:
             cout << "Invalid entry please try again" << endl;
