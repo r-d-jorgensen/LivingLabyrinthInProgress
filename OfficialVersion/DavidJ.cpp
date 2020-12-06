@@ -144,7 +144,7 @@ int cheshireNPC()
 {
     dialogue("He gets up and looks at you", 1, "Cheshire");
     string menuStr[][2] = {
-        {"1", "I would like to go to into the book now"},
+        {"1", "I would like to go into the book now"},
         {"2", "what is special about Wonderland?"},
         {"3", "What has happened in Wonderland?"},
         {"4", "Walk away"}};
@@ -856,13 +856,14 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
                 int hpMonster, int dmgMonster, int actionMonster, bool critMonster,
                 int monsterWeapon, bool playerGoesFirst)
 {
+    cout << "\033[2J\033[1;1H";
     string playerActionStr = playerCombatString(actionPlayer);
     string attackStrMonster = mosterCombatString(actionMonster, monsterWeapon);
 
     switch (player.textType)
     {
     case 0:
-        cout << (playerGoesFirst ? "You Go First In Combat" : "The Creature Goes First In Combat");
+        cout << (playerGoesFirst ? "You Go First In Combat\n" : "The Creature Goes First In Combat\n");
         cout << player.name << " HP: " << player.HP << endl
              << playerActionStr << endl;
         if (critPlayer)
@@ -870,7 +871,7 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
             cout << "YOU HAVE CRITICALLY HIT" << endl;
         }
         cout << "You deal " << dmgPlayer << " damage" << endl;
-        cout << nameMonster << " HP: " << player.HP << endl
+        cout << nameMonster << " HP: " << hpMonster << endl
              << playerActionStr << endl;
         if (critMonster)
         {
