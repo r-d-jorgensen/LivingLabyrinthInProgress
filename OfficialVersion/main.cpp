@@ -31,7 +31,9 @@ void test()
 			player = loadIn();
 			player.fillInv();
 			player.name = "The Librarian";
-			while(!player.inventory()) {}
+			while (!player.inventory())
+			{
+			}
 			/*
 			test1.fillInv();
 			test1.showStats();

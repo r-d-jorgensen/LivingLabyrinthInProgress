@@ -1350,9 +1350,9 @@ void battle::takeTurn()
 	}
 	*/
 
-		//resetting variable for next turn
-		mdmg = 0,
-		macc = 0;
+	//resetting variable for next turn
+	mdmg = 0,
+	macc = 0;
 	pdmg = 0, pacc = 0;
 	pblk = false, pdge = 0;
 	mblk = false, mdge = 0;
