@@ -1089,15 +1089,6 @@ void combat(monster m)
 	bool right = true;
 	battle c(m);
 
-	//REMOVE THESE AFTER SCREENSHOTS
-	player.name = "The Librarian";
-	player.maxHP = 15;
-	player.HP = 13;
-	c.m.name = "Goblin";
-	c.m.lvl = 4;
-	c.m.maxHP = 12;
-	c.m.HP = 9;	
-
 	while (!c.done)
 	{
 		do
@@ -1238,8 +1229,7 @@ battle::battle(monster in)
 
 void battle::takeTurn()
 {
-	/* Screenshot 
-	   monsterTurn();
+	monsterTurn();
 	//Check to see who goes first, will be true if player goes first
 	//In order to counter-act weight, mosnters agility is less valueable
 	bool FA = (((act[4] * .25) + (act[5] * .1) - weight) * (((float)potspd) / 100)) >= ((mact[4] * .15) + (mact[5] * .1));
@@ -1248,135 +1238,132 @@ void battle::takeTurn()
 	int ptaken = 0, mtaken = 0;
 	if (pdmg < 1)
 	{
-	pdmg = 1;
+		pdmg = 1;
 	}
 	if ((pacc - ((mact[4] * .1) + (mact[5] * .1) > 0)) && ((rand() % 100) > mdge))
 	{
-	phit = true;
-	if ((rand() % 100) < (player.eqpt[0].percent + act[5] * .5))
-	{
-	pcrit = true;
-	pdmg *= 2;
-	}
+		phit = true;
+		if ((rand() % 100) < (player.eqpt[0].percent + act[5] * .5))
+		{
+			pcrit = true;
+			pdmg *= 2;
+		}
 	}
 	if ((macc - ((act[4] * .1) + (act[5] * .1) > 0)) && ((rand() % 100) > pdge))
 	{
-	mhit = true;
-	if ((rand() % 100) < (5))
-	{
-	mcrit = true;
-	mdmg *= 2;
-	}
+		mhit = true;
+		if ((rand() % 100) < (5))
+		{
+			mcrit = true;
+			mdmg *= 2;
+		}
 	}
 
 	if (FA && pcrit)
 	{
-	mhit = false;
-	mcrit = false;
+		mhit = false;
+		mcrit = false;
 	}
 	if (!FA && mcrit)
 	{
-	phit = false;
-	pcrit = false;
+		phit = false;
+		pcrit = false;
 	}
 
 	if (phit && patk)
 	{
-	//mtaken = 1 + ((pdmg * (((float)(100 - mblk)) / 100.0)) * (((float)potdmg)));
-	mtaken = pdmg;
-	mtaken -= mtaken * ((mblk) ? .5 : 1);
-	if (mtaken < 1)
-	{
-	mtaken = 1;
-	}
-	mtaken += mtaken * (((float)potdmg) / 100.0);
-	potdmg = 0;
-	potspd = 0;
+		//mtaken = 1 + ((pdmg * (((float)(100 - mblk)) / 100.0)) * (((float)potdmg)));
+		mtaken = pdmg;
+		mtaken -= mtaken * ((mblk) ? .5 : 1);
+		if (mtaken < 1)
+		{
+			mtaken = 1;
+		}
+		mtaken += mtaken * (((float)potdmg) / 100.0);
+		potdmg = 0;
+		potspd = 0;
 	}
 	if (mhit && matk)
 	{
-	//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
-	ptaken = mdmg;
-	ptaken -= ptaken * ((pblk) ? .5 : 1);
+		//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
+		ptaken = mdmg;
+		ptaken -= ptaken * ((pblk) ? .5 : 1);
 	}
 
 	if (FA)
 	{
-	m.HP -= mtaken;
-	if (m.HP < 1)
+		m.HP -= mtaken;
+		if (m.HP < 1)
+		{
+			combatText(paction, mtaken, pcrit, m.name, m.HP, 0, maction, mcrit, mtype, true);
+			cout << "The monster dies\n";
+			endCombat(true);
+			return;
+		}
+		player.HP -= ptaken;
+		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, true);
+		if (player.HP < 1)
+		{
+			cout << "You died\n";
+			endCombat(false);
+			return;
+		}
+	}
+	else
 	{
-	combatText(paction, mtaken, pcrit, m.name, m.HP, 0, maction, mcrit, mtype, true);
-	cout << "The monster dies\n";
-	endCombat(true);
-	return;
-}
-player.HP -= ptaken;
-combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, true);
-if (player.HP < 1)
-{
-	cout << "You died\n";
-	endCombat(false);
-	return;
-}
-}
-else
-{
-	player.HP -= ptaken;
-	if (player.HP < 1)
+		player.HP -= ptaken;
+		if (player.HP < 1)
+		{
+			combatText(paction, 0, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
+			cout << "You died\n";
+			endCombat(false);
+			return;
+		}
+		m.HP -= mtaken;
+		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
+		if (m.HP < 1)
+		{
+			cout << "The monster dies\n";
+			endCombat(true);
+			return;
+		}
+	}
+
+	*
+		((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
+	cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
+	cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
+	if (player.HP <= 0 || m.HP <= 0)
 	{
-		combatText(paction, 0, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
-		cout << "You died\n";
-		endCombat(false);
+		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
+		endCombat((m.HP <= 0));
 		return;
 	}
-	m.HP -= mtaken;
-	combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
-	if (m.HP < 1)
+	((!FA) ? (m.HP -= ptaken) : (player.HP -= ptaken));
+	cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ");
+	cout << ((!FA) ? mtaken : ptaken) << " damage\n"; 
+	if (player.HP <= 0 || m.HP <= 0)
 	{
-		cout << "The monster dies\n";
-		endCombat(true);
+		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
+		endCombat((m.HP <= 0));
 		return;
 	}
-}
+	/
 
-*
-((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
-cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
-cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
-if (player.HP <= 0 || m.HP <= 0)
-{
-	cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
-	endCombat((m.HP <= 0));
-	return;
-}
-((!FA) ? (m.HP -= ptaken) : (player.HP -= ptaken));
-cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ");
-cout << ((!FA) ? mtaken : ptaken) << " damage\n"; 
-if (player.HP <= 0 || m.HP <= 0)
-{
-	cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
-	endCombat((m.HP <= 0));
-	return;
-}
-/
+	//resetting variable for next turn
+	mdmg = 0, macc = 0;
+	pdmg = 0, pacc = 0;
+	pblk = false, pdge = 0;
+	mblk = false, mdge = 0;
+	matk = false, patk = false;
+	maction = 0, paction = 0;
+	mtype = 0;
 
-//resetting variable for next turn
-mdmg = 0, macc = 0;
-pdmg = 0, pacc = 0;
-pblk = false, pdge = 0;
-mblk = false, mdge = 0;
-matk = false, patk = false;
-maction = 0, paction = 0;
-mtype = 0;
-*/
-//next few lines are what is needed for screenshots.
-combatText(1, 7, false, "Goblin", 9, 4, 2, false, 3, true);
-
-string wait;
-dialogue("Press Enter to continue");
-cin.clear();
-cin.ignore();
-getline(cin, wait);
+	string wait;
+	dialogue("Press Enter to continue");
+	cin.clear();
+	cin.ignore();
+	getline(cin, wait);
 }
 
 void battle::monsterTurn()
