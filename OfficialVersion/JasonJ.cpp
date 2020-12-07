@@ -1163,7 +1163,6 @@ battle::battle(monster in)
 	maction = 0, paction = 0;
 	mtype = 0;
 
-
 	done = false;
 
 	for (int i = 1; i < 4; i++)

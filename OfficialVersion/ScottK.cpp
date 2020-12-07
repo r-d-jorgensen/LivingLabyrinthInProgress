@@ -108,15 +108,15 @@ string questAnswer(int levelChoice)
 	int pick = 0;
 	pick = ((levelChoice - 1) * 5) + randNum; // depends on words per length
 	string word[] = {"quo", "cue", "tee", "mob", "hum",
-		"when", "thus", "bash", "belt", "arab",
-		"stout", "stint", "cheif", "creek", "power",
-		"summer", "spring", "burden", "employ", "gambit",
-		"prosper", "finding", "capsize", "epitaph", "finally",
-		"kindness", "handsome", "deathbed", "evacuate", "gasoline",
-		"beautiful", "difficult", "blacklist", "elaborate", "equipment",
-		"astounding", "challenges", "farfetched", "hemisphere", "neutrality",
-		"commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
-		"bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
+					 "when", "thus", "bash", "belt", "arab",
+					 "stout", "stint", "cheif", "creek", "power",
+					 "summer", "spring", "burden", "employ", "gambit",
+					 "prosper", "finding", "capsize", "epitaph", "finally",
+					 "kindness", "handsome", "deathbed", "evacuate", "gasoline",
+					 "beautiful", "difficult", "blacklist", "elaborate", "equipment",
+					 "astounding", "challenges", "farfetched", "hemisphere", "neutrality",
+					 "commandment", "computerize", "dormitories", "electrocute", "hexadecimal",
+					 "bibliographies", "conditioning", "encapsulates", "fortuitously", "minicomputer"};
 	string randomword;
 	randomword = word[pick];
 	return randomword;
@@ -138,7 +138,7 @@ string anagram(string originalWord)
 		originalWord[temp] = originalWord[originalWord.size() - i - 1];
 		originalWord[originalWord.size() - i - 1] = originalWord[choice];
 	}
-	/* concatanating letters for jumbled word */ 
+	/* concatanating letters for jumbled word */
 	string jumble = "";
 	int k;
 	for (k = 0; k < count; k++)
@@ -150,7 +150,7 @@ string anagram(string originalWord)
 /* describesLiving Labyrinth, gives instructions if requested by player */
 int tutorial()
 {
-string enter;
+	string enter;
 	dialogue("Welcome to the Living Labyrinth");
 	dialogue("Thank you for willingly participating in  the alpha ");
 	dialogue("testing of our first iteration of the,'Living Labyrinth,' ");
@@ -177,8 +177,8 @@ string enter;
 		dialogue("This iteration will only have bare, which is text only, and sparse,");
 		dialogue("which has a few visuals and places text in various spots on screen");
 		dialogue("You will be asked your preference after this explanation");
-	dialogue("Press 'enter' to continue. ");
-	getline(cin, enter);
+		dialogue("Press 'enter' to continue. ");
+		getline(cin, enter);
 		dialogue("Another exciting aspect of the game is that you do not have to");
 		dialogue("finish it in one sitting. You can stop the game and your character");
 		dialogue("will be saved.");
@@ -187,10 +187,10 @@ string enter;
 		dialogue("the last letter clue that you procured. You will keep your items,");
 		dialogue("gold, and experience.");
 		dialogue("Press 'enter' to continue. ");
-	string enter;
-	getline(cin, enter);
+		string enter;
+		getline(cin, enter);
 		dialogue("At the end of reading this explanation, you will be asked to enter");
-	dialogue("the level you would like to play. This level represents the");
+		dialogue("the level you would like to play. This level represents the");
 		dialogue("length of the anagram that you will have to solve to finish");
 		dialogue("the quest. Level 1 is a 3 letter anagram while level 7 is a 9 ");
 		dialogue("letter anagram. As you travel throughout the land you will run ");
@@ -208,7 +208,7 @@ string enter;
 		dialogue("then you will have to fight a Boss and solve the anagram to win");
 		dialogue("that round. ");
 		dialogue("Press 'enter' to continue. ");
-	getline(cin, enter);
+		getline(cin, enter);
 		dialogue("This is the first iteration of our, 'Living Labyrinth,' game. You");
 		dialogue(" will notice that we only have one Book Realm at this time and that");
 		dialogue("some of the menu choices currently lead to dead ends. As the");
@@ -220,7 +220,7 @@ string enter;
 		dialogue("overlooked, so we can fix them while implementing additional");
 		dialogue("functionality in our next iteration. ");
 		dialogue("Press 'enter' to continue. ");
-	getline(cin, enter);
+		getline(cin, enter);
 		dialogue("After choosing your difficulty level, your ");
 		dialogue("character's name, and the text type you want.");
 		dialogue("you will be in the library. ");
@@ -230,7 +230,7 @@ string enter;
 		dialogue("and make the change. After that, you may want to look at your ");
 		dialogue("character sheet or check out the perk store.");
 		dialogue("Press 'enter' to continue. ");
-	getline(cin, enter);
+		getline(cin, enter);
 		dialogue("In order to start your adventure, select 'Talk to NPC' ");
 		dialogue("then select 'go to book realm'");
 		dialogue("In the book realm you can go to the armory or the general store.");
@@ -242,7 +242,7 @@ string enter;
 		dialogue("you could get ambushed!");
 		dialogue("Good Luck!");
 		dialogue("Press 'enter' to continue. ");
-	getline(cin, enter);
+		getline(cin, enter);
 	}
 	string charName;
 	dialogue("Okay, please enter the name of your character.");
@@ -389,14 +389,14 @@ int riddle()
 	string guess;
 	string answer;
 	int monsterlevel; //int returned by function to determine monster difficulty
-	/* currently 63 different riddles available in txt file */ 
+	/* currently 63 different riddles available in txt file */
 	int num = ((rand() + time(0)) % 63);
 	num = 2 * num;
 	for (int i = 0; i < num + 1; i++)
 		getline(riddleFile, randomRiddle);
 	dialogue((randomRiddle) + " ", 2, "Riddle Master");
 	getline(riddleFile, answer);
-	/* strLower function for answer and guess to help match */ 
+	/* strLower function for answer and guess to help match */
 	answer = strLower(answer);
 	/* following function called to remove last character \n to match */
 	answer.erase(answer.find_last_not_of("\n\r") + 1);
@@ -639,14 +639,14 @@ void gamblingEncounter()
 	cin >> play;
 	cin.ignore();
 	if ((play == "Y") || (play == "y") || (play == "Yes") ||
-			(play == "yes") || (play == "YES"))
+		(play == "yes") || (play == "YES"))
 	{
 		dialogue("Great! Here is how you play. You pick the number of shells and how much money you want to bet.", 2, "Dealer");
 		dialogue("The more shells you want to use, the more money you win with a correct selection", 2, "Dealer");
 		dialogue("Of course, if you lose, I get your wager.", 2, "Dealer");
 		/* loop to continue gambling as long as player wants */
 		while ((play == "Y") || (play == "y") || (play == "Yes") ||
-				(play == "yes") || (play == "YES"))
+			   (play == "yes") || (play == "YES"))
 		{
 			/* shells determin odds, thus, payback upon winning */
 			dialogue("How many shells do you want to use? 2-10", 2, "Dealer");
