@@ -1329,7 +1329,7 @@ void battle::takeTurn()
 		}
 	}
 
-	*
+	/*
 		((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
 	cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
 	cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
@@ -1348,7 +1348,7 @@ void battle::takeTurn()
 		endCombat((m.HP <= 0));
 		return;
 	}
-	/
+	*/
 
 	//resetting variable for next turn
 	mdmg = 0, macc = 0;
