@@ -1,3 +1,4 @@
+//Scott Kurtz
 #pragma once
 #include <bits/stdc++.h>
 #include <iostream>
