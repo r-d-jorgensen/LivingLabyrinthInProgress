@@ -875,18 +875,19 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
             cout << "You deal " << dmgPlayer << " damage" << endl;
 
             cout << nameMonster << " HP: " << hpMonster << endl
-                 << playerActionStr << endl;
+                 << attackStrMonster << endl;
             if (critMonster)
-            {
-                cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
-            }
+                a
+                {
+                    cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
+                }
             cout << "The creature deals " << dmgMonster << " damage" << endl;
         }
         else
         {
             cout << "The Creature Goes First In Combat\n";
             cout << nameMonster << " HP: " << hpMonster << endl
-                 << playerActionStr << endl;
+                 << attackStrMonster << endl;
             if (critMonster)
             {
                 cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
