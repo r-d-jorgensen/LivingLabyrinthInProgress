@@ -8,9 +8,9 @@
 
 /*
    There are a lot of comments written throughout this file.
-   
+
    These were slowly added as progress of the game went on.
-   
+
    Some of these are still relevant but quite a few are simply me
    leaving notes for myself to implement things later, or notes to
    anyone reading through the code to understand some of the choices
@@ -21,62 +21,62 @@
 
    P.S. These block comments are a large reason why this file is 
    almost 2000 lines long.
-*/
+ */
 
 using namespace std;
 
 class item
 {
-public:
-	int id;
-	int type;
-	int subType;
-	int value;
-	int subValue;
-	int percent;
-	string name;
+	public:
+		int id;
+		int type;
+		int subType;
+		int value;
+		int subValue;
+		int percent;
+		string name;
 
-	item();
-	//item(string n);
-	item(string t);
-	item(int id);
-	item(const item &in);
+		item();
+		//item(string n);
+		item(string t);
+		item(int id);
+		item(const item &in);
 
-	void showItem();
+		void showItem();
 };
 
 //SCOTT'S CODE
 //See comment at end of file for reasoning why its in my file.
 class FinalPuzzle
 {
-public:
-	// default constructor
-	FinalPuzzle();
-	// constructor
-	FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
-	void setFinalPuzzle(string finalPuzzle);	 // Mutator
-	string getFinalPuzzle() const;				 // Accessor
-	void setFinalSolution(string finalSolution); // Mutator
-	string getFinalSolution() const;			 // Accessor
-	void setTotalRingsNeeded(int totalRings);
-	int getTotalRingsNeeded() const;
-	void setCurrentRings(int totalRings);
-	int getCurrentRings() const;
+	public:
+		// default constructor
+		FinalPuzzle();
+		// constructor
+		FinalPuzzle(string solution, string puzzle, int curRings, int ringSNeeded);
+		void setFinalPuzzle(string finalPuzzle);	 // Mutator
+		string getFinalPuzzle() const;				 // Accessor
+		void setFinalSolution(string finalSolution); // Mutator
+		string getFinalSolution() const;			 // Accessor
+		void setTotalRingsNeeded(int totalRings);
+		int getTotalRingsNeeded() const;
+		void setCurrentRings(int totalRings);
+		int getCurrentRings() const;
 
-private:
-	string jumbledWord;
-	string correctWord;
-	int totalRingsNeeded;
-	int ringsFound;
+	private:
+		string jumbledWord;
+		string correctWord;
+		int totalRingsNeeded;
+		int ringsFound;
 }; // end of class definition
 //END OF SCOTT'S CODE
 
 class stats
 {
-public:
-	int lvl, maxHP, HP, stat[6];
+	public:
+		int lvl, maxHP, HP, stat[6];
 
-	stats();
+		stats();
 };
 /*
    lvl is the characters lvl, used to determine skill points and monster lvl
@@ -97,34 +97,34 @@ public:
 
 class character : public stats
 {
-public:
-	item inv[25];
-	item eqpt[4];
-	string name;
-	int gold;
-	int textType;
-	int difficulty;
-	int xp;
-	int points;
-	FinalPuzzle thePuzzle;
+	public:
+		item inv[25];
+		item eqpt[4];
+		string name;
+		int gold;
+		int textType;
+		int difficulty;
+		int xp;
+		int points;
+		FinalPuzzle thePuzzle;
 
-	character();
-	character(string n, int i, int d);
-	character(const character &in);
-	void addItem(item in);
-	void equip(const item &i);
-	void unequip(const item &in);
-	void discard(item i);
-	bool inventory();
-	void balanceInv();
-	void showStats();
-	void showInv();
-	void giveXP(int xp);
-	void levelUp();
-	void die();
-	//Following Function is for testing only,
-	//Fills the characters inventory with items
-	void fillInv();
+		character();
+		character(string n, int i, int d);
+		character(const character &in);
+		void addItem(item in);
+		void equip(const item &i);
+		void unequip(const item &in);
+		void discard(item i);
+		bool inventory();
+		void balanceInv();
+		void showStats();
+		void showInv();
+		void giveXP(int xp);
+		void levelUp();
+		void die();
+		//Following Function is for testing only,
+		//Fills the characters inventory with items
+		void fillInv();
 };
 
 extern character player;
@@ -146,14 +146,14 @@ extern character player;
 
 class monster : public stats
 {
-public:
-	string name;
-	int diff;
+	public:
+		string name;
+		int diff;
 
-	monster();
-	monster(int lvl);
-	monster(string n);
-	monster(const monster &in);
+		monster();
+		monster(int lvl);
+		monster(string n);
+		monster(const monster &in);
 };
 /*
    name is the name of the monster
@@ -165,40 +165,40 @@ public:
 //but still have a similar enough name.
 class battle
 {
-public:
-	//vars are damage, accuracy, block%, dodge%
-	//for both the player and the monster then
-	//for just the player potion damage and speed
-	//also monter crit, player crit, the monster object
-	//actual stat values, player weight, player weapon type stat
-	int mdmg, macc;
-	int pdmg, pacc;
-	int mdge, pdge;
-	bool mblk, pblk;
-	int potdmg, potspd;
-	bool mcrit, pcrit;
-	bool matk, patk;
-	monster m;
-	int mact[6], act[6];
-	int weight, wts;
-	int maction, paction;
-	int mtype;
+	public:
+		//vars are damage, accuracy, block%, dodge%
+		//for both the player and the monster then
+		//for just the player potion damage and speed
+		//also monter crit, player crit, the monster object
+		//actual stat values, player weight, player weapon type stat
+		int mdmg, macc;
+		int pdmg, pacc;
+		int mdge, pdge;
+		bool mblk, pblk;
+		int potdmg, potspd;
+		bool mcrit, pcrit;
+		bool matk, patk;
+		monster m;
+		int mact[6], act[6];
+		int weight, wts;
+		int maction, paction;
+		int mtype;
 
-	//Used to see if the fight is over.
-	bool done;
+		//Used to see if the fight is over.
+		bool done;
 
-	//constructor
-	battle(monster m);
+		//constructor
+		battle(monster m);
 
-	//functions
-	void takeTurn();
-	void monsterTurn();
-	void endCombat(bool win);
-	void attack();
-	void block();
-	void dodge();
-	void use();
-	void heal(int val);
+		//functions
+		void takeTurn();
+		void monsterTurn();
+		void endCombat(bool win);
+		void attack();
+		void block();
+		void dodge();
+		void use();
+		void heal(int val);
 };
 
 //Function Prototypes
@@ -353,12 +353,12 @@ void character::unequip(const item &in)
 			inv[i] = in;
 			switch (in.type)
 			{
-			case 1:
-				eqpt[in.subType] = temp;
-				return;
-			case 2:
-				eqpt[0] = temp;
-				return;
+				case 1:
+					eqpt[in.subType] = temp;
+					return;
+				case 2:
+					eqpt[0] = temp;
+					return;
 			}
 		}
 	}
@@ -371,28 +371,28 @@ void character::equip(const item &in)
 	item temp;
 	switch (in.type)
 	{
-	case 1:
-		for (int i = 0; i < 25; i++)
-		{
-			if (inv[i].id == in.id)
+		case 1:
+			for (int i = 0; i < 25; i++)
 			{
-				temp = eqpt[eqp];
-				eqpt[eqp] = in;
-				inv[i] = temp;
+				if (inv[i].id == in.id)
+				{
+					temp = eqpt[eqp];
+					eqpt[eqp] = in;
+					inv[i] = temp;
+				}
 			}
-		}
-		break;
-	case 2:
-		for (int i = 0; i < 25; i++)
-		{
-			if (inv[i].id == in.id)
+			break;
+		case 2:
+			for (int i = 0; i < 25; i++)
 			{
-				temp = eqpt[0];
-				eqpt[0] = in;
-				inv[i] = temp;
+				if (inv[i].id == in.id)
+				{
+					temp = eqpt[0];
+					eqpt[0] = in;
+					inv[i] = temp;
+				}
 			}
-		}
-		break;
+			break;
 	}
 }
 
@@ -428,11 +428,11 @@ bool character::inventory()
 	{
 		if (inv[i].id != 0)
 		{
-			dialogue(j + ". " + player.inv[i].name);
+			dialogue(to_string(j) + ". " + player.inv[i].name);
 			j++;
 		}
 	}
-	dialogue(j + ". Return");
+	dialogue(to_string(j) + ". Return");
 
 	do
 	{
@@ -472,16 +472,16 @@ bool character::inventory()
 					{
 						switch (c2)
 						{
-						case 1:
-							equip(player.inv[c1 - 1]);
-							break;
-						case 2:
-							discard(player.inv[c1 - 1]);
-							break;
-						case 3:
-							break;
-						default:
-							r2 = false;
+							case 1:
+								equip(player.inv[c1 - 1]);
+								break;
+							case 2:
+								discard(player.inv[c1 - 1]);
+								break;
+							case 3:
+								break;
+							default:
+								r2 = false;
 						}
 						cin.clear();
 					}
@@ -735,7 +735,6 @@ monster::monster(int l)
 		}
 		//
 		in >> name;
-		cout << name << "\n";
 		for (size_t i = 0; i < name.length(); i++)
 		{
 			if (name[i] == '_')
@@ -746,9 +745,7 @@ monster::monster(int l)
 		for (int x = 0; x < 6; x++)
 		{
 			in >> stat[x];
-			cout << stat[x] << " ";
 		}
-		cout << "\n";
 		in >> diff;
 		lvl = maxDiff;
 		maxHP = (stat[0] * (.5 + (.25 * (((float)stat[0]) / 5))) * lvl);
@@ -849,21 +846,21 @@ item::item(string t)
 
 	switch (itype)
 	{
-	case 1:
-		txt += "armor.txt";
-		type = 1;
-		break;
-	case 2:
-		txt += "weapons.txt";
-		type = 2;
-		break;
-	case 3:
-		txt += "misc.txt";
-		type = 3;
-		break;
-	default:
-		txt += "failed.txt";
-		break;
+		case 1:
+			txt += "armor.txt";
+			type = 1;
+			break;
+		case 2:
+			txt += "weapons.txt";
+			type = 2;
+			break;
+		case 3:
+			txt += "misc.txt";
+			type = 3;
+			break;
+		default:
+			txt += "failed.txt";
+			break;
 	}
 
 	ifstream in;
@@ -919,21 +916,21 @@ item::item(int i)
 	  then divides the number by 100 to find the first digit. */
 	switch ((i - (i % 100)) / 100)
 	{
-	case 1:
-		txt += "armor.txt";
-		type = 1;
-		break;
-	case 2:
-		txt += "weapons.txt";
-		type = 2;
-		break;
-	case 3:
-		txt += "misc.txt";
-		type = 3;
-		break;
-	default:
-		txt += "failed.txt";
-		break;
+		case 1:
+			txt += "armor.txt";
+			type = 1;
+			break;
+		case 2:
+			txt += "weapons.txt";
+			type = 2;
+			break;
+		case 3:
+			txt += "misc.txt";
+			type = 3;
+			break;
+		default:
+			txt += "failed.txt";
+			break;
 	}
 
 	ifstream in(txt);
@@ -993,60 +990,60 @@ void item::showItem()
 
 		switch (type)
 		{
-		case 1:
-			cout << setw(15) << "Type: Armor";
-			switch (subType)
-			{
 			case 1:
-				cout << setw(17) << "Class: Head";
+				cout << setw(15) << "Type: Armor";
+				switch (subType)
+				{
+					case 1:
+						cout << setw(17) << "Class: Head";
+						break;
+					case 2:
+						cout << setw(17) << "Class: Chest";
+						break;
+					case 3:
+						cout << setw(17) << "Class: Head";
+						break;
+				}
+				cout << setw(9) << "Defense: " << setw(4) << to_string(value);
+				cout << setw(8) << "Weight: " << setw(4) << to_string(subValue);
+				//cout << setw(10) << "Percent: " + to_string(percent);
 				break;
 			case 2:
-				cout << setw(17) << "Class: Chest";
+				cout << setw(15) << "Type: Weapon";
+				switch (subType)
+				{
+					case 1:
+						cout << setw(17) << "Class: INT";
+						break;
+					case 2:
+						cout << setw(17) << "Class: STR";
+						break;
+					case 3:
+						cout << setw(17) << "Class: DEX";
+						break;
+				}
+				cout << setw(9) << "Damage: " << setw(4) << to_string(value);
+				cout << setw(8) << "Hit%: " << setw(4) << to_string(subValue);
+				cout << setw(10) << "Crit%: " + to_string(percent);
 				break;
 			case 3:
-				cout << setw(17) << "Class: Head";
+				cout << setw(15) << "Type: Misc";
+				switch (subType)
+				{
+					case 1:
+						cout << setw(17) << "Class: Healing";
+						break;
+					case 2:
+						cout << setw(17) << "Class: Damage";
+						break;
+					case 3:
+						cout << setw(17) << "Class: Speed";
+						break;
+				}
+				cout << setw(9) << "Value: " << setw(4) << to_string(value);
+				//cout << setw(14) << "Weight: " + to_string(subValue);
+				//cout << setw(10) << "Percent: " + to_string(percent);
 				break;
-			}
-			cout << setw(9) << "Defense: " << setw(4) << to_string(value);
-			cout << setw(8) << "Weight: " << setw(4) << to_string(subValue);
-			//cout << setw(10) << "Percent: " + to_string(percent);
-			break;
-		case 2:
-			cout << setw(15) << "Type: Weapon";
-			switch (subType)
-			{
-			case 1:
-				cout << setw(17) << "Class: INT";
-				break;
-			case 2:
-				cout << setw(17) << "Class: STR";
-				break;
-			case 3:
-				cout << setw(17) << "Class: DEX";
-				break;
-			}
-			cout << setw(9) << "Damage: " << setw(4) << to_string(value);
-			cout << setw(8) << "Hit%: " << setw(4) << to_string(subValue);
-			cout << setw(10) << "Crit%: " + to_string(percent);
-			break;
-		case 3:
-			cout << setw(15) << "Type: Misc";
-			switch (subType)
-			{
-			case 1:
-				cout << setw(17) << "Class: Healing";
-				break;
-			case 2:
-				cout << setw(17) << "Class: Damage";
-				break;
-			case 3:
-				cout << setw(17) << "Class: Speed";
-				break;
-			}
-			cout << setw(9) << "Value: " << setw(4) << to_string(value);
-			//cout << setw(14) << "Weight: " + to_string(subValue);
-			//cout << setw(10) << "Percent: " + to_string(percent);
-			break;
 		}
 		cout << "\n";
 	}
@@ -1092,6 +1089,15 @@ void combat(monster m)
 	bool right = true;
 	battle c(m);
 
+	//REMOVE THESE AFTER SCREENSHOTS
+	player.name = "The Librarian";
+	player.maxHP = 15;
+	player.HP = 13;
+	c.m.name = "Goblin";
+	c.m.lvl = 4;
+	c.m.maxHP = 12;
+	c.m.HP = 9;	
+
 	while (!c.done)
 	{
 		do
@@ -1122,23 +1128,23 @@ void combat(monster m)
 				{
 					switch (choice)
 					{
-					case 1:
-						c.attack();
-						break;
-					case 2:
-						c.paction = 3;
-						c.block();
-						break;
-					case 3:
-						c.paction = 4;
-						c.dodge();
-						break;
-					case 4:
+						case 1:
+							c.attack();
+							break;
+						case 2:
+							c.paction = 3;
+							c.block();
+							break;
+						case 3:
+							c.paction = 4;
+							c.dodge();
+							break;
+						case 4:
 
-						c.use();
-						break;
-					default:
-						right = false;
+							c.use();
+							break;
+						default:
+							right = false;
 					}
 				}
 			}
@@ -1185,17 +1191,17 @@ battle::battle(monster in)
 
 	switch (player.eqpt[0].subType)
 	{
-	case 1:
-		wts = 3;
-		break;
-	case 2:
-		wts = 1;
-		break;
-	case 3:
-		wts = 2;
-		break;
-	default:
-		wts = 1;
+		case 1:
+			wts = 3;
+			break;
+		case 2:
+			wts = 1;
+			break;
+		case 3:
+			wts = 2;
+			break;
+		default:
+			wts = 1;
 	}
 
 	//Get monsters leveled stats and then convert to actual.
@@ -1233,7 +1239,8 @@ battle::battle(monster in)
 
 void battle::takeTurn()
 {
-	monsterTurn();
+	/* Screenshot 
+	   monsterTurn();
 	//Check to see who goes first, will be true if player goes first
 	//In order to counter-act weight, mosnters agility is less valueable
 	bool FA = (((act[4] * .25) + (act[5] * .1) - weight) * (((float)potspd) / 100)) >= ((mact[4] * .15) + (mact[5] * .1));
@@ -1242,132 +1249,135 @@ void battle::takeTurn()
 	int ptaken = 0, mtaken = 0;
 	if (pdmg < 1)
 	{
-		pdmg = 1;
+	pdmg = 1;
 	}
 	if ((pacc - ((mact[4] * .1) + (mact[5] * .1) > 0)) && ((rand() % 100) > mdge))
 	{
-		phit = true;
-		if ((rand() % 100) < (player.eqpt[0].percent + act[5] * .5))
-		{
-			pcrit = true;
-			pdmg *= 2;
-		}
+	phit = true;
+	if ((rand() % 100) < (player.eqpt[0].percent + act[5] * .5))
+	{
+	pcrit = true;
+	pdmg *= 2;
+	}
 	}
 	if ((macc - ((act[4] * .1) + (act[5] * .1) > 0)) && ((rand() % 100) > pdge))
 	{
-		mhit = true;
-		if ((rand() % 100) < (5))
-		{
-			mcrit = true;
-			mdmg *= 2;
-		}
+	mhit = true;
+	if ((rand() % 100) < (5))
+	{
+	mcrit = true;
+	mdmg *= 2;
+	}
 	}
 
 	if (FA && pcrit)
 	{
-		mhit = false;
-		mcrit = false;
+	mhit = false;
+	mcrit = false;
 	}
 	if (!FA && mcrit)
 	{
-		phit = false;
-		pcrit = false;
+	phit = false;
+	pcrit = false;
 	}
 
 	if (phit && patk)
 	{
-		//mtaken = 1 + ((pdmg * (((float)(100 - mblk)) / 100.0)) * (((float)potdmg)));
-		mtaken = pdmg;
-		mtaken -= mtaken * ((mblk) ? .5 : 1);
-		if (mtaken < 1)
-		{
-			mtaken = 1;
-		}
-		mtaken += mtaken * (((float)potdmg) / 100.0);
-		potdmg = 0;
-		potspd = 0;
+	//mtaken = 1 + ((pdmg * (((float)(100 - mblk)) / 100.0)) * (((float)potdmg)));
+	mtaken = pdmg;
+	mtaken -= mtaken * ((mblk) ? .5 : 1);
+	if (mtaken < 1)
+	{
+	mtaken = 1;
+	}
+	mtaken += mtaken * (((float)potdmg) / 100.0);
+	potdmg = 0;
+	potspd = 0;
 	}
 	if (mhit && matk)
 	{
-		//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
-		ptaken = mdmg;
-		ptaken -= ptaken * ((pblk) ? .5 : 1);
+	//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
+	ptaken = mdmg;
+	ptaken -= ptaken * ((pblk) ? .5 : 1);
 	}
 
 	if (FA)
 	{
-		m.HP -= mtaken;
-		if (m.HP < 1)
-		{
-			combatText(paction, mtaken, pcrit, m.name, m.HP, 0, maction, mcrit, mtype, true);
-			cout << "The monster dies\n";
-			endCombat(true);
-			return;
-		}
-		player.HP -= ptaken;
-		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, true);
-		if (player.HP < 1)
-		{
-			cout << "You died\n";
-			endCombat(false);
-			return;
-		}
-	}
-	else
+	m.HP -= mtaken;
+	if (m.HP < 1)
 	{
-		player.HP -= ptaken;
-		if (player.HP < 1)
-		{
-			combatText(paction, 0, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
-			cout << "You died\n";
-			endCombat(false);
-			return;
-		}
-		m.HP -= mtaken;
-		combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
-		if (m.HP < 1)
-		{
-			cout << "The monster dies\n";
-			endCombat(true);
-			return;
-		}
-	}
-
-	/*
-	((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
-	cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
-        cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
-	if (player.HP <= 0 || m.HP <= 0)
+	combatText(paction, mtaken, pcrit, m.name, m.HP, 0, maction, mcrit, mtype, true);
+	cout << "The monster dies\n";
+	endCombat(true);
+	return;
+}
+player.HP -= ptaken;
+combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, true);
+if (player.HP < 1)
+{
+	cout << "You died\n";
+	endCombat(false);
+	return;
+}
+}
+else
+{
+	player.HP -= ptaken;
+	if (player.HP < 1)
 	{
-		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
-		endCombat((m.HP <= 0));
+		combatText(paction, 0, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
+		cout << "You died\n";
+		endCombat(false);
 		return;
 	}
-	((!FA) ? (m.HP -= ptaken) : (player.HP -= ptaken));
-	cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ");
-        cout << ((!FA) ? mtaken : ptaken) << " damage\n"; 
-	if (player.HP <= 0 || m.HP <= 0)
+	m.HP -= mtaken;
+	combatText(paction, mtaken, pcrit, m.name, m.HP, ptaken, maction, mcrit, mtype, false);
+	if (m.HP < 1)
 	{
-		cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
-		endCombat((m.HP <= 0));
+		cout << "The monster dies\n";
+		endCombat(true);
 		return;
 	}
-	*/
+}
 
-	//resetting variable for next turn
-	mdmg = 0, macc = 0;
-	pdmg = 0, pacc = 0;
-	pblk = false, pdge = 0;
-	mblk = false, mdge = 0;
-	matk = false, patk = false;
-	maction = 0, paction = 0;
-	mtype = 0;
+*
+((FA) ? (m.HP -= mtaken) : (player.HP -= ptaken));
+cout << ((FA) ? "You " : "The monster ") << "deal" << ((FA) ? " " : "s ");
+cout << ((FA) ? mtaken : ptaken) << " damage\n"; 
+if (player.HP <= 0 || m.HP <= 0)
+{
+	cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
+	endCombat((m.HP <= 0));
+	return;
+}
+((!FA) ? (m.HP -= ptaken) : (player.HP -= ptaken));
+cout << ((!FA) ? "You " : "The monster ") << "deal" << ((!FA) ? " " : "s ");
+cout << ((!FA) ? mtaken : ptaken) << " damage\n"; 
+if (player.HP <= 0 || m.HP <= 0)
+{
+	cout << ((m.HP <= 0) ? "The monster " : "You ") << "died\n";
+	endCombat((m.HP <= 0));
+	return;
+}
+/
 
-	string wait;
-	dialogue("Press Enter to continue");
-	cin.clear();
-	cin.ignore();
-	getline(cin, wait);
+//resetting variable for next turn
+mdmg = 0, macc = 0;
+pdmg = 0, pacc = 0;
+pblk = false, pdge = 0;
+mblk = false, mdge = 0;
+matk = false, patk = false;
+maction = 0, paction = 0;
+mtype = 0;
+*/
+//next few lines are what is needed for screenshots.
+combatText(1, 7, false, "Goblin", 9, 4, 2, false, 3, true);
+
+string wait;
+dialogue("Press Enter to continue");
+cin.clear();
+cin.ignore();
+getline(cin, wait);
 }
 
 void battle::monsterTurn()
@@ -1477,26 +1487,26 @@ void battle::attack()
 		{
 			switch (choice)
 			{
-			case 1:
-				paction = 0;
-				pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				patk = true;
-				break;
-			case 2:
-				paction = 1;
-				pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				patk = true;
-				break;
-			case 3:
-				paction = 2;
-				pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
-				patk = true;
-				break;
-			case 4:
-				throw "returning";
+				case 1:
+					paction = 0;
+					pacc = 30 + (1.25 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 2:
+					paction = 1;
+					pacc = 30 + (1.0 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 3:
+					paction = 2;
+					pacc = 30 + (.75 * (player.eqpt[0].subValue + act[wts] * .25)) + (act[5] * .25);
+					patk = true;
+					break;
+				case 4:
+					throw "returning";
 
-			default:
-				right = false;
+				default:
+					right = false;
 			}
 		}
 	} while (!right);
@@ -1559,7 +1569,7 @@ void battle::use()
 				j++;
 				//} else {
 				//items[player.inv[i].id - 301]++;
-			}
+		}
 		}
 	}
 	/*
@@ -1569,7 +1579,7 @@ void battle::use()
 	   }
 	 */
 	cout << "\n"
-		 << j << ". Return\n";
+		<< j << ". Return\n";
 
 	while (!right)
 	{
@@ -1592,19 +1602,19 @@ void battle::use()
 				}
 				switch (player.inv[pos[choice - 1]].subType)
 				{
-				case 1:
-					paction = 5;
-					heal(player.inv[pos[choice - 1]].value);
-					dialogue("You heal " + to_string(((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100)))) + " health");
-					break;
-				case 2:
-					paction = 5;
-					potdmg = player.inv[pos[choice - 1]].value;
-					break;
-				case 3:
-					paction = 5;
-					potspd = player.inv[pos[choice - 1]].value;
-					break;
+					case 1:
+						paction = 5;
+						heal(player.inv[pos[choice - 1]].value);
+						dialogue("You heal " + to_string(((int)(player.maxHP * (((float)(player.inv[pos[choice - 1]].value)) / 100)))) + " health");
+						break;
+					case 2:
+						paction = 5;
+						potdmg = player.inv[pos[choice - 1]].value;
+						break;
+					case 3:
+						paction = 5;
+						potspd = player.inv[pos[choice - 1]].value;
+						break;
 				}
 				player.discard(player.inv[pos[choice - 1]]);
 			}
