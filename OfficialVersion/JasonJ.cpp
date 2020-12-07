@@ -6,6 +6,23 @@
 //rand is needed for fillInv()
 #include <cstdlib>
 
+/*
+   There are a lot of comments written throughout this file.
+   
+   These were slowly added as progress of the game went on.
+   
+   Some of these are still relevant but quite a few are simply me
+   leaving notes for myself to implement things later, or notes to
+   anyone reading through the code to understand some of the choices
+   I made and the logic I was following.
+
+   I have left all of them in as a sort of time capsule of my ideas
+   while making this game.
+
+   P.S. These block comments are a large reason why this file is 
+   almost 2000 lines long.
+*/
+
 using namespace std;
 
 class item
@@ -220,13 +237,6 @@ character::character(string n, int i, int d) : stats::stats()
 	gold = 0;
 	difficulty = d;
 	points = 0;
-	//Giving default equipment in order to stop
-	//combat bugs with having nothing equipped
-	eqpt[0] = item(213);
-	eqpt[1] = item(101);
-	eqpt[2] = item(104);
-	eqpt[3] = item(107);
-
 	maxHP = (stat[0] * (.5 + (.25 * (stat[0] / 5))) * lvl);
 	HP = maxHP;
 	string questKey = questAnswer(11 - difficulty);
@@ -268,6 +278,19 @@ character::character(const character &in)
 //this would be called, but it is here just in case.
 character::character()
 {
+	item weapon(213);
+	item head(101);
+	item chest(104);
+	item feet(107);
+	addItem(weapon);
+	addItem(head);
+	addItem(chest);
+	addItem(feet);
+	equip(weapon);
+	equip(head);
+	equip(chest);
+	equip(feet);
+
 	character("Librarian", 0, 10);
 }
 
@@ -1080,7 +1103,7 @@ void combat(monster m)
 				right = true;
 				cout << "\033[2J\033[1;1H";
 				dialogue(c.m.name + " Level: " + to_string(c.m.lvl));
-				dialogue(" Health: " + to_string(c.m.HP) + "/" + to_string(c.m.maxHP));
+				dialogue("Health: " + to_string(c.m.HP) + "/" + to_string(c.m.maxHP));
 				dialogue(player.name + " Level: " + to_string(player.lvl));
 				dialogue("Health: " + to_string(player.HP) + "/" + to_string(player.maxHP));
 				cout << "1: Attack\n";
@@ -1140,6 +1163,7 @@ battle::battle(monster in)
 	maction = 0, paction = 0;
 	mtype = 0;
 
+
 	done = false;
 
 	for (int i = 1; i < 4; i++)
@@ -1151,6 +1175,7 @@ battle::battle(monster in)
 	{
 		act[i] = (player.stat[i] * (.5 + (.25 * (player.stat[i] / 5))) * player.lvl);
 	}
+	player.maxHP = act[0];
 
 	if (player.maxHP < 5)
 	{
@@ -1212,9 +1237,13 @@ void battle::takeTurn()
 	//Check to see who goes first, will be true if player goes first
 	//In order to counter-act weight, mosnters agility is less valueable
 	bool FA = (((act[4] * .25) + (act[5] * .1) - weight) * (((float)potspd) / 100)) >= ((mact[4] * .15) + (mact[5] * .1));
-	bool mhit, phit, mcrit, pcrit;
+	bool mhit = false, phit = false, mcrit = false, pcrit = false;
 	//Player and monster damage taken
 	int ptaken = 0, mtaken = 0;
+	if (pdmg < 1)
+	{
+		pdmg = 1;
+	}
 	if ((pacc - ((mact[4] * .1) + (mact[5] * .1) > 0)) && ((rand() % 100) > mdge))
 	{
 		phit = true;
@@ -1227,7 +1256,7 @@ void battle::takeTurn()
 	if ((macc - ((act[4] * .1) + (act[5] * .1) > 0)) && ((rand() % 100) > pdge))
 	{
 		mhit = true;
-		if ((rand() % 100) < (10 + (act[5] * .5)))
+		if ((rand() % 100) < (5))
 		{
 			mcrit = true;
 			mdmg *= 2;
@@ -1263,10 +1292,6 @@ void battle::takeTurn()
 		//ptaken = (((float)mdmg) * ((float)(100 - pblk) / 100.0));
 		ptaken = mdmg;
 		ptaken -= ptaken * ((pblk) ? .5 : 1);
-		if (ptaken < 1)
-		{
-			ptaken = 1;
-		}
 	}
 
 	if (FA)
@@ -1475,7 +1500,7 @@ void battle::attack()
 			}
 		}
 	} while (!right);
-	pdmg = (player.eqpt[0].value + act[wts] * .5) * ((choice == 3) ? 1.25 : ((choice == 2) ? 1.0 : .75));
+	pdmg = 1 + (player.eqpt[0].value + act[wts] * .5) * ((choice == 3) ? 1.25 : ((choice == 2) ? 1.0 : .75));
 }
 
 void battle::block()
