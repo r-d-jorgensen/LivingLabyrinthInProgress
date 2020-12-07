@@ -10,6 +10,7 @@ void test()
 {
 	while (true)
 	{
+		cout << "\033[2J\033[1;1H";
 		cout << "Which test would you like to run\n";
 		cout << "0: Exit Testing\n";
 		cout << "1: Jason's Tests\n";
@@ -26,7 +27,12 @@ void test()
 		{
 			string test;
 			cout << "Testing the save and load functions\n";
-			character test1("TEST", 0, 10);
+			//character test1("TEST", 0, 10);
+			player = loadIn();
+			player.fillInv();
+			player.name = "The Librarian";
+			while(!player.inventory()) {}
+			/*
 			test1.fillInv();
 			test1.showStats();
 			cout << "\n";
@@ -42,6 +48,7 @@ void test()
 				cout << "\n\n";
 				test2.showInv();
 			}
+			*/
 			break;
 		}
 		//Davids Tests
