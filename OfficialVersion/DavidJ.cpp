@@ -877,10 +877,9 @@ void combatText(int actionPlayer, int dmgPlayer, bool critPlayer, string nameMon
             cout << nameMonster << " HP: " << hpMonster << endl
                  << attackStrMonster << endl;
             if (critMonster)
-                a
-                {
-                    cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
-                }
+            {
+                cout << "YOU HAVE BEEN CRITICALLY HIT" << endl;
+            }
             cout << "The creature deals " << dmgMonster << " damage" << endl;
         }
         else
